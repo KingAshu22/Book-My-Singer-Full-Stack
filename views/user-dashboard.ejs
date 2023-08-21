@@ -1,0 +1,56 @@
+<%- include("partials/header"); -%>
+
+    <div class="mil-content">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>Welcome <%- user.name %></h3>
+                </div>
+
+                <section class="mil-p-90-30">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-lg-2">
+                            <a href="/create-artist">
+                                <div class="mil-icon-box mil-center mil-mb-60">
+                                    <div class="mil-service-icon mil-up">
+                                        <img src="img/artist-type/singer.svg" alt="icon" class="mil-mb-30" />
+                                    </div>
+                                    <h5 class="mil-up mil-mb-30">Artist</h5>
+                                    <p class="mil-up mil-mb-30 hide-on-mobile">
+                                        Create Artist Page
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a href="/create-events-page">
+                                <div class="mil-icon-box mil-center mil-mb-60">
+                                    <div class="mil-service-icon mil-up">
+                                        <img src="img/artist-type/band.svg" alt="icon" class="mil-mb-30" />
+                                    </div>
+                                    <h5 class="mil-up mil-mb-30">Events</h5>
+                                    <p class="mil-up mil-mb-30 hide-on-mobile">
+                                        Create New events page
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a href="/create-blog-page">
+                                <div class="mil-icon-box mil-center mil-mb-60">
+                                    <div class="mil-service-icon mil-up">
+                                        <img src="img/artist-type/musician.svg" alt="icon" class="mil-mb-30" />
+                                    </div>
+                                    <h5 class="mil-up mil-mb-30">Blog</h5>
+                                    <p class="mil-up mil-mb-30 hide-on-mobile">
+                                        Create New Blog Page
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+
+                <%- include("partials/footer"); -%>

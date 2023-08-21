@@ -1,0 +1,553 @@
+<%- include("partials/header"); -%>
+
+    <div class="mil-content">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>Artist Creation Form</h3>
+                </div>
+
+                <form id="contactForm" onsubmit="submitForm(); return false;" class="row align-items-center">
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="artistName">Enter Artist Name</label>
+                        <input type="text" placeholder="Artist Name" name="artistName" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="linkid">Enter Link Name</label>
+                        <input type="text" placeholder="Artist Id" name="linkid" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="artist-name">Artist Type</label>
+                        <select name="artistType">
+                            <option value="Singer">Singer</option>
+                            <option value="Musician">Musician</option>
+                            <option value="Live Band">Live Band</option>
+                            <option value="DJ">DJ</option>
+                            <option value="Actor">Actor</option>
+                            <option value="Comedian">Comedian</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="fb">Facebook Link</label>
+                        <input type="text" placeholder="Facebook Link" name="fb" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="twitter">Twitter Link</label>
+                        <input type="text" placeholder="Twitter Link" name="twitter" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="insta">Instagram Link</label>
+                        <input type="text" placeholder="Instagram Link" name="insta" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="linkedin">Linkedin Link</label>
+                        <input type="text" placeholder="LinkedIn Link" name="linkedin" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="location">Location</label>
+                        <input type="text" placeholder="Location" name="location" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="price">Price</label>
+                        <input type="text" placeholder="Price" name="price" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="price">Profile Picture Link</label>
+                        <input type="text" placeholder="Profile Picture" name="profilePic" />
+                    </div>
+
+                    <div id="imageContainer">
+                        <input type="text" name="imageLink" placeholder="Enter image link...">
+                    </div>
+                    <button type="button" onclick="addImageInput()">Add More</button>
+                    <br><br>
+
+                    <div class="col-lg-12 mil-up">
+                        <textarea name="about" placeholder="About textarea not more than 150 words"></textarea>
+                    </div>
+
+                    <div class="col-lg-12 mil-up">
+                        <h4>Youtube Videos (Only add the code)</h4>
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="youtube1">Youtube Video 1</label>
+                        <input type="text" placeholder="youtube video 1" name="youtube1" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="youtube2">Youtube Video 2</label>
+                        <input type="text" placeholder="youtube video 2" name="youtube2" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="youtube3">Youtube Video 3</label>
+                        <input type="text" placeholder="youtube video 3" name="youtube3" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="youtube4">Youtube Video 4</label>
+                        <input type="text" placeholder="youtube video 4" name="youtube4" />
+                    </div>
+
+                    <div class="col-lg-12 mil-up">
+                        <h4>Review 1</h4>
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="reviewTitle">Review Title</label>
+                        <input type="text" placeholder="Reviews Title" name="reviewTitle1" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="reviewDesc">Review Title Description</label>
+                        <input type="text" placeholder="Reviews Description" name="reviewDesc1" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="reviewPic">Review Pic Link</label>
+                        <input type="text" placeholder="Reviews Pic Link" name="reviewPic1" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="reviewName">Review Name</label>
+                        <input type="text" placeholder="Reviews Name" name="reviewName1" />
+                    </div>
+
+                    <div class="col-lg-12 mil-up">
+                        <h4>Review 2</h4>
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="reviewTitle">Review Title</label>
+                        <input type="text" placeholder="Reviews Title" name="reviewTitle2" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="reviewDesc">Review Title Description</label>
+                        <input type="text" placeholder="Reviews Description" name="reviewDesc2" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="reviewPic">Review Pic Link</label>
+                        <input type="text" placeholder="Reviews Pic Link" name="reviewPic2" />
+                    </div>
+
+                    <div class="col-lg-6 mil-up">
+                        <label for="reviewName">Review Name</label>
+                        <input type="text" placeholder="Reviews Name" name="reviewName2" />
+                    </div>
+
+                    <div class="col-lg-12 mil-up">
+                        <textarea name="blog" id="editor" cols="100" rows="100" class="form-control"></textarea>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="mil-adaptive-right mil-up mil-mb-30"><button type="submit"
+                                class="mil-btn mil-sm-btn"><span>Save</span></button></div>
+                    </div>
+                </form>
+
+                <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+                <script>
+                    ClassicEditor.create(document.querySelector("#editor")).catch(err => {
+                        console.error(err);
+                    });
+                    var objEditor = CKEDITOR.instances["sectionTextArea"];
+                    var q = objEditor.getData();
+                    console.log(q);
+
+                    function addImageInput() {
+                        var container = document.getElementById("imageContainer");
+                        var newInput = document.createElement("input");
+                        newInput.type = "text";
+                        newInput.name = "imageLink";
+                        newInput.placeholder = "Enter image link...";
+                        container.appendChild(newInput);
+                    }
+
+                    function submitForm() {
+                        var imageLinks = [];
+                        var inputs = document.getElementsByName("imageLink");
+                        for (var i = 0; i < inputs.length; i++) {
+                            imageLinks.push(inputs[i].value);
+                        }
+                        var data = { imageLink: imageLinks };
+
+                        // Send the data to the server using a POST request
+                        fetch('/your-server-endpoint', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        })
+                            .then(response => response.json())
+                            .then(responseData => {
+                                // Handle the server response if needed
+                                console.log(responseData);
+                            })
+                            .catch(error => {
+                                // Handle errors
+                                console.error('Error:', error);
+                            });
+                    }
+                </script>
+                <%- include("partials/footer"); -%>
+
+
+                <form id="myForm">
+                    <!-- Normal Input -->
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name"><br><br>
+
+                    <!-- YouTube Links -->
+                    <label for="youtubeLink">YouTube Link:</label>
+                    <input type="text" id="youtubeLink" name="youtubeLink[]">
+                    <button type="button" id="addYoutubeLink">Add More YouTube Link</button><br><br>
+
+                    <!-- Testimonial Video Links -->
+                    <label for="testLink">Testimonial Video Link:</label>
+                    <input type="text" id="testLink" name="testLink[]">
+                    <button type="button" id="addTestLink">Add More Testimonial Video Link</button><br><br>
+
+                    <!-- Review Input -->
+                    <div id="reviewsContainer">
+                        <div class="review">
+                            <label for="reviewTitle">Review Title:</label>
+                            <input type="text" class="reviewTitle" name="reviewTitle[]"><br>
+
+                            <label for="reviewDescription">Review Description:</label>
+                            <input type="text" class="reviewDescription" name="reviewDescription[]"><br>
+
+                            <label for="reviewName">Review Name:</label>
+                            <input type="text" class="reviewName" name="reviewName[]"><br>
+
+                            <label for="reviewPic">Review Pic:</label>
+                            <input type="text" class="reviewPic" name="reviewPic[]"><br>
+                        </div>
+                    </div>
+                    <button type="button" id="addReview">Add More Review</button><br><br>
+
+                    <!-- Normal Input -->
+                    <label for="additionalInfo">Additional Information:</label>
+                    <input type="text" id="additionalInfo" name="additionalInfo"><br><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+
+                <script>
+                    const addYoutubeLinkBtn = document.getElementById("addYoutubeLink");
+                    const addTestLinkBtn = document.getElementById("addTestLink");
+                    const addReviewBtn = document.getElementById("addReview");
+                    const reviewsContainer = document.getElementById("reviewsContainer");
+
+                    const youtubeLinks = [];
+                    const testLinks = [];
+                    const reviews = [];
+
+                    addYoutubeLinkBtn.addEventListener("click", () => {
+                        const youtubeLinkInput = document.createElement("input");
+                        youtubeLinkInput.type = "text";
+                        youtubeLinkInput.name = "youtubeLink[]";
+                        document.getElementById("myForm").insertBefore(youtubeLinkInput, addYoutubeLinkBtn);
+                    });
+
+                    addTestLinkBtn.addEventListener("click", () => {
+                        const testLinkInput = document.createElement("input");
+                        testLinkInput.type = "text";
+                        testLinkInput.name = "testLink[]";
+                        document.getElementById("myForm").insertBefore(testLinkInput, addTestLinkBtn);
+                    });
+
+                    addReviewBtn.addEventListener("click", () => {
+                        const reviewDiv = document.createElement("div");
+                        reviewDiv.className = "review";
+                        reviewDiv.innerHTML = `
+                            <label for="reviewTitle">Review Title:</label>
+                            <input type="text" class="reviewTitle" name="reviewTitle[]"><br>
+                            <label for="reviewDescription">Review Description:</label>
+                            <input type="text" class="reviewDescription" name="reviewDescription[]"><br>
+                            <label for="reviewName">Review Name:</label>
+                            <input type="text" class="reviewName" name="reviewName[]"><br>
+                            <label for="reviewPic">Review Pic:</label>
+                            <input type="text" class="reviewPic" name="reviewPic[]"><br>
+                        `;
+                        reviewsContainer.appendChild(reviewDiv);
+                    });
+
+                    document.getElementById("myForm").addEventListener("submit", (event) => {
+                        event.preventDefault();
+
+                        // Collect YouTube Links
+                        const youtubeInputs = document.querySelectorAll("[name='youtubeLink[]']");
+                        youtubeInputs.forEach(input => youtubeLinks.push(input.value));
+
+                        // Collect Testimonial Video Links
+                        const testInputs = document.querySelectorAll("[name='testLink[]']");
+                        testInputs.forEach(input => testLinks.push(input.value));
+
+                        // Collect Reviews
+                        const reviewDivs = document.querySelectorAll(".review");
+                        reviewDivs.forEach(div => {
+                            const review = {
+                                title: div.querySelector(".reviewTitle").value,
+                                description: div.querySelector(".reviewDescription").value,
+                                name: div.querySelector(".reviewName").value,
+                                pic: div.querySelector(".reviewPic").value,
+                            };
+                            reviews.push(review);
+                        });
+
+                        // Prepare data to send to server
+                        const formData = new FormData();
+                        formData.append("name", document.getElementById("name").value);
+                        formData.append("additionalInfo", document.getElementById("additionalInfo").value);
+                        formData.append("youtubeLinks", JSON.stringify(youtubeLinks));
+                        formData.append("testLinks", JSON.stringify(testLinks));
+                        formData.append("reviews", JSON.stringify(reviews));
+
+                        // Send data to server using fetch or AJAX
+                        // Replace 'url' with your server endpoint
+                        const url = "your-server-endpoint";
+                        fetch(url, {
+                            method: "POST",
+                            body: formData
+                        }).then(response => {
+                            // Handle server response here
+                            console.log("Form submitted successfully!");
+                        }).catch(error => {
+                            console.error("Error submitting form:", error);
+                        });
+                    });
+                </script>
+
+
+<!------------------------------------------------------------------------>
+<%- include("partials/header"); -%>
+
+    <div class="mil-content">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>Artist Creation Form</h3>
+                </div>
+
+                <form id="myForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- From Country input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Artist Name</label>
+                                    <input type="text" name="name" class="form-control" autocomplete="off" />
+                                </div>
+                                <!-- To Country input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Profile Pic Link (350 x 350)</label>
+                                    <input type="text" name="profilePic" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Contact Number</label>
+                                    <input type="text" name="contact" class="form-control" autocomplete="off"
+                                        value="+91 98700 62178" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" name="location" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Price</label>
+                                    <input type="text" name="price" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Artist Type</label>
+                                    <select name="artistType" class="form-control">
+                                        <option value="Singer">Singer</option>
+                                        <option value="Musician">Musician</option>
+                                        <option value="Live Band">Live Band</option>
+                                        <option value="DJ">DJ</option>
+                                        <option value="Actor">Actor</option>
+                                        <option value="Comedian">Comedian</option>
+                                    </select>
+                                </div>
+                                <label class="form-label">Facebook Link</label>
+                                <input type="text" name="fb" class="form-control" autocomplete="off" />
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Twitter Link</label>
+                                    <input type="text" name="twitter" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Instagram Link</label>
+                                    <input type="text" name="insta" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">LinkedIn Link</label>
+                                    <input type="text" name="linkedin" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- YouTube Links -->
+                    <label for="youtubeLink">YouTube Link:</label>
+                    <input type="text" id="youtubeLink" name="youtubeLink[]" class="form-control">
+                    <button type="button" id="addYoutubeLink" class="btn-primary">Add More YouTube Link</button><br><br>
+
+                    <!-- Testimonial Video Links -->
+                    <label for="testLink">Testimonial Video Link:</label>
+                    <input type="text" id="testLink" name="testLink[]" class="form-control">
+                    <button type="button" id="addTestLink" class="btn-primary">Add More Testimonial Video
+                        Link</button><br><br>
+
+                    <!-- Review Input -->
+                    <div id="reviewsContainer">
+                        <div class="review">
+                            <label for="reviewTitle">Review Title:</label>
+                            <input type="text" class="reviewTitle form-control" name="reviewTitle[]"><br>
+
+                            <label for="reviewDescription">Review Description:</label>
+                            <input type="text" class="reviewDescription form-control" name="reviewDescription[]"><br>
+
+                            <label for="reviewName">Review Name:</label>
+                            <input type="text" class="reviewName form-control" name="reviewName[]"><br>
+
+                            <label for="reviewPic">Review Pic:</label>
+                            <input type="text" class="reviewPic form-control" name="reviewPic[]"><br>
+                        </div>
+                    </div>
+                    <button type="button" id="addReview" class="btn-primary">Add More Review</button><br><br>
+
+                    <label for="aboutInfo">About Content (150 Words)</label>
+                    <textarea id="aboutInfo" name="about" rows="5" class="form-control"></textarea><br><br>
+
+                    <label for="blog">Blog</label>
+                    <textarea id="editor" name="blog" id="editor" class="form-control"></textarea>
+
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </form>
+
+                <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+                <script>
+                    ClassicEditor.create(document.querySelector("#editor")).catch(err => {
+                        console.error(err);
+                    });
+                    var objEditor = CKEDITOR.instances["sectionTextArea"];
+                    var q = objEditor.getData();
+                    console.log(q);
+                </script>
+                <script>
+                    const addYoutubeLinkBtn = document.getElementById("addYoutubeLink");
+                    const addTestLinkBtn = document.getElementById("addTestLink");
+                    const addReviewBtn = document.getElementById("addReview");
+                    const reviewsContainer = document.getElementById("reviewsContainer");
+
+                    const youtubeLinks = [];
+                    const testLinks = [];
+                    const reviews = [];
+
+                    addYoutubeLinkBtn.addEventListener("click", () => {
+                        const youtubeLinkInput = document.createElement("input");
+                        youtubeLinkInput.type = "text";
+                        youtubeLinkInput.name = "youtubeLink[]";
+                        youtubeLinkInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(youtubeLinkInput, addYoutubeLinkBtn);
+                    });
+
+                    addTestLinkBtn.addEventListener("click", () => {
+                        const testLinkInput = document.createElement("input");
+                        testLinkInput.type = "text";
+                        testLinkInput.name = "testLink[]";
+                        testLinkInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(testLinkInput, addTestLinkBtn);
+                    });
+
+                    addReviewBtn.addEventListener("click", () => {
+                        const reviewDiv = document.createElement("div");
+                        reviewDiv.className = "review";
+                        reviewDiv.innerHTML = `
+                            <label for="reviewTitle">Review Title:</label>
+                            <input type="text" class="reviewTitle form-control" name="reviewTitle[]"><br>
+                            <label for="reviewDescription">Review Description:</label>
+                            <input type="text" class="reviewDescription form-control" name="reviewDescription[]"><br>
+                            <label for="reviewName">Review Name:</label>
+                            <input type="text" class="reviewName form-control" name="reviewName[]"><br>
+                            <label for="reviewPic">Review Pic:</label>
+                            <input type="text" class="reviewPic form-control" name="reviewPic[]"><br>
+                        `;
+                        reviewsContainer.appendChild(reviewDiv);
+                    });
+
+                    document.getElementById("myForm").addEventListener("submit", (event) => {
+                        event.preventDefault();
+
+                        // Collect YouTube Links
+                        const youtubeInputs = document.querySelectorAll("[name='youtubeLink[]']");
+                        youtubeInputs.forEach(input => youtubeLinks.push(input.value));
+
+                        // Collect Testimonial Video Links
+                        const testInputs = document.querySelectorAll("[name='testLink[]']");
+                        testInputs.forEach(input => testLinks.push(input.value));
+
+                        // Collect Reviews
+                        const reviewDivs = document.querySelectorAll(".review");
+                        reviewDivs.forEach(div => {
+                            const review = {
+                                title: div.querySelector(".reviewTitle").value,
+                                description: div.querySelector(".reviewDescription").value,
+                                name: div.querySelector(".reviewName").value,
+                                pic: div.querySelector(".reviewPic").value,
+                            };
+                            reviews.push(review);
+                        });
+
+                        // Prepare data to send to server
+                        const formData = new FormData();
+                        formData.append("name", document.getElementsByName("name").value);
+                        formData.append("profilePic", document.getElementsByName("profilePic").value);
+                        formData.append("contact", document.getElementsByName("contact").value);
+                        formData.append("location", document.getElementsByName("location").value);
+                        formData.append("price", document.getElementsByName("price").value);
+                        formData.append("artistType", document.getElementsByName("artistType").value);
+                        formData.append("fb", document.getElementsByName("fb").value);
+                        formData.append("twitter", document.getElementsByName("twitter").value);
+                        formData.append("insta", document.getElementsByName("insta").value);
+                        formData.append("linkedin", document.getElementsByName("linkedin").value);
+                        formData.append("youtubeLinks", JSON.stringify(youtubeLinks));
+                        formData.append("testLinks", JSON.stringify(testLinks));
+                        formData.append("reviews", JSON.stringify(reviews));
+                        formData.append("about", document.getElementsByName("about").value);
+                        formData.append("blog", document.getElementsByName("blog").value);
+
+                        // Send data to server using fetch or AJAX
+                        // Replace 'url' with your server endpoint
+                        const url = "/add-artist";
+                        fetch(url, {
+                            method: "POST",
+                            body: formData
+                        }).then(response => {
+                            // Handle server response here
+                            console.log("Form submitted successfully!");
+                        }).catch(error => {
+                            console.error("Error submitting form:", error);
+                        });
+                    });
+                </script>
+
+                <%- include("partials/footer"); -%>

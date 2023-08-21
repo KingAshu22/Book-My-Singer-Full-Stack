@@ -1,0 +1,216 @@
+<%- include("partials/header"); -%>
+
+    <div class="mil-content">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>Artist Creation Form</h3>
+                </div>
+
+                <form id="myForm" action="/add-artist" method="POST">
+                    <h4>Meta Tag Details</h4>
+                    <label for="metaTitle">Meta Tag Title (Not More than 70 Characters)</label>
+                    <input type="text" name="metaTitle" class="form-control" maxlength="70">
+
+                    <label for="metaDesc">Meta Tag Description (Not more than 160 Characters)</label>
+                    <textarea name="metaDesc" class="form-control" maxlength="160"></textarea>
+
+                    <label for="keywords">Enter Keywords (Comma Seperated Value)</label>
+                    <input type="text" name="keywords" class="form-control">
+                    <hr>
+
+                    <h4>Artist Bio Details</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- From Country input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Artist Name</label>
+                                    <input type="text" name="name" class="form-control" autocomplete="off" />
+                                </div>
+                                <!-- To Country input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Profile Pic Link (350 x 350)</label>
+                                    <input type="text" name="profilePic" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Contact Number</label>
+                                    <input type="text" name="contact" class="form-control" autocomplete="off"
+                                        value="+91 98700 62178" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" name="location" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Price</label>
+                                    <input type="text" name="price" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Artist Type</label>
+                                    <select name="artistType" class="form-control">
+                                        <option value="singer">Singer</option>
+                                        <option value="musician">Musician</option>
+                                        <option value="live-band">Live Band</option>
+                                        <option value="dj">Dj</option>
+                                        <option value="actor">Actor</option>
+                                        <option value="comedian">Comedian</option>
+                                    </select>
+                                </div>
+                                <label class="form-label">Facebook Link</label>
+                                <input type="text" name="fb" class="form-control" autocomplete="off" />
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Twitter Link</label>
+                                    <input type="text" name="twitter" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Instagram Link</label>
+                                    <input type="text" name="insta" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">LinkedIn Link</label>
+                                    <input type="text" name="linkedin" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Gallery Links -->
+                    <h4>Image Gallery Details</h4>
+                    <label for="galleryLink">Gallery Link:</label>
+                    <input type="text" id="galleryLink" name="galleryLink[1]" class="form-control">
+                    <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
+
+                    <!-- YouTube Links -->
+                    <label for="youtubeLink">YouTube Link:</label>
+                    <input type="text" id="youtubeLink" name="youtubeLink[1]" class="form-control">
+                    <button type="button" id="addYoutubeLink" class="btn-primary">Add More YouTube Link</button><br><br>
+
+                    <!-- Testimonial Video Links -->
+                    <label for="testLink">Testimonial Video Link:</label>
+                    <input type="text" id="testLink" name="testLink[1]" class="form-control">
+                    <button type="button" id="addTestLink" class="btn-primary">Add More Testimonial Video
+                        Link</button><br><br>
+
+                    <!-- Review Input -->
+                    <div id="reviewsContainer">
+                        <div class="review">
+                            <label for="reviewTitle">Review Title:</label>
+                            <input type="text" class="reviewTitle form-control" name="review[1][title]"><br>
+
+                            <label for="reviewDescription">Review Description:</label>
+                            <input type="text" class="reviewDescription form-control" name="review[1][desc]"><br>
+
+                            <label for="reviewName">Review Name:</label>
+                            <input type="text" class="reviewName form-control" name="review[1][name]"><br>
+
+                            <label for="reviewPic">Review Pic:</label>
+                            <input type="text" class="reviewPic form-control" name="review[1][pic]"><br>
+                        </div>
+                    </div>
+                    <button type="button" id="addReview" class="btn-primary">Add More Review</button><br><br>
+
+                    <label for="aboutInfo">About Content (150 Words)</label>
+                    <textarea id="aboutInfo" name="about" rows="5" class="form-control" maxlength="700"></textarea>
+
+                    <label for="blog">Blog</label>
+                    <textarea id="editor" name="blog" id="editor" class="form-control"></textarea>
+
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </form>
+                <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+                <script>
+                    // Define a configuration object with limited features
+                    var limitedConfig = {
+                        toolbar: [
+                            // Specify the toolbar buttons you want to include
+                            'heading', '|', 'link'
+                        ],
+                        heading: {
+                            options: [
+                                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                                { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                                { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                                { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                            ]
+                        }
+                        // You can include any other configuration options you need
+                    };
+
+                    // Create the CKEditor instance using the limited configuration
+                    ClassicEditor.create(document.querySelector("#editor"), limitedConfig)
+                        .catch(err => {
+                            console.error(err);
+                        });
+                </script>
+                <script>
+                    const addGalleryLinkBtn = document.getElementById("addGalleryLink");
+                    const addYoutubeLinkBtn = document.getElementById("addYoutubeLink");
+                    const addTestLinkBtn = document.getElementById("addTestLink");
+                    const addReviewBtn = document.getElementById("addReview");
+                    const reviewsContainer = document.getElementById("reviewsContainer");
+
+                    const galleryLinks = [];
+                    const youtubeLinks = [];
+                    const testLinks = [];
+                    const reviews = [];
+                    let galleryCount = 1;
+                    let youtubeCount = 1;
+                    let testCount = 1;
+                    let reviewCount = 1;
+
+                    addGalleryLinkBtn.addEventListener("click", () => {
+                        galleryCount++;
+                        const galleryLinkInput = document.createElement("input");
+                        galleryLinkInput.type = "text";
+                        galleryLinkInput.name = `galleryLink[${galleryCount}]`;
+                        galleryLinkInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(galleryLinkInput, addGalleryLinkBtn);
+                    });
+
+                    addYoutubeLinkBtn.addEventListener("click", () => {
+                        youtubeCount++;
+                        const youtubeLinkInput = document.createElement("input");
+                        youtubeLinkInput.type = "text";
+                        youtubeLinkInput.name = `youtubeLink[${youtubeCount}]`;
+                        youtubeLinkInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(youtubeLinkInput, addYoutubeLinkBtn);
+                    });
+
+                    addTestLinkBtn.addEventListener("click", () => {
+                        testCount++;
+                        const testLinkInput = document.createElement("input");
+                        testLinkInput.type = "text";
+                        testLinkInput.name = `testLink[${testCount}]`;
+                        testLinkInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(testLinkInput, addTestLinkBtn);
+                    });
+
+                    addReviewBtn.addEventListener("click", () => {
+                        reviewCount++;
+                        const reviewDiv = document.createElement("div");
+                        reviewDiv.className = "review";
+                        reviewDiv.innerHTML = `
+                            <label for="reviewTitle">Review Title:</label>
+                            <input type="text" class="reviewTitle form-control" name="review[${reviewCount}][[title]]"><br>
+                            <label for="reviewDescription">Review Description:</label>
+                            <input type="text" class="reviewDescription form-control" name="review[${reviewCount}][desc]"><br>
+                            <label for="reviewName">Review Name:</label>
+                            <input type="text" class="reviewName form-control" name="review[${reviewCount}][name]"><br>
+                            <label for="reviewPic">Review Pic:</label>
+                            <input type="text" class="reviewPic form-control" name="review[${reviewCount}][pic]"><br>
+                        `;
+                        reviewsContainer.appendChild(reviewDiv);
+                    });
+                </script>
+
+                <%- include("partials/footer"); -%>
