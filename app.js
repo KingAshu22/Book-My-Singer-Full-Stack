@@ -82,7 +82,15 @@ app.get("/create-artist", isAuthenticated, (req, res) => {
 
 app.get("/singer", (req, res) => {
   res.render("singer")
-})
+});
+
+app.get("/artist", async (req, res) => {
+  const artists = await Artist.find({}).sort({ _id: -1 });
+
+  res.render("artist", {
+    artists
+  })
+});
 
 app.get("/artist/:artistType/:linkid", async (req, res) => {
   try {

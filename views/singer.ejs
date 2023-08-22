@@ -68,9 +68,11 @@
             <div class="row">
                 <div class="col-xxl-4 col-xl-4 col-lg-4">
                     <div class="bostami-parsonal-info-area div">
-                        <div class="bostami-parsonal-info-wrap">
-                            <div class="bostami-parsonal-info-img"><img alt="author" loading="lazy" width="240"
-                                    height="240" decoding="async" data-nimg="1" src="<%= artist.profilePic %>" />
+                        <div class="bostami-parsonal-info-area div">
+                            <div class="bostami-parsonal-info-wrap">
+                                <div class="bostami-parsonal-info-img"><img alt="author" loading="lazy" width="240"
+                                        height="240" decoding="async" data-nimg="1" src="<%= artist.profilePic %>" />
+                                </div>
                             </div>
                             <h4 class="bostami-parsonal-info-name"><a href="#">
                                     <%= artist.name %>
@@ -305,11 +307,13 @@
                                                             <p>
                                                                 <%- artist.blog.substring(0, 300) %>...
                                                             </p>
-                                                            <button id="readMoreBtn" class="btn-primary">Read More</button>
+                                                            <button id="readMoreBtn" class="btn-primary">Read
+                                                                More</button>
                                                         </div>
                                                         <div id="fullBlog" style="display: none;">
                                                             <%- artist.blog %>
-                                                                <button id="readLessBtn" class="btn-primary">Read Less</button>
+                                                                <button id="readLessBtn" class="btn-primary">Read
+                                                                    Less</button>
                                                         </div>
                                                         <% } %>
                                                 </div>
@@ -597,16 +601,16 @@
     const readLessBtn = document.getElementById('readLessBtn');
     const shortBlog = document.getElementById('shortBlog');
     const fullBlog = document.getElementById('fullBlog');
-  
+
     readMoreBtn.addEventListener('click', () => {
-      shortBlog.style.display = 'none';
-      fullBlog.style.display = 'block';
+        shortBlog.style.display = 'none';
+        fullBlog.style.display = 'block';
     });
-  
+
     readLessBtn.addEventListener('click', () => {
-      shortBlog.style.display = 'block';
-      fullBlog.style.display = 'none';
+        shortBlog.style.display = 'block';
+        fullBlog.style.display = 'none';
     });
-  </script>
+</script>
 
 </html>

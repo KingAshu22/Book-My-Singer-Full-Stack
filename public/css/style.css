@@ -1502,7 +1502,7 @@ blog
   padding-bottom: 60%;
 }
 .mil-blog-card .mil-cover img {
-  width: 100%;
+  width: 50%;
   height: 100%;
   position: absolute;
   top: 0;
@@ -2531,7 +2531,6 @@ footer:before,
 footer:after {
   content: "";
   height: 100px;
-  width: 500px;
   background-color: rgb(32, 33, 36);
   position: absolute;
   top: 0;

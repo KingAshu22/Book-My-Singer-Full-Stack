@@ -1,553 +1,246 @@
-<%- include("partials/header"); -%>
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="mil-content">
-        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
-            <div class="mil-container-fw">
-                <div class="mil-section-title mil-up">
-                    <div class="mil-divider"></div>
-                    <h3>Artist Creation Form</h3>
-                </div>
+<head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Courtney - Blog</title>
+    <meta name="next-head-count" content="3" />
+    <meta charSet="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/css/plugins/bootstrap-grid.css" />
+    <link rel="stylesheet" href="/css/plugins/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/plugins/swiper.min.css" />
+    <link rel="preload" href="/_next/static/css/90c58cbc9cb3fd3f.css" as="style" />
+    <link rel="stylesheet" href="/_next/static/css/90c58cbc9cb3fd3f.css" data-n-g="" /><noscript
+        data-n-css=""></noscript>
+    <script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script>
+    <script src="/_next/static/chunks/webpack-9af6730cdadac02e.js" defer=""></script>
+    <script src="/_next/static/chunks/framework-2c79e2a64abdb08b.js" defer=""></script>
+    <script src="/_next/static/chunks/main-285f56d3e46ff5e9.js" defer=""></script>
+    <script src="/_next/static/chunks/pages/_app-ec071184c6c87386.js" defer=""></script>
+    <script src="/_next/static/chunks/94726e6d-c3c7c2dc5477c615.js" defer=""></script>
+    <script src="/_next/static/chunks/78-1d8b107b1e2c21ed.js" defer=""></script>
+    <script src="/_next/static/chunks/790-0b472d33b58113b3.js" defer=""></script>
+    <script src="/_next/static/chunks/204-4c3c1ab1f7479c14.js" defer=""></script>
+    <script src="/_next/static/chunks/pages/blog-2-43e17f2f51d4a465.js" defer=""></script>
+    <script src="/_next/static/ioBaMQfbNfHiUWwyMIFTx/_buildManifest.js" defer=""></script>
+    <script src="/_next/static/ioBaMQfbNfHiUWwyMIFTx/_ssgManifest.js" defer=""></script>
+</head>
 
-                <form id="contactForm" onsubmit="submitForm(); return false;" class="row align-items-center">
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="artistName">Enter Artist Name</label>
-                        <input type="text" placeholder="Artist Name" name="artistName" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="linkid">Enter Link Name</label>
-                        <input type="text" placeholder="Artist Id" name="linkid" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="artist-name">Artist Type</label>
-                        <select name="artistType">
-                            <option value="Singer">Singer</option>
-                            <option value="Musician">Musician</option>
-                            <option value="Live Band">Live Band</option>
-                            <option value="DJ">DJ</option>
-                            <option value="Actor">Actor</option>
-                            <option value="Comedian">Comedian</option>
-                        </select>
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="fb">Facebook Link</label>
-                        <input type="text" placeholder="Facebook Link" name="fb" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="twitter">Twitter Link</label>
-                        <input type="text" placeholder="Twitter Link" name="twitter" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="insta">Instagram Link</label>
-                        <input type="text" placeholder="Instagram Link" name="insta" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="linkedin">Linkedin Link</label>
-                        <input type="text" placeholder="LinkedIn Link" name="linkedin" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="location">Location</label>
-                        <input type="text" placeholder="Location" name="location" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="price">Price</label>
-                        <input type="text" placeholder="Price" name="price" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="price">Profile Picture Link</label>
-                        <input type="text" placeholder="Profile Picture" name="profilePic" />
-                    </div>
-
-                    <div id="imageContainer">
-                        <input type="text" name="imageLink" placeholder="Enter image link...">
-                    </div>
-                    <button type="button" onclick="addImageInput()">Add More</button>
-                    <br><br>
-
-                    <div class="col-lg-12 mil-up">
-                        <textarea name="about" placeholder="About textarea not more than 150 words"></textarea>
-                    </div>
-
-                    <div class="col-lg-12 mil-up">
-                        <h4>Youtube Videos (Only add the code)</h4>
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="youtube1">Youtube Video 1</label>
-                        <input type="text" placeholder="youtube video 1" name="youtube1" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="youtube2">Youtube Video 2</label>
-                        <input type="text" placeholder="youtube video 2" name="youtube2" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="youtube3">Youtube Video 3</label>
-                        <input type="text" placeholder="youtube video 3" name="youtube3" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="youtube4">Youtube Video 4</label>
-                        <input type="text" placeholder="youtube video 4" name="youtube4" />
-                    </div>
-
-                    <div class="col-lg-12 mil-up">
-                        <h4>Review 1</h4>
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="reviewTitle">Review Title</label>
-                        <input type="text" placeholder="Reviews Title" name="reviewTitle1" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="reviewDesc">Review Title Description</label>
-                        <input type="text" placeholder="Reviews Description" name="reviewDesc1" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="reviewPic">Review Pic Link</label>
-                        <input type="text" placeholder="Reviews Pic Link" name="reviewPic1" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="reviewName">Review Name</label>
-                        <input type="text" placeholder="Reviews Name" name="reviewName1" />
-                    </div>
-
-                    <div class="col-lg-12 mil-up">
-                        <h4>Review 2</h4>
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="reviewTitle">Review Title</label>
-                        <input type="text" placeholder="Reviews Title" name="reviewTitle2" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="reviewDesc">Review Title Description</label>
-                        <input type="text" placeholder="Reviews Description" name="reviewDesc2" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="reviewPic">Review Pic Link</label>
-                        <input type="text" placeholder="Reviews Pic Link" name="reviewPic2" />
-                    </div>
-
-                    <div class="col-lg-6 mil-up">
-                        <label for="reviewName">Review Name</label>
-                        <input type="text" placeholder="Reviews Name" name="reviewName2" />
-                    </div>
-
-                    <div class="col-lg-12 mil-up">
-                        <textarea name="blog" id="editor" cols="100" rows="100" class="form-control"></textarea>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="mil-adaptive-right mil-up mil-mb-30"><button type="submit"
-                                class="mil-btn mil-sm-btn"><span>Save</span></button></div>
-                    </div>
-                </form>
-
-                <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
-                <script>
-                    ClassicEditor.create(document.querySelector("#editor")).catch(err => {
-                        console.error(err);
-                    });
-                    var objEditor = CKEDITOR.instances["sectionTextArea"];
-                    var q = objEditor.getData();
-                    console.log(q);
-
-                    function addImageInput() {
-                        var container = document.getElementById("imageContainer");
-                        var newInput = document.createElement("input");
-                        newInput.type = "text";
-                        newInput.name = "imageLink";
-                        newInput.placeholder = "Enter image link...";
-                        container.appendChild(newInput);
-                    }
-
-                    function submitForm() {
-                        var imageLinks = [];
-                        var inputs = document.getElementsByName("imageLink");
-                        for (var i = 0; i < inputs.length; i++) {
-                            imageLinks.push(inputs[i].value);
-                        }
-                        var data = { imageLink: imageLinks };
-
-                        // Send the data to the server using a POST request
-                        fetch('/your-server-endpoint', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(data)
-                        })
-                            .then(response => response.json())
-                            .then(responseData => {
-                                // Handle the server response if needed
-                                console.log(responseData);
-                            })
-                            .catch(error => {
-                                // Handle errors
-                                console.error('Error:', error);
-                            });
-                    }
-                </script>
-                <%- include("partials/footer"); -%>
-
-
-                <form id="myForm">
-                    <!-- Normal Input -->
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name"><br><br>
-
-                    <!-- YouTube Links -->
-                    <label for="youtubeLink">YouTube Link:</label>
-                    <input type="text" id="youtubeLink" name="youtubeLink[]">
-                    <button type="button" id="addYoutubeLink">Add More YouTube Link</button><br><br>
-
-                    <!-- Testimonial Video Links -->
-                    <label for="testLink">Testimonial Video Link:</label>
-                    <input type="text" id="testLink" name="testLink[]">
-                    <button type="button" id="addTestLink">Add More Testimonial Video Link</button><br><br>
-
-                    <!-- Review Input -->
-                    <div id="reviewsContainer">
-                        <div class="review">
-                            <label for="reviewTitle">Review Title:</label>
-                            <input type="text" class="reviewTitle" name="reviewTitle[]"><br>
-
-                            <label for="reviewDescription">Review Description:</label>
-                            <input type="text" class="reviewDescription" name="reviewDescription[]"><br>
-
-                            <label for="reviewName">Review Name:</label>
-                            <input type="text" class="reviewName" name="reviewName[]"><br>
-
-                            <label for="reviewPic">Review Pic:</label>
-                            <input type="text" class="reviewPic" name="reviewPic[]"><br>
-                        </div>
-                    </div>
-                    <button type="button" id="addReview">Add More Review</button><br><br>
-
-                    <!-- Normal Input -->
-                    <label for="additionalInfo">Additional Information:</label>
-                    <input type="text" id="additionalInfo" name="additionalInfo"><br><br>
-
-                    <button type="submit">Submit</button>
-                </form>
-
-                <script>
-                    const addYoutubeLinkBtn = document.getElementById("addYoutubeLink");
-                    const addTestLinkBtn = document.getElementById("addTestLink");
-                    const addReviewBtn = document.getElementById("addReview");
-                    const reviewsContainer = document.getElementById("reviewsContainer");
-
-                    const youtubeLinks = [];
-                    const testLinks = [];
-                    const reviews = [];
-
-                    addYoutubeLinkBtn.addEventListener("click", () => {
-                        const youtubeLinkInput = document.createElement("input");
-                        youtubeLinkInput.type = "text";
-                        youtubeLinkInput.name = "youtubeLink[]";
-                        document.getElementById("myForm").insertBefore(youtubeLinkInput, addYoutubeLinkBtn);
-                    });
-
-                    addTestLinkBtn.addEventListener("click", () => {
-                        const testLinkInput = document.createElement("input");
-                        testLinkInput.type = "text";
-                        testLinkInput.name = "testLink[]";
-                        document.getElementById("myForm").insertBefore(testLinkInput, addTestLinkBtn);
-                    });
-
-                    addReviewBtn.addEventListener("click", () => {
-                        const reviewDiv = document.createElement("div");
-                        reviewDiv.className = "review";
-                        reviewDiv.innerHTML = `
-                            <label for="reviewTitle">Review Title:</label>
-                            <input type="text" class="reviewTitle" name="reviewTitle[]"><br>
-                            <label for="reviewDescription">Review Description:</label>
-                            <input type="text" class="reviewDescription" name="reviewDescription[]"><br>
-                            <label for="reviewName">Review Name:</label>
-                            <input type="text" class="reviewName" name="reviewName[]"><br>
-                            <label for="reviewPic">Review Pic:</label>
-                            <input type="text" class="reviewPic" name="reviewPic[]"><br>
-                        `;
-                        reviewsContainer.appendChild(reviewDiv);
-                    });
-
-                    document.getElementById("myForm").addEventListener("submit", (event) => {
-                        event.preventDefault();
-
-                        // Collect YouTube Links
-                        const youtubeInputs = document.querySelectorAll("[name='youtubeLink[]']");
-                        youtubeInputs.forEach(input => youtubeLinks.push(input.value));
-
-                        // Collect Testimonial Video Links
-                        const testInputs = document.querySelectorAll("[name='testLink[]']");
-                        testInputs.forEach(input => testLinks.push(input.value));
-
-                        // Collect Reviews
-                        const reviewDivs = document.querySelectorAll(".review");
-                        reviewDivs.forEach(div => {
-                            const review = {
-                                title: div.querySelector(".reviewTitle").value,
-                                description: div.querySelector(".reviewDescription").value,
-                                name: div.querySelector(".reviewName").value,
-                                pic: div.querySelector(".reviewPic").value,
-                            };
-                            reviews.push(review);
-                        });
-
-                        // Prepare data to send to server
-                        const formData = new FormData();
-                        formData.append("name", document.getElementById("name").value);
-                        formData.append("additionalInfo", document.getElementById("additionalInfo").value);
-                        formData.append("youtubeLinks", JSON.stringify(youtubeLinks));
-                        formData.append("testLinks", JSON.stringify(testLinks));
-                        formData.append("reviews", JSON.stringify(reviews));
-
-                        // Send data to server using fetch or AJAX
-                        // Replace 'url' with your server endpoint
-                        const url = "your-server-endpoint";
-                        fetch(url, {
-                            method: "POST",
-                            body: formData
-                        }).then(response => {
-                            // Handle server response here
-                            console.log("Form submitted successfully!");
-                        }).catch(error => {
-                            console.error("Error submitting form:", error);
-                        });
-                    });
-                </script>
-
-
-<!------------------------------------------------------------------------>
-<%- include("partials/header"); -%>
-
-    <div class="mil-content">
-        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
-            <div class="mil-container-fw">
-                <div class="mil-section-title mil-up">
-                    <div class="mil-divider"></div>
-                    <h3>Artist Creation Form</h3>
-                </div>
-
-                <form id="myForm">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <!-- From Country input -->
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Artist Name</label>
-                                    <input type="text" name="name" class="form-control" autocomplete="off" />
-                                </div>
-                                <!-- To Country input -->
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Profile Pic Link (350 x 350)</label>
-                                    <input type="text" name="profilePic" class="form-control" autocomplete="off" />
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Contact Number</label>
-                                    <input type="text" name="contact" class="form-control" autocomplete="off"
-                                        value="+91 98700 62178" />
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Location</label>
-                                    <input type="text" name="location" class="form-control" autocomplete="off" />
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Price</label>
-                                    <input type="text" name="price" class="form-control" autocomplete="off" />
+<body>
+    <div id="__next">
+        <div class="mil-wrapper" id="top">
+            <div class="mil-content">
+                <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+                    <div class="mil-container-fw">
+                        <section class="mil-banner-sm mil-center">
+                            <div class="mil-banner-top mil-up"></div>
+                            <div class="mil-banner-title">
+                                <h1 class="mil-h1-sm mil-up mil-mb-60">Exploring the World <br>Through Our Blog</h1>
+                                <ul class="mil-breadcrumbs mil-up">
+                                    <li><a href="/">Homepage</a></li>
+                                    <li>Blog</li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-lg-6"><a class="mil-blog-card mil-mb-60"
+                                        href="/blog/play-to-your-strength-and-supercharge-your-business-4">
+                                        <div class="mil-cover mil-up"><img src="/img/blog/6.jpg"
+                                                alt="Play to Your Strengths and Supercharge Your Business" />
+                                            <div class="mil-link mil-icon-link"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg></div>
+                                        </div>
+                                        <div class="mil-descr">
+                                            <h4 class="mil-up mil-mb-15">Play to Your Strengths and Supercharge Your
+                                                Business</h4>
+                                            <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Eius sequi commodi dignissimos.</p>
+                                        </div>
+                                    </a></div>
+                                <div class="col-lg-6"><a class="mil-blog-card mil-mb-60"
+                                        href="/blog/5-steps-to-create-marketing-plan-4">
+                                        <div class="mil-cover mil-up"><img src="/img/blog/3.jpg"
+                                                alt="5 Steps to Create an Outstanding Marketing Plan" />
+                                            <div class="mil-link mil-icon-link"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg></div>
+                                        </div>
+                                        <div class="mil-descr">
+                                            <h4 class="mil-up mil-mb-15">5 Steps to Create an Outstanding Marketing Plan
+                                            </h4>
+                                            <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Eius sequi commodi dignissimos.</p>
+                                        </div>
+                                    </a></div>
+                                <div class="col-lg-6"><a class="mil-blog-card mil-mb-60"
+                                        href="/blog/10-content-proof-tips-to-catch-goofs-4">
+                                        <div class="mil-cover mil-up"><img src="/img/blog/2.jpg"
+                                                alt="10 Content Proofreading Tips to Catch More Avoidable Goofs" />
+                                            <div class="mil-link mil-icon-link"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg></div>
+                                        </div>
+                                        <div class="mil-descr">
+                                            <h4 class="mil-up mil-mb-15">10 Content Proofreading Tips to Catch More
+                                                Avoidable Goofs</h4>
+                                            <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Eius sequi commodi dignissimos.</p>
+                                        </div>
+                                    </a></div>
+                                <div class="col-lg-6"><a class="mil-blog-card mil-mb-60"
+                                        href="/blog/play-to-your-strength-and-supercharge-your-business-3">
+                                        <div class="mil-cover mil-up"><img src="/img/blog/7.jpg"
+                                                alt="Play to Your Strengths and Supercharge Your Business" />
+                                            <div class="mil-link mil-icon-link"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg></div>
+                                        </div>
+                                        <div class="mil-descr">
+                                            <h4 class="mil-up mil-mb-15">Play to Your Strengths and Supercharge Your
+                                                Business</h4>
+                                            <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Eius sequi commodi dignissimos.</p>
+                                        </div>
+                                    </a></div>
+                                <div class="col-lg-6"><a class="mil-blog-card mil-mb-60"
+                                        href="/blog/16-best-graphic-design-online-and-offline-courses">
+                                        <div class="mil-cover mil-up"><img src="/img/blog/5.jpg"
+                                                alt="16 Best Graphic Design Online and Offline Courses" />
+                                            <div class="mil-link mil-icon-link"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg></div>
+                                        </div>
+                                        <div class="mil-descr">
+                                            <h4 class="mil-up mil-mb-15">16 Best Graphic Design Online and Offline
+                                                Courses</h4>
+                                            <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Eius sequi commodi dignissimos.</p>
+                                        </div>
+                                    </a></div>
+                                <div class="col-lg-6"><a class="mil-blog-card mil-mb-60"
+                                        href="/blog/10-content-proof-tips-to-catch-goofs-3">
+                                        <div class="mil-cover mil-up"><img src="/img/blog/1.jpg"
+                                                alt="10 Content Proofreading Tips to Catch More Avoidable Goofs" />
+                                            <div class="mil-link mil-icon-link"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg></div>
+                                        </div>
+                                        <div class="mil-descr">
+                                            <h4 class="mil-up mil-mb-15">10 Content Proofreading Tips to Catch More
+                                                Avoidable Goofs</h4>
+                                            <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Eius sequi commodi dignissimos.</p>
+                                        </div>
+                                    </a></div>
+                                <div class="col-lg-6"><a class="mil-blog-card mil-mb-60"
+                                        href="/blog/play-to-your-strength-and-supercharge-your-business-2">
+                                        <div class="mil-cover mil-up"><img src="/img/blog/8.jpg"
+                                                alt="Play to Your Strengths and Supercharge Your Business" />
+                                            <div class="mil-link mil-icon-link"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg></div>
+                                        </div>
+                                        <div class="mil-descr">
+                                            <h4 class="mil-up mil-mb-15">Play to Your Strengths and Supercharge Your
+                                                Business</h4>
+                                            <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Eius sequi commodi dignissimos.</p>
+                                        </div>
+                                    </a></div>
+                                <div class="col-lg-6"><a class="mil-blog-card mil-mb-60"
+                                        href="/blog/how-to-become-a-graphic-designer-in-10-simple-steps">
+                                        <div class="mil-cover mil-up"><img src="/img/blog/4.jpg"
+                                                alt="How to Become a Graphic Designer in 10 Simple Steps" />
+                                            <div class="mil-link mil-icon-link"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg></div>
+                                        </div>
+                                        <div class="mil-descr">
+                                            <h4 class="mil-up mil-mb-15">How to Become a Graphic Designer in 10 Simple
+                                                Steps</h4>
+                                            <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Eius sequi commodi dignissimos.</p>
+                                        </div>
+                                    </a></div>
+                                <div class="col-lg-12">
+                                    <div class="mil-pagination mil-up">
+                                        <div class="mil-divider mil-mb-90"></div>
+                                        <div class="mil-pagination-buttons"><a class="mil-active mil-pagination-btn"
+                                                href="/blog/page/1">1</a><a class=" mil-pagination-btn"
+                                                href="/blog/page/2">2</a><a
+                                                class="mil-pagination-btn mil-pagination-btn--next"
+                                                href="/blog/page/2">»</a></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Artist Type</label>
-                                    <select name="artistType" class="form-control">
-                                        <option value="Singer">Singer</option>
-                                        <option value="Musician">Musician</option>
-                                        <option value="Live Band">Live Band</option>
-                                        <option value="DJ">DJ</option>
-                                        <option value="Actor">Actor</option>
-                                        <option value="Comedian">Comedian</option>
-                                    </select>
-                                </div>
-                                <label class="form-label">Facebook Link</label>
-                                <input type="text" name="fb" class="form-control" autocomplete="off" />
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Twitter Link</label>
-                                    <input type="text" name="twitter" class="form-control" autocomplete="off" />
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Instagram Link</label>
-                                    <input type="text" name="insta" class="form-control" autocomplete="off" />
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">LinkedIn Link</label>
-                                    <input type="text" name="linkedin" class="form-control" autocomplete="off" />
+                        </section>
+                        <section id="about" class="mil-p-90-90">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="mil-center">
+                                        <h2 class="mil-up mil-mb-60">Stay up-to-date with my latest news by subscribing!
+                                        </h2>
+                                        <div class="mil-up">
+                                            <form
+                                                action="https://bslthemes.us21.list-manage.com/subscribe/post?u=e57127f785a6d278d2535bd53&amp;amp;id=dd56743ee5&amp;amp;f_id=000dfee1f0"
+                                                method="post" target="_blank" class="mil-subscribe-form"><input
+                                                    type="email" placeholder="Your Email" name="EMAIL"
+                                                    required="" /><input type="hidden"
+                                                    name="b_e57127f785a6d278d2535bd53_dd56743ee5" /><button
+                                                    type="submit">Subscribe</button></form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </section>
+                        <footer class="mil-fw">
+                            <p class="mil-light-soft">© 2023. Courtney. All rights reserved.</p>
+                            <p class="mil-light-soft">Developed by: &nbsp;<a
+                                    href="https://themeforest.net/user/bslthemes" target="_blank">bslthemes</a></p>
+                        </footer>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="__NEXT_DATA__"
+        type="application/json">{"props":{"pageProps":{"posts":[{"id":"play-to-your-strength-and-supercharge-your-business-4","title":"Play to Your Strengths and Supercharge Your Business","date":"2022-04-02","image":"/img/blog/6.jpg","category":["Art"],"short":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos.","author":{"name":"Paul Trueman","avatar":"/img/customers/1.jpg"},"gallery":{"enabled":1,"items":[{"image":"/img/blog/publication/1.jpg","alt":"image"},{"image":"/img/blog/publication/2.jpg","alt":"image"}]},"additional":{"enabled":1,"content":" \u003cp\u003eRemember that creativity is at the core of graphic design. Embrace your creativity, experiment with different ideas, and think outside the box to create unique and impactful designs. Don't be afraid to take risks and push the boundaries of traditional design. Steve Jobs once said:\u003c/p\u003e \u003cblockquote\u003eDesign is not just what it looks like and feels like. Design is how it works. So go ahead, unleash your creativity, and embark on your path to becoming a graphic designer! \u003c/blockquote\u003e \u003cp\u003eIn addition to the aforementioned steps, other important aspects of becoming a graphic designer include networking with industry professionals, staying updated on design trends and technologies, and continuously learning and improving your skills.\u003c/p\u003e \u003cp\u003eBecoming a graphic designer is an exciting journey that requires dedication, hard work, and a genuine passion for design. By following these 10 simple steps, you'll be well on your way to establishing yourself as a skilled graphic designer and opening doors to a rewarding and fulfilling career.\u003c/p\u003e "}},{"id":"5-steps-to-create-marketing-plan-4","title":"5 Steps to Create an Outstanding Marketing Plan","date":"2022-04-02","image":"/img/blog/3.jpg","category":["Marketing"],"short":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos.","fullWidth":true,"author":{"name":"Paul Trueman","avatar":"/img/customers/1.jpg"},"gallery":{"enabled":1,"items":[{"image":"/img/blog/publication/1.jpg","alt":"image"},{"image":"/img/blog/publication/2.jpg","alt":"image"}]},"additional":{"enabled":1,"content":" \u003ch5\u003eVoluptatem odit ullam veritatis\u003c/h5\u003e \u003cp\u003eModi sint reprehenderit vitae officiis pariatur, ab debitis voluptate ea eius assumenda beatae, tempora, dolores deserunt, ipsam ipsum! Quod ipsam consequuntur distinctio velit sed ipsum quisquam, itaque placeat error non animi quam aut similique nulla ab. Quaerat dicta, dolores veritatis magnam quae aut omnis in porro.\u003c/p\u003e "}},{"id":"10-content-proof-tips-to-catch-goofs-4","title":"10 Content Proofreading Tips to Catch More Avoidable Goofs","date":"2022-04-02","image":"/img/blog/2.jpg","category":["Copywrighting"],"short":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos.","author":{"name":"Paul Trueman","avatar":"/img/customers/1.jpg"},"additional":{"enabled":1,"content":" \u003ch5\u003eVoluptatem odit ullam veritatis\u003c/h5\u003e \u003cp\u003eModi sint reprehenderit vitae officiis pariatur, ab debitis voluptate ea eius assumenda beatae, tempora, dolores deserunt, ipsam ipsum! Quod ipsam consequuntur distinctio velit sed ipsum quisquam, itaque placeat error non animi quam aut similique nulla ab. Quaerat dicta, dolores veritatis magnam quae aut omnis in porro.\u003c/p\u003e "}},{"id":"play-to-your-strength-and-supercharge-your-business-3","title":"Play to Your Strengths and Supercharge Your Business","date":"2022-03-02","image":"/img/blog/7.jpg","category":["Art"],"short":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos.","author":{"name":"Paul Trueman","avatar":"/img/customers/1.jpg"},"gallery":{"enabled":1,"items":[{"image":"/img/blog/publication/1.jpg","alt":"image"},{"image":"/img/blog/publication/2.jpg","alt":"image"}]}},{"id":"16-best-graphic-design-online-and-offline-courses","title":"16 Best Graphic Design Online and Offline Courses","date":"2022-03-02","image":"/img/blog/5.jpg","category":["Marketing"],"short":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos.","fullWidth":true,"author":{"name":"Paul Trueman","avatar":"/img/customers/1.jpg"},"gallery":{"enabled":1,"items":[{"image":"/img/blog/publication/1.jpg","alt":"image"},{"image":"/img/blog/publication/2.jpg","alt":"image"}]},"additional":{"enabled":1,"content":" \u003ch5\u003eVoluptatem odit ullam veritatis\u003c/h5\u003e \u003cp\u003eModi sint reprehenderit vitae officiis pariatur, ab debitis voluptate ea eius assumenda beatae, tempora, dolores deserunt, ipsam ipsum! Quod ipsam consequuntur distinctio velit sed ipsum quisquam, itaque placeat error non animi quam aut similique nulla ab. Quaerat dicta, dolores veritatis magnam quae aut omnis in porro.\u003c/p\u003e "}},{"id":"10-content-proof-tips-to-catch-goofs-3","title":"10 Content Proofreading Tips to Catch More Avoidable Goofs","date":"2022-03-02","image":"/img/blog/1.jpg","category":["Copywrighting"],"short":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos.","author":{"name":"Paul Trueman","avatar":"/img/customers/1.jpg"},"additional":{"enabled":1,"content":" \u003ch5\u003eVoluptatem odit ullam veritatis\u003c/h5\u003e \u003cp\u003eModi sint reprehenderit vitae officiis pariatur, ab debitis voluptate ea eius assumenda beatae, tempora, dolores deserunt, ipsam ipsum! Quod ipsam consequuntur distinctio velit sed ipsum quisquam, itaque placeat error non animi quam aut similique nulla ab. Quaerat dicta, dolores veritatis magnam quae aut omnis in porro.\u003c/p\u003e "}},{"id":"play-to-your-strength-and-supercharge-your-business-2","title":"Play to Your Strengths and Supercharge Your Business","date":"2022-02-02","image":"/img/blog/8.jpg","category":["Art"],"short":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos.","author":{"name":"Paul Trueman","avatar":"/img/customers/1.jpg"},"gallery":{"enabled":1,"items":[{"image":"/img/blog/publication/1.jpg","alt":"image"},{"image":"/img/blog/publication/2.jpg","alt":"image"}]}},{"id":"how-to-become-a-graphic-designer-in-10-simple-steps","title":"How to Become a Graphic Designer in 10 Simple Steps","date":"2022-02-02","image":"/img/blog/4.jpg","category":["Marketing"],"short":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos.","author":{"name":"Paul Trueman","avatar":"/img/customers/1.jpg"},"gallery":{"enabled":1,"items":[{"image":"/img/blog/publication/1.jpg","alt":"image"},{"image":"/img/blog/publication/2.jpg","alt":"image"}]},"additional":{"enabled":1,"content":" \u003cp\u003eRemember that creativity is at the core of graphic design. Embrace your creativity, experiment with different ideas, and think outside the box to create unique and impactful designs. Don't be afraid to take risks and push the boundaries of traditional design. Steve Jobs once said:\u003c/p\u003e \u003cblockquote\u003eDesign is not just what it looks like and feels like. Design is how it works. So go ahead, unleash your creativity, and embark on your path to becoming a graphic designer! \u003c/blockquote\u003e \u003cp\u003eIn addition to the aforementioned steps, other important aspects of becoming a graphic designer include networking with industry professionals, staying updated on design trends and technologies, and continuously learning and improving your skills.\u003c/p\u003e \u003cp\u003eBecoming a graphic designer is an exciting journey that requires dedication, hard work, and a genuine passion for design. By following these 10 simple steps, you'll be well on your way to establishing yourself as a skilled graphic designer and opening doors to a rewarding and fulfilling career.\u003c/p\u003e "}}],"totalPosts":12,"currentPage":1},"__N_SSG":true},"page":"/blog-2","query":{},"buildId":"ioBaMQfbNfHiUWwyMIFTx","isFallback":false,"gsp":true,"scriptLoader":[]}</script>
+</body>
 
-                    <!-- YouTube Links -->
-                    <label for="youtubeLink">YouTube Link:</label>
-                    <input type="text" id="youtubeLink" name="youtubeLink[]" class="form-control">
-                    <button type="button" id="addYoutubeLink" class="btn-primary">Add More YouTube Link</button><br><br>
-
-                    <!-- Testimonial Video Links -->
-                    <label for="testLink">Testimonial Video Link:</label>
-                    <input type="text" id="testLink" name="testLink[]" class="form-control">
-                    <button type="button" id="addTestLink" class="btn-primary">Add More Testimonial Video
-                        Link</button><br><br>
-
-                    <!-- Review Input -->
-                    <div id="reviewsContainer">
-                        <div class="review">
-                            <label for="reviewTitle">Review Title:</label>
-                            <input type="text" class="reviewTitle form-control" name="reviewTitle[]"><br>
-
-                            <label for="reviewDescription">Review Description:</label>
-                            <input type="text" class="reviewDescription form-control" name="reviewDescription[]"><br>
-
-                            <label for="reviewName">Review Name:</label>
-                            <input type="text" class="reviewName form-control" name="reviewName[]"><br>
-
-                            <label for="reviewPic">Review Pic:</label>
-                            <input type="text" class="reviewPic form-control" name="reviewPic[]"><br>
-                        </div>
-                    </div>
-                    <button type="button" id="addReview" class="btn-primary">Add More Review</button><br><br>
-
-                    <label for="aboutInfo">About Content (150 Words)</label>
-                    <textarea id="aboutInfo" name="about" rows="5" class="form-control"></textarea><br><br>
-
-                    <label for="blog">Blog</label>
-                    <textarea id="editor" name="blog" id="editor" class="form-control"></textarea>
-
-                    <button type="submit" class="btn btn-danger">Submit</button>
-                </form>
-
-                <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
-                <script>
-                    ClassicEditor.create(document.querySelector("#editor")).catch(err => {
-                        console.error(err);
-                    });
-                    var objEditor = CKEDITOR.instances["sectionTextArea"];
-                    var q = objEditor.getData();
-                    console.log(q);
-                </script>
-                <script>
-                    const addYoutubeLinkBtn = document.getElementById("addYoutubeLink");
-                    const addTestLinkBtn = document.getElementById("addTestLink");
-                    const addReviewBtn = document.getElementById("addReview");
-                    const reviewsContainer = document.getElementById("reviewsContainer");
-
-                    const youtubeLinks = [];
-                    const testLinks = [];
-                    const reviews = [];
-
-                    addYoutubeLinkBtn.addEventListener("click", () => {
-                        const youtubeLinkInput = document.createElement("input");
-                        youtubeLinkInput.type = "text";
-                        youtubeLinkInput.name = "youtubeLink[]";
-                        youtubeLinkInput.classList = "form-control"
-                        document.getElementById("myForm").insertBefore(youtubeLinkInput, addYoutubeLinkBtn);
-                    });
-
-                    addTestLinkBtn.addEventListener("click", () => {
-                        const testLinkInput = document.createElement("input");
-                        testLinkInput.type = "text";
-                        testLinkInput.name = "testLink[]";
-                        testLinkInput.classList = "form-control"
-                        document.getElementById("myForm").insertBefore(testLinkInput, addTestLinkBtn);
-                    });
-
-                    addReviewBtn.addEventListener("click", () => {
-                        const reviewDiv = document.createElement("div");
-                        reviewDiv.className = "review";
-                        reviewDiv.innerHTML = `
-                            <label for="reviewTitle">Review Title:</label>
-                            <input type="text" class="reviewTitle form-control" name="reviewTitle[]"><br>
-                            <label for="reviewDescription">Review Description:</label>
-                            <input type="text" class="reviewDescription form-control" name="reviewDescription[]"><br>
-                            <label for="reviewName">Review Name:</label>
-                            <input type="text" class="reviewName form-control" name="reviewName[]"><br>
-                            <label for="reviewPic">Review Pic:</label>
-                            <input type="text" class="reviewPic form-control" name="reviewPic[]"><br>
-                        `;
-                        reviewsContainer.appendChild(reviewDiv);
-                    });
-
-                    document.getElementById("myForm").addEventListener("submit", (event) => {
-                        event.preventDefault();
-
-                        // Collect YouTube Links
-                        const youtubeInputs = document.querySelectorAll("[name='youtubeLink[]']");
-                        youtubeInputs.forEach(input => youtubeLinks.push(input.value));
-
-                        // Collect Testimonial Video Links
-                        const testInputs = document.querySelectorAll("[name='testLink[]']");
-                        testInputs.forEach(input => testLinks.push(input.value));
-
-                        // Collect Reviews
-                        const reviewDivs = document.querySelectorAll(".review");
-                        reviewDivs.forEach(div => {
-                            const review = {
-                                title: div.querySelector(".reviewTitle").value,
-                                description: div.querySelector(".reviewDescription").value,
-                                name: div.querySelector(".reviewName").value,
-                                pic: div.querySelector(".reviewPic").value,
-                            };
-                            reviews.push(review);
-                        });
-
-                        // Prepare data to send to server
-                        const formData = new FormData();
-                        formData.append("name", document.getElementsByName("name").value);
-                        formData.append("profilePic", document.getElementsByName("profilePic").value);
-                        formData.append("contact", document.getElementsByName("contact").value);
-                        formData.append("location", document.getElementsByName("location").value);
-                        formData.append("price", document.getElementsByName("price").value);
-                        formData.append("artistType", document.getElementsByName("artistType").value);
-                        formData.append("fb", document.getElementsByName("fb").value);
-                        formData.append("twitter", document.getElementsByName("twitter").value);
-                        formData.append("insta", document.getElementsByName("insta").value);
-                        formData.append("linkedin", document.getElementsByName("linkedin").value);
-                        formData.append("youtubeLinks", JSON.stringify(youtubeLinks));
-                        formData.append("testLinks", JSON.stringify(testLinks));
-                        formData.append("reviews", JSON.stringify(reviews));
-                        formData.append("about", document.getElementsByName("about").value);
-                        formData.append("blog", document.getElementsByName("blog").value);
-
-                        // Send data to server using fetch or AJAX
-                        // Replace 'url' with your server endpoint
-                        const url = "/add-artist";
-                        fetch(url, {
-                            method: "POST",
-                            body: formData
-                        }).then(response => {
-                            // Handle server response here
-                            console.log("Form submitted successfully!");
-                        }).catch(error => {
-                            console.error("Error submitting form:", error);
-                        });
-                    });
-                </script>
-
-                <%- include("partials/footer"); -%>
+</html>

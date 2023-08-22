@@ -1,0 +1,45 @@
+<%- include("partials/header"); -%>
+
+    <div class="mil-content justify-content-center">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>Featured Artists Page</h3>
+                  </div>
+
+                  
+                <section class="mil-p-90-30">
+                    <div class="row justify-content-between align-items-center">
+                        <% artists.forEach(function(artist) { %>
+                            <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>">
+                                <div class="col-xl-3 col-lg-2">
+                                    <div class="mil-icon-box mil-center mil-mb-60">
+                                        <div class="mil-service-icon mil-up artist">
+                                            <img src="<%= artist.profilePic %>" alt="" class="mil-mb-30" />
+                                        </div>
+                                        <h5 class="mil-up mil-mb-30">
+                                            <%= artist.name %>
+                                        </h5>
+                                        <div class="mil-up">
+                                            <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>" class="mil-link mil-icon-link">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-arrow-right">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <% }); %>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <%- include("partials/footer"); -%>
