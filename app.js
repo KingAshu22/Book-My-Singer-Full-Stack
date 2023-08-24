@@ -64,7 +64,22 @@ const artistSchema = new mongoose.Schema({
   blog: String,
 });
 
-const Artist = new mongoose.model("Artist", artistSchema)
+const Artist = new mongoose.model("Artist", artistSchema);
+
+const blogSchema = new mongoose.Schema({
+  metaTitle: String,
+  metaDesc: String,
+  keywords: String,
+  linkid: String,
+  title: String,
+  thumbnail: String,
+  gallery: Array,
+  eventName: Array,
+  eventType: Array,
+  blog: String,
+});
+
+const Blog = new mongoose.model("Blog", blogSchema);
 
 function isAuthenticated(req, res, next) {
   if (req.session.user.role === "admin" || req.session.user.role === "user") {
@@ -89,8 +104,8 @@ app.get("/create-artist", isAuthenticated, (req, res) => {
   res.render("create-artist");
 });
 
-app.get("/singer", (req, res) => {
-  res.render("singer")
+app.get("/create-blog", isAuthenticated, (req, res) => {
+  res.render("create-blog");
 });
 
 app.get("/artist", async (req, res) => {
@@ -98,6 +113,14 @@ app.get("/artist", async (req, res) => {
 
   res.render("artist", {
     artists
+  })
+});
+
+app.get("/blog", async (req, res) => {
+  const blogs = await Blog.find({}).sort({ _id: -1 });
+
+  res.render("blog-list", {
+    blogs
   })
 });
 
@@ -121,6 +144,26 @@ app.get("/artist/:artistType/:linkid", async (req, res) => {
   }
 });
 
+app.get("/blog/:linkid", async  (req, res) => {
+  try {
+    const { linkid } = req.params;
+
+    const blog = await Blog.findOne({ linkid });
+
+    if (blog) {
+      res.render('blog', { blog });
+    } else {
+      res.redirect('/');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get("/user-dashboard", isAuthenticated, (req, res) => {
+  res.render("user-dashboard");
+});
 
 app.post("/login", async (req, res) => {
   const username = req.body.username;
@@ -141,7 +184,6 @@ app.post("/login", async (req, res) => {
 
 app.post("/add-artist", (req, res) => {
   const data = req.body;
-  console.log(data);
 
   const metaTitle = data.metaTitle;
   const metaDesc = data.metaDesc;
@@ -179,6 +221,32 @@ app.post("/add-artist", (req, res) => {
   });
 
   artist.save().then(() => {
+    res.redirect("user-dashboard")
+  }).catch((error) => {
+    res.send(error)
+  });
+});
+
+app.post("/add-blog", (req, res) => {
+  const data = req.body;
+
+  const metaTitle = data.metaTitle;
+  const metaDesc = data.metaDesc;
+  const keywords = data.keywords;
+  const title = data.title;
+  const thumbnail = data.thumbnail;
+  const lowerCaseName = title.toLowerCase();
+  const linkid = lowerCaseName.replace(/ /g, '-');
+  const gallery = data.galleryLink;
+  const eventName = data.eventName;
+  const eventType = data.eventType;
+  const blog = data.blog;
+
+  const blogs = new Blog({
+    metaTitle, metaDesc, keywords, title, thumbnail, linkid, gallery, eventName, eventType, blog
+  });
+
+  blogs.save().then(() => {
     res.redirect("user-dashboard")
   }).catch((error) => {
     res.send(error)

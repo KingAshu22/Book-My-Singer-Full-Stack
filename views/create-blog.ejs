@@ -1,0 +1,130 @@
+<%- include("partials/header"); -%>
+
+    <div class="mil-content">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>Artist Creation Form</h3>
+                </div>
+
+                <form id="myForm" action="/add-blog" method="POST">
+                    <h4>Meta Tag Details</h4>
+                    <label for="metaTitle">Meta Tag Title (Not More than 70 Characters)</label>
+                    <input type="text" name="metaTitle" class="form-control" maxlength="70">
+
+                    <label for="metaDesc">Meta Tag Description (Not more than 160 Characters)</label>
+                    <textarea name="metaDesc" class="form-control" maxlength="160"></textarea>
+
+                    <label for="keywords">Enter Keywords (Comma Seperated Value)</label>
+                    <input type="text" name="keywords" class="form-control">
+                    <hr>
+
+                    <h4>Blog Details</h4>
+                    <label for="title">Enter Blog Title</label>
+                    <input type="text" name="title" class="form-control">
+
+                    <label for="title">Enter Blog Thumbnail (3 x 2)</label>
+                    <input type="text" name="thumbnail" class="form-control">
+
+                    <!-- Gallery Links -->
+                    <h4>Image Gallery Details</h4>
+                    <label for="galleryLink">Gallery Link:</label>
+                    <input type="text" id="galleryLink" name="galleryLink[1]" class="form-control">
+                    <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
+
+                    <!-- Event Links -->
+                    <div id="eventsContainer">
+                        <label for="eventName">Event Name:</label>
+                        <input type="text" id="eventName" name="eventName[1]" class="form-control">
+                        <label for="youtubeLink">Event Link:</label>
+                        <input type="text" id="eventLink" name="eventType[1][1]" class="form-control">
+                        <button type="button" id="addEventLink1" onclick="addEventLink()" class="btn-primary">Add More Event Link</button><br><br>
+                    </div>
+                    <button type="button" id="addEventTypeLink" class="btn-danger">Add More Event
+                        Types</button><br><br>
+
+                    <label for="blog">Blog</label>
+                    <textarea id="editor" name="blog" id="editor" class="form-control"></textarea>
+
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </form>
+
+                <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+                <script>
+                    // Define a configuration object with limited features
+                    var limitedConfig = {
+                        toolbar: [
+                            // Specify the toolbar buttons you want to include
+                            'heading', '|', 'link'
+                        ],
+                        heading: {
+                            options: [
+                                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                                { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                                { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                                { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                            ]
+                        }
+                        // You can include any other configuration options you need
+                    };
+
+                    // Create the CKEditor instance using the limited configuration
+                    ClassicEditor.create(document.querySelector("#editor"), limitedConfig)
+                        .catch(err => {
+                            console.error(err);
+                        });
+                </script>
+                <script>
+                    const addGalleryLinkBtn = document.getElementById("addGalleryLink");
+                    const addEventLinkBtn = document.getElementById("addEventLink");
+                    const addEventTypeLinkBtn = document.getElementById("addEventTypeLink");
+                    const eventsContainer = document.getElementById("eventsContainer");
+
+                    let galleryCount = 1;
+                    let eventCount = 1;
+                    let eventTypeCount = 1;
+
+                    addGalleryLinkBtn.addEventListener("click", () => {
+                        galleryCount++;
+                        const galleryLinkInput = document.createElement("input");
+                        galleryLinkInput.type = "text";
+                        galleryLinkInput.name = `galleryLink[${galleryCount}]`;
+                        galleryLinkInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(galleryLinkInput, addGalleryLinkBtn);
+                    });
+
+                    function addEventLink() {
+                        document.getElementById(`addEventLink${eventCount}`)
+                        .addEventListener("click", () => {
+                        console.log("i am pressed");
+                        eventCount++;
+                        const eventLinkInput = document.createElement("input");
+                        eventLinkInput.type = "text";
+                        eventLinkInput.name = `eventType[${eventTypeCount}][${eventCount}]`;
+                        eventLinkInput.classList = "form-control"
+                        eventsContainer.insertBefore(eventLinkInput, addEventLinkBtn);
+                    });
+                    eventCount++;
+                    }
+
+                    addEventTypeLinkBtn.addEventListener("click", () => {
+                        eventCount = 1;
+                        eventTypeCount++;
+                        const eventDiv = document.createElement("div");
+                        eventDiv.className = "event";
+                        eventDiv.innerHTML = `
+                            <label for="eventName">Event Name:</label>
+                            <input type="text" name="eventName[${eventTypeCount}]" class="form-control">
+                            <label for="youtubeLink">Event Link:</label>
+                            <input type="text" name="eventType[${eventTypeCount}][1]" class="form-control">
+                            <button type="button" id="addEventLink${eventTypeCount}" onclick="addEventLink()" class="btn-primary">Add More Event Link</button><br><br>
+                        `;
+                        eventsContainer.appendChild(eventDiv);
+                    });
+                </script>
+
+                <%- include("partials/footer"); -%>
