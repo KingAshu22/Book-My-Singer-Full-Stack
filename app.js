@@ -46,6 +46,7 @@ const artistSchema = new mongoose.Schema({
   location: String,
   price: String,
   artistType: String,
+  bandMemberName: String,
   code: String,
   events: String,
   genre: String,
@@ -153,6 +154,7 @@ app.post("/add-artist", (req, res) => {
   const location = data.location;
   const price = data.price;
   const artistType = data.artistType;
+  const bandMemberName = data.bandMemberName;
   const code = data.code;
   const events = data.events;
   const genre = data.genre;
@@ -171,7 +173,7 @@ app.post("/add-artist", (req, res) => {
 
   const artist = new Artist({
     metaTitle, metaDesc, keywords, name, linkid, profilePic,
-    contact, location, price, artistType, code, events, genre,
+    contact, location, price, artistType, bandMemberName, code, events, genre,
     languages, playback, original, time, instruments, awards,
     gallery, eventName, eventType, testLinks, reviews, blog
   });

@@ -202,6 +202,17 @@
                                                 </p>
                                             </div>
                                         </div>
+                                        <% if (artist.bandMemberName.length > 1) {%>
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-user"></i></div>
+                                            <div class="text"><span>Band members</span>
+                                                <p>
+                                                    <%= artist.bandMemberName %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>

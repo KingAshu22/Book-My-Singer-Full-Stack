@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label">Artist Type</label>
-                                    <select name="artistType" class="form-control">
+                                    <select name="artistType" class="form-control" id="artistTypeSelect">
                                         <option value="singer">Singer</option>
                                         <option value="musician">Musician</option>
                                         <option value="live-band">Live Band</option>
@@ -57,6 +57,10 @@
                                         <option value="actor">Actor</option>
                                         <option value="comedian">Comedian</option>
                                     </select>
+                                </div>
+                                <div class="form-outline mb-4" id="bandMembersInput" style="display: none;">
+                                    <label class="form-label">Band Member's Name</label>
+                                    <input type="text" name="bandMemberName" class="form-control">
                                 </div>
                                 <label class="form-label">Artist Code</label>
                                 <input type="text" name="code" class="form-control" autocomplete="off" value="BMS/" />
@@ -142,9 +146,6 @@
                     </div>
                     <button type="button" id="addReview" class="btn-primary">Add More Review</button><br><br>
 
-                    <label for="aboutInfo">About Content (150 Words)</label>
-                    <textarea id="aboutInfo" name="about" rows="5" class="form-control" maxlength="700"></textarea>
-
                     <label for="blog">Blog</label>
                     <textarea id="editor" name="blog" id="editor" class="form-control"></textarea>
 
@@ -178,6 +179,18 @@
                             console.error(err);
                         });
                 </script>
+                <script>
+                    const artistTypeSelect = document.getElementById('artistTypeSelect');
+                    const bandMembersInput = document.getElementById('bandMembersInput');
+                
+                    artistTypeSelect.addEventListener('change', function () {
+                        if (artistTypeSelect.value === 'live-band') {
+                            bandMembersInput.style.display = 'block';
+                        } else {
+                            bandMembersInput.style.display = 'none';
+                        }
+                    });
+                </script>            
                 <script>
                     const addGalleryLinkBtn = document.getElementById("addGalleryLink");
                     const addEventLinkBtn = document.getElementById("addEventLink");
