@@ -47,10 +47,6 @@
                                     <label class="form-label">Price</label>
                                     <input type="text" name="price" class="form-control" autocomplete="off" />
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
                                 <div class="form-outline mb-4">
                                     <label class="form-label">Artist Type</label>
                                     <select name="artistType" class="form-control">
@@ -62,19 +58,43 @@
                                         <option value="comedian">Comedian</option>
                                     </select>
                                 </div>
-                                <label class="form-label">Facebook Link</label>
-                                <input type="text" name="fb" class="form-control" autocomplete="off" />
+                                <label class="form-label">Artist Code</label>
+                                <input type="text" name="code" class="form-control" autocomplete="off" value="BMS/" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <div class="form-outline mb-4">
-                                    <label class="form-label">Twitter Link</label>
-                                    <input type="text" name="twitter" class="form-control" autocomplete="off" />
+                                    <label class="form-label">Event Types</label>
+                                    <input type="text" name="events" class="form-control" />
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <label class="form-label">Instagram Link</label>
-                                    <input type="text" name="insta" class="form-control" autocomplete="off" />
+                                    <label class="form-label">Genre</label>
+                                    <input type="text" name="genre" class="form-control" />
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <label class="form-label">LinkedIn Link</label>
-                                    <input type="text" name="linkedin" class="form-control" autocomplete="off" />
+                                    <label class="form-label">Languages</label>
+                                    <input type="text" name="languages" class="form-control" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Movie Playback Songs</label>
+                                    <input type="text" name="playback" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Original Songs</label>
+                                    <input type="text" name="original" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Performance Time</label>
+                                    <input type="text" name="time" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Instruments</label>
+                                    <input type="text" name="instruments" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Awards/Achievements/Fame</label>
+                                    <input type="text" name="awards" class="form-control" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -87,10 +107,16 @@
                     <input type="text" id="galleryLink" name="galleryLink[1]" class="form-control">
                     <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
 
-                    <!-- YouTube Links -->
-                    <label for="youtubeLink">YouTube Link:</label>
-                    <input type="text" id="youtubeLink" name="youtubeLink[1]" class="form-control">
-                    <button type="button" id="addYoutubeLink" class="btn-primary">Add More YouTube Link</button><br><br>
+                    <!-- Event Links -->
+                    <div id="eventsContainer">
+                        <label for="eventName">Event Name:</label>
+                        <input type="text" id="eventName" name="eventName[1]" class="form-control">
+                        <label for="youtubeLink">Event Link:</label>
+                        <input type="text" id="eventLink" name="eventType[1][1]" class="form-control">
+                        <button type="button" id="addEventLink1" onclick="addEventLink()" class="btn-primary">Add More Event Link</button><br><br>
+                    </div>
+                    <button type="button" id="addEventTypeLink" class="btn-danger">Add More Event
+                        Types</button><br><br>
 
                     <!-- Testimonial Video Links -->
                     <label for="testLink">Testimonial Video Link:</label>
@@ -154,9 +180,11 @@
                 </script>
                 <script>
                     const addGalleryLinkBtn = document.getElementById("addGalleryLink");
-                    const addYoutubeLinkBtn = document.getElementById("addYoutubeLink");
+                    const addEventLinkBtn = document.getElementById("addEventLink");
+                    const addEventTypeLinkBtn = document.getElementById("addEventTypeLink");
                     const addTestLinkBtn = document.getElementById("addTestLink");
                     const addReviewBtn = document.getElementById("addReview");
+                    const eventsContainer = document.getElementById("eventsContainer");
                     const reviewsContainer = document.getElementById("reviewsContainer");
 
                     const galleryLinks = [];
@@ -164,7 +192,8 @@
                     const testLinks = [];
                     const reviews = [];
                     let galleryCount = 1;
-                    let youtubeCount = 1;
+                    let eventCount = 1;
+                    let eventTypeCount = 1;
                     let testCount = 1;
                     let reviewCount = 1;
 
@@ -177,13 +206,33 @@
                         document.getElementById("myForm").insertBefore(galleryLinkInput, addGalleryLinkBtn);
                     });
 
-                    addYoutubeLinkBtn.addEventListener("click", () => {
-                        youtubeCount++;
-                        const youtubeLinkInput = document.createElement("input");
-                        youtubeLinkInput.type = "text";
-                        youtubeLinkInput.name = `youtubeLink[${youtubeCount}]`;
-                        youtubeLinkInput.classList = "form-control"
-                        document.getElementById("myForm").insertBefore(youtubeLinkInput, addYoutubeLinkBtn);
+                    function addEventLink() {
+                        document.getElementById(`addEventLink${eventCount}`)
+                        .addEventListener("click", () => {
+                        console.log("i am pressed");
+                        eventCount++;
+                        const eventLinkInput = document.createElement("input");
+                        eventLinkInput.type = "text";
+                        eventLinkInput.name = `eventType[${eventTypeCount}][${eventCount}]`;
+                        eventLinkInput.classList = "form-control"
+                        eventsContainer.insertBefore(eventLinkInput, addEventLinkBtn);
+                    });
+                    eventCount++;
+                    }
+
+                    addEventTypeLinkBtn.addEventListener("click", () => {
+                        eventCount = 1;
+                        eventTypeCount++;
+                        const eventDiv = document.createElement("div");
+                        eventDiv.className = "event";
+                        eventDiv.innerHTML = `
+                            <label for="eventName">Event Name:</label>
+                            <input type="text" name="eventName[${eventTypeCount}]" class="form-control">
+                            <label for="youtubeLink">Event Link:</label>
+                            <input type="text" name="eventType[${eventTypeCount}][1]" class="form-control">
+                            <button type="button" id="addEventLink${eventTypeCount}" onclick="addEventLink()" class="btn-primary">Add More Event Link</button><br><br>
+                        `;
+                        eventsContainer.appendChild(eventDiv);
                     });
 
                     addTestLinkBtn.addEventListener("click", () => {

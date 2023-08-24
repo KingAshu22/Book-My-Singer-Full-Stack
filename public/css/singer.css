@@ -3872,6 +3872,7 @@ textarea:focus::placeholder {
   text-transform: capitalize;
   font-weight: 400;
   margin-bottom: 3px;
+  text-align: left;
 }
 
 .bostami-parsonal-info-contact-item .text p {
@@ -3880,6 +3881,8 @@ textarea:focus::placeholder {
   font-weight: 400;
   color: var(--common-black);
   margin-bottom: 0;
+  text-transform: capitalize;
+  text-align: left;
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
@@ -4019,24 +4022,11 @@ textarea:focus::placeholder {
   border-radius: 50% !important;
 }
 
-.video-title {
-  text-align: center;
+.item h1 {
+  font-size: 1.5em;
 }
 
-.video-title .icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.item h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.blog h1 {
   font-size: 1.5em;
 }
 
@@ -4090,10 +4080,6 @@ h6 {
 
 .text.show-more .dots {
   display: none;
-}
-
-.video-text {
-  text-align: center;
 }
 
 .video {

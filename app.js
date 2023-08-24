@@ -46,12 +46,20 @@ const artistSchema = new mongoose.Schema({
   location: String,
   price: String,
   artistType: String,
-  socialLinks: Object,
+  code: String,
+  events: String,
+  genre: String,
+  languages: String,
+  playback: String,
+  original: String,
+  time: String,
+  instruments: String,
+  awards: String,
   gallery: Array,
-  youtubeLinks: Array,
+  eventName: Array,
+  eventType: Array,
   testLinks: Array,
   reviews: Array,
-  about: String,
   blog: String,
 });
 
@@ -145,21 +153,27 @@ app.post("/add-artist", (req, res) => {
   const location = data.location;
   const price = data.price;
   const artistType = data.artistType;
-  const socialLinks = {
-    fb: data.fb,
-    twitter: data.twitter,
-    insta: data.insta,
-    linkedin: data.linkedin
-  };
+  const code = data.code;
+  const events = data.events;
+  const genre = data.genre;
+  const languages = data.languages;
+  const playback = data.playback;
+  const original = data.original;
+  const time = data.time;
+  const instruments = data.instruments;
+  const awards = data.awards;
   const gallery = data.galleryLink;
-  const youtubeLinks = data.youtubeLink;
+  const eventName = data.eventName;
+  const eventType = data.eventType;
   const testLinks = data.testLink;
   const reviews = data.review;
-  const about = data.about;
   const blog = data.blog;
 
   const artist = new Artist({
-    metaTitle, metaDesc, keywords, name, linkid, profilePic, contact, location, price, artistType, socialLinks, gallery, youtubeLinks, testLinks, reviews, about, blog
+    metaTitle, metaDesc, keywords, name, linkid, profilePic,
+    contact, location, price, artistType, code, events, genre,
+    languages, playback, original, time, instruments, awards,
+    gallery, eventName, eventType, testLinks, reviews, blog
   });
 
   artist.save().then(() => {

@@ -79,16 +79,6 @@
                                 </a></h4><span class="bostami-parsonal-info-bio mb-15">
                                 <%= artist.artistType %>
                             </span>
-                            <ul class="bostami-parsonal-info-social-link mb-30">
-                                <li><a style="color:#202124" href="<%= artist.socialLinks.fb %>"><i
-                                            class="fa-brands fa-facebook-f"></i></a></li>
-                                <li><a style="color:#202124" href="<%= artist.socialLinks.twitter %>"><i
-                                            class="fa-brands fa-twitter"></i></a></li>
-                                <li><a style="color:#202124" href="<%= artist.socialLinks.insta %>"><i
-                                            class="fa-brands fa-instagram"></i></a></li>
-                                <li><a style="color:#202124" href="<%= artist.socialLinks.linkedin %>"><i
-                                            class="fa-brands fa-linkedin-in"></i></a></li>
-                            </ul>
                             <div class="bostami-parsonal-info-contact mb-30">
                                 <div class="bostami-parsonal-info-contact-item">
                                     <div style="color:#f44336;font-size:22px" class="icon"><i
@@ -127,12 +117,96 @@
                         <div class="section-wrapper pl-60 pr-60 pt-60">
                             <div class="bostami-page-title-wrap mb-15">
                                 <h2 class="page-title">about</h2>
-                                <p>
-                                    <%= artist.about %>
-                                </p>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-regular fa-id-badge"></i></div>
+                                            <div class="text"><span>ID</span>
+                                                <p>
+                                                    <%= artist.code %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-music"></i></div>
+                                            <div class="text"><span>Genre</span>
+                                                <p>
+                                                    <%= artist.genre %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-music"></i></div>
+                                            <div class="text"><span>Playback</span>
+                                                <p>
+                                                    <%= artist.playback %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-hourglass-start"></i></div>
+                                            <div class="text"><span>Time</span>
+                                                <p>
+                                                    <%= artist.time %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-award"></i></div>
+                                            <div class="text"><span>Awards</span>
+                                                <p>
+                                                    <%= artist.awards %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-calendar"></i></div>
+                                            <div class="text"><span>Events</span>
+                                                <p>
+                                                    <%= artist.events %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-language"></i></div>
+                                            <div class="text"><span>Languages</span>
+                                                <p>
+                                                    <%= artist.languages %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-music"></i></div>
+                                            <div class="text"><span>Original</span>
+                                                <p>
+                                                    <%= artist.original %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="bostami-parsonal-info-contact-item">
+                                            <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                    class="fa-solid fa-guitar"></i></div>
+                                            <div class="text"><span>Instruments</span>
+                                                <p>
+                                                    <%= artist.instruments %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="section-wrapper pl-60 pr-60">
+                        <!-- <div class="section-wrapper pl-60 pr-60">
                             <div class="bostami-section-title-wrap mb-30">
                                 <h3 class="section-title">What I do!</h3>
                             </div>
@@ -194,7 +268,7 @@
                                     </div>
                                 </div>
                             </section>
-                        </div>
+                        </div> -->
                         <div class="section-wrapper pl-60 pr-60 gallery-title">
                             <div class="bostami-section-title-wrap mb-30">
                                 <h3 class="section-title">Gallery</h3>
@@ -231,17 +305,19 @@
                             </div>
 
                         </div>
+                        <% artist.eventName.forEach(function(event) { %>
+                            <% let i = 0 %>
                         <div class="section-wrapper pl-60 pr-60 video-div">
-                            <div class="bostami-what-do-wrap mb-30 bg-prink">
-                                <div class="bostami-section-title-wrap mb-30 bg-prink video-title">
-                                    <h3 class="section-title video-text">Videos</h3>
+                            <div class="bostami-what-do-wrap mb-30">
+                                <div class="bostami-section-title-wrap mb-30">
+                                    <h3 class="section-title"><%= event %></h3>
                                 </div>
                                 <div class="row">
-                                    <% artist.youtubeLinks.forEach(function(link) { %>
+                                    <% artist.eventType[0].forEach(function(link) { %>
                                         <div class="col-xxl-6 col-xl-6 col-lg-6 video">
                                             <div class="embed-responsive embed-responsive-16by9">
                                                 <iframe class="embed-responsive-item"
-                                                    src="https://www.youtube.com/embed/<%= link %>"
+                                                    src="<%= link %>"
                                                     allowfullscreen></iframe>
                                             </div>
                                         </div>
@@ -249,12 +325,13 @@
                                 </div>
                             </div>
                         </div>
+                        <% }); %>
 
                         <% if (artist.testLinks && artist.testLinks.length> 0) { %>
                             <div class="section-wrapper pl-60 pr-60 video-div">
-                                <div class="bostami-what-do-wrap mb-30 bg-prink">
-                                    <div class="bostami-section-title-wrap mb-30 bg-prink video-title">
-                                        <h3 class="section-title video-text">Testimonial Videos</h3>
+                                <div class="bostami-what-do-wrap mb-30">
+                                    <div class="bostami-section-title-wrap mb-30">
+                                        <h3 class="section-title">Testimonial Videos</h3>
                                     </div>
                                     <div class="row">
                                         <% artist.testLinks.forEach(function(link) { %>
@@ -272,9 +349,9 @@
                             <% } %>
 
                                 <div class="section-wrapper pl-60 pr-60 video-div">
-                                    <div class="bostami-what-do-wrap mb-30 bg-prink">
-                                        <div class="bostami-section-title-wrap mb-30 bg-prink video-title">
-                                            <h3 class="section-title video-text">Reviews</h3>
+                                    <div class="bostami-what-do-wrap mb-30">
+                                        <div class="bostami-section-title-wrap mb-30">
+                                            <h3 class="section-title">Reviews</h3>
                                         </div>
                                         <div class="row justify-content-between align-items-center">
                                             <% artist.reviews.forEach(function(review) { %>
@@ -304,13 +381,13 @@
                                                 <div class="blog-content">
                                                     <% if (artist.blog) { %>
                                                         <div id="shortBlog">
-                                                            <p>
+                                                            <div>
                                                                 <%- artist.blog.substring(0, 300) %>...
-                                                            </p>
+                                                            </div>
                                                             <button id="readMoreBtn" class="btn-primary">Read
                                                                 More</button>
                                                         </div>
-                                                        <div id="fullBlog" style="display: none;">
+                                                        <div id="fullBlog" class="blog" style="display: none;">
                                                             <%- artist.blog %>
                                                                 <button id="readLessBtn" class="btn-primary">Read
                                                                     Less</button>
