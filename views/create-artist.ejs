@@ -107,8 +107,20 @@
 
                     <!-- Gallery Links -->
                     <h4>Image Gallery Details</h4>
-                    <label for="galleryLink">Gallery Link:</label>
-                    <input type="text" id="galleryLink" name="galleryLink[1]" class="form-control">
+                    <div id="galleryContainer">
+                        <div class="gallery">
+                            <label for="galleryLink">Gallery Link:</label>
+                            <input type="text" id="galleryLink" name="gallery[1][link]" class="form-control">
+                            <label>Alt Text</label>
+                            <input type="text" name="gallery[1][alt]" class="form-control">
+                            <label>Title Text</label>
+                            <input type="text" name="gallery[1][title]" class="form-control">
+                            <label>Description Text</label>
+                            <input type="text" name="gallery[1][desc]" class="form-control">
+                            <label>Caption Text</label>
+                            <input type="text" name="gallery[1][caption]" class="form-control">
+                        </div>
+                    </div>
                     <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
 
                     <!-- Event Links -->
@@ -117,7 +129,8 @@
                         <input type="text" id="eventName" name="eventName[1]" class="form-control">
                         <label for="youtubeLink">Event Link:</label>
                         <input type="text" id="eventLink" name="eventType[1][1]" class="form-control">
-                        <button type="button" id="addEventLink1" onclick="addEventLink()" class="btn-primary">Add More Event Link</button><br><br>
+                        <button type="button" id="addEventLink1" onclick="addEventLink()" class="btn-primary">Add More
+                            Event Link</button><br><br>
                     </div>
                     <button type="button" id="addEventTypeLink" class="btn-danger">Add More Event
                         Types</button><br><br>
@@ -182,7 +195,7 @@
                 <script>
                     const artistTypeSelect = document.getElementById('artistTypeSelect');
                     const bandMembersInput = document.getElementById('bandMembersInput');
-                
+
                     artistTypeSelect.addEventListener('change', function () {
                         if (artistTypeSelect.value === 'live-band') {
                             bandMembersInput.style.display = 'block';
@@ -190,7 +203,7 @@
                             bandMembersInput.style.display = 'none';
                         }
                     });
-                </script>            
+                </script>
                 <script>
                     const addGalleryLinkBtn = document.getElementById("addGalleryLink");
                     const addEventLinkBtn = document.getElementById("addEventLink");
@@ -199,6 +212,7 @@
                     const addReviewBtn = document.getElementById("addReview");
                     const eventsContainer = document.getElementById("eventsContainer");
                     const reviewsContainer = document.getElementById("reviewsContainer");
+                    const galleryContainer = document.getElementById("galleryContainer");
 
                     const galleryLinks = [];
                     const youtubeLinks = [];
@@ -212,25 +226,35 @@
 
                     addGalleryLinkBtn.addEventListener("click", () => {
                         galleryCount++;
-                        const galleryLinkInput = document.createElement("input");
-                        galleryLinkInput.type = "text";
-                        galleryLinkInput.name = `galleryLink[${galleryCount}]`;
-                        galleryLinkInput.classList = "form-control"
-                        document.getElementById("myForm").insertBefore(galleryLinkInput, addGalleryLinkBtn);
+                        const galleryDiv = document.createElement("div");
+                        galleryDiv.className = "gallery";
+                        galleryDiv.innerHTML = `
+                        <label for="galleryLink">Gallery Link ${galleryCount}:</label>
+                            <input type="text" id="galleryLink" name="gallery[${galleryCount}][link]" class="form-control">
+                            <label>Alt Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][alt]" class="form-control">
+                            <label>Title Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][title]" class="form-control">
+                            <label>Description Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][desc]" class="form-control">
+                            <label>Caption Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][caption]" class="form-control">
+                        `;
+                        galleryContainer.appendChild(galleryDiv);
                     });
 
                     function addEventLink() {
                         document.getElementById(`addEventLink${eventCount}`)
-                        .addEventListener("click", () => {
-                        console.log("i am pressed");
+                            .addEventListener("click", () => {
+                                console.log("i am pressed");
+                                eventCount++;
+                                const eventLinkInput = document.createElement("input");
+                                eventLinkInput.type = "text";
+                                eventLinkInput.name = `eventType[${eventTypeCount}][${eventCount}]`;
+                                eventLinkInput.classList = "form-control"
+                                eventsContainer.insertBefore(eventLinkInput, addEventLinkBtn);
+                            });
                         eventCount++;
-                        const eventLinkInput = document.createElement("input");
-                        eventLinkInput.type = "text";
-                        eventLinkInput.name = `eventType[${eventTypeCount}][${eventCount}]`;
-                        eventLinkInput.classList = "form-control"
-                        eventsContainer.insertBefore(eventLinkInput, addEventLinkBtn);
-                    });
-                    eventCount++;
                     }
 
                     addEventTypeLinkBtn.addEventListener("click", () => {
