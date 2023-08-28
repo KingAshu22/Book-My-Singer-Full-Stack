@@ -766,10 +766,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
   }
 }
 
-.bostami-parsonal-info-contact-item .icon:hover {
-  background-color: var(--common-white-two);
-}
-
 .bostami-parsonal-info-contact-item .text {
   display: inline-block;
 }
@@ -813,10 +809,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
   .home-3 .bostami-parsonal-info-contact-item .text p {
     font-size: 14px;
   }
-}
-
-.home-3 .bostami-parsonal-info-contact-item .icon:hover {
-  background: linear-gradient(97deg, #fa5252, #dd2476);
 }
 
 .video-div {
