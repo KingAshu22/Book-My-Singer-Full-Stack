@@ -60,8 +60,8 @@
                     <div class="bostami-parsonal-info-area div">
                         <div class="bostami-parsonal-info-area div">
                             <div class="bostami-parsonal-info-wrap">
-                                <div class="bostami-parsonal-info-img"><img alt="author" loading="lazy" width="240"
-                                        height="240" decoding="async" data-nimg="1" src="<%= artist.profilePic %>" />
+                                <div class="bostami-parsonal-info-img"><img alt="author" width="240" height="240"
+                                        decoding="async" data-nimg="1" src="<%= artist.profilePic %>" />
                                 </div>
                             </div>
                             <h4 class="bostami-parsonal-info-name"><a href="#">
@@ -71,7 +71,9 @@
                             </span>
                             <div class="bostami-parsonal-info-contact mb-30">
                                 <div class="bostami-parsonal-info-contact-item">
-                                    <div style="color:#f44336;font-size:22px" class="icon"><img src="/artist/../img/icons/call.svg" alt="call"></div>
+                                    <div style="color:#f44336;font-size:22px" class="icon">
+                                        <img src="/artist/../img/icons/call.svg" alt="call">
+                                    </div>
                                     <div class="text"><span>Phone</span>
                                         <p>
                                             <%= artist.contact %>
@@ -79,7 +81,9 @@
                                     </div>
                                 </div>
                                 <div class="bostami-parsonal-info-contact-item">
-                                    <div style="color:#f44336;font-size:22px" class="icon"><img src="/artist/../img/icons/location-pin.svg" alt="call"></div>
+                                    <div style="color:#f44336;font-size:22px" class="icon">
+                                        <img src="/artist/../img/icons/location-pin.svg" alt="location">
+                                    </div>
                                     <div class="text"><span>Location</span>
                                         <p>
                                             <%= artist.location %>
@@ -87,7 +91,9 @@
                                     </div>
                                 </div>
                                 <div class="bostami-parsonal-info-contact-item">
-                                    <div style="color:#f44336;font-size:22px" class="icon"><img src="/artist/../img/icons/rupee.svg" alt="call"></div>
+                                    <div style="color:#f44336;font-size:22px" class="icon">
+                                        <img src="/artist/../img/icons/rupee.svg" alt="rupee">
+                                    </div>
                                     <div class="text"><span>Starts From</span>
                                         <p>₹ <%= artist.price %>/-</p>
                                     </div>
@@ -107,7 +113,9 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><img src="/artist/../img/icons/artist-code.svg" alt="call"></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/artist-code.svg" alt="artist-code">
+                                            </div>
                                             <div class="text"><span>ID</span>
                                                 <p>
                                                     <%= artist.code %>
@@ -115,8 +123,9 @@
                                             </div>
                                         </div>
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-music"></i></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/musical-note.svg" alt="genre">
+                                            </div>
                                             <div class="text"><span>Genre</span>
                                                 <p>
                                                     <%= artist.genre %>
@@ -124,8 +133,9 @@
                                             </div>
                                         </div>
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-music"></i></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/bollywood.svg" alt="playback">
+                                            </div>
                                             <div class="text"><span>Playback</span>
                                                 <p>
                                                     <%= artist.playback %>
@@ -133,8 +143,9 @@
                                             </div>
                                         </div>
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-hourglass-start"></i></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/duration.svg" alt="time">
+                                            </div>
                                             <div class="text"><span>Time</span>
                                                 <p>
                                                     <%= artist.time %>
@@ -142,8 +153,9 @@
                                             </div>
                                         </div>
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-award"></i></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/awards.svg" alt="awards">
+                                            </div>
                                             <div class="text"><span>Awards</span>
                                                 <p>
                                                     <%= artist.awards %>
@@ -153,8 +165,9 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-calendar"></i></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/event.svg" alt="events">
+                                            </div>
                                             <div class="text"><span>Events</span>
                                                 <p>
                                                     <%= artist.events %>
@@ -162,8 +175,9 @@
                                             </div>
                                         </div>
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-language"></i></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/speaking.svg" alt="languages">
+                                            </div>
                                             <div class="text"><span>Languages</span>
                                                 <p>
                                                     <%= artist.languages %>
@@ -171,8 +185,9 @@
                                             </div>
                                         </div>
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-music"></i></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/original.svg" alt="original">
+                                            </div>
                                             <div class="text"><span>Original</span>
                                                 <p>
                                                     <%= artist.original %>
@@ -180,25 +195,26 @@
                                             </div>
                                         </div>
                                         <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-guitar"></i></div>
+                                            <div style="color:#f44336;font-size:22px" class="icon">
+                                                <img src="/artist/../img/icons/instruments.svg" alt="instruments">
+                                            </div>
                                             <div class="text"><span>Instruments</span>
                                                 <p>
                                                     <%= artist.instruments %>
                                                 </p>
                                             </div>
                                         </div>
-                                        <% if (artist.bandMemberName.length > 1) {%>
-                                        <div class="bostami-parsonal-info-contact-item">
-                                            <div style="color:#f44336;font-size:22px" class="icon"><i
-                                                    class="fa-solid fa-user"></i></div>
-                                            <div class="text"><span>Band members</span>
-                                                <p>
-                                                    <%= artist.bandMemberName %>
-                                                </p>
+                                        <% if (artist.bandMemberName.length> 1) {%>
+                                            <div class="bostami-parsonal-info-contact-item">
+                                                <div style="color:#f44336;font-size:22px" class="icon"><i
+                                                        class="fa-solid fa-user"></i></div>
+                                                <div class="text"><span>Band members</span>
+                                                    <p>
+                                                        <%= artist.bandMemberName %>
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <% } %>
+                                            <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +225,7 @@
                             </div>
                             <div class="row justify-content-between align-items-center">
                                 <% artist.gallery.forEach(function(image, index) { %>
-                                    <div class="col-md-4 mb-4">
+                                    <div class="col-6 col-md-4 mb-4">
                                         <a href="#" data-toggle="modal" data-target="#imageModal<%= index %>">
                                             <img src="<%= image %>" alt="" class="img-fluid rounded">
                                         </a>
@@ -240,90 +256,99 @@
 
                         </div>
                         <% artist.eventName.forEach(function(event) { %>
-                            <% let i = 0 %>
-                        <div class="section-wrapper pl-60 pr-60 video-div">
-                            <div class="bostami-what-do-wrap mb-30">
-                                <div class="bostami-section-title-wrap mb-30">
-                                    <h3 class="section-title"><%= event %></h3>
-                                </div>
-                                <div class="row">
-                                    <% artist.eventType[0].forEach(function(link) { %>
-                                        <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                                                <lite-youtube videoid="<%= link %>" params="controls=1"></lite-youtube>
-                                        </div>
-                                        <% }); %>
-                                </div>
-                            </div>
-                        </div>
-                        <% }); %>
-
-                        <% if (artist.testLinks && artist.testLinks.length> 0) { %>
-                            <div class="section-wrapper pl-60 pr-60 video-div">
-                                <div class="bostami-what-do-wrap mb-30">
-                                    <div class="bostami-section-title-wrap mb-30">
-                                        <h3 class="section-title">Testimonial Videos</h3>
-                                    </div>
-                                    <div class="row">
-                                        <% artist.testLinks.forEach(function(link) { %>
-                                            <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                                                    <lite-youtube videoid="<%= link %>" params="controls=1"></lite-youtube>
-                                            </div>
-                                            <% }); %>
-                                    </div>
-                                </div>
-                            </div>
-                            <% } %>
-
+                            <% let i=0 %>
                                 <div class="section-wrapper pl-60 pr-60 video-div">
                                     <div class="bostami-what-do-wrap mb-30">
                                         <div class="bostami-section-title-wrap mb-30">
-                                            <h3 class="section-title">Reviews</h3>
+                                            <h3 class="section-title">
+                                                <%= event %>
+                                            </h3>
                                         </div>
-                                        <div class="row justify-content-between align-items-center">
-                                            <% artist.reviews.forEach(function(review) { %>
-                                                <div class="col-lg-6">
-                                                    <div class="mil-icon-box mil-center mil-mb-60">
-                                                        <h5 class="mil-up mil-mb-30">"<%= review.title %>"</h5>
-                                                        <p class="mil-up mil-mb-30 test-name">
-                                                            <%= review.desc %>
-                                                        </p>
-                                                        <img src="<%= review.pic %>" alt="icon" class="review-img" />
-                                                        <p class="mil-up mil-mb-30 test-name">
-                                                            <%= review.name %>
-                                                        </p>
-                                                    </div>
+                                        <div class="row">
+                                            <% artist.eventType[0].forEach(function(link) { %>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 video">
+                                                    <lite-youtube videoid="<%= link %>"
+                                                        params="controls=1"></lite-youtube>
                                                 </div>
                                                 <% }); %>
                                         </div>
                                     </div>
                                 </div>
+                                <% }); %>
 
-                                <div class="section-wrapper pl-60 pr-60 video-div">
-                                    <div class="bostami-what-do-wrap mb-30">
-                                        <div class="content">
-                                            <div class="item">
-                                                <h1>Biography - <%= artist.name %>
-                                                </h1>
-                                                <div class="blog-content">
-                                                    <% if (artist.blog) { %>
-                                                        <div id="shortBlog">
-                                                            <div>
-                                                                <%- artist.blog.substring(0, 300) %>...
-                                                            </div>
-                                                            <button id="readMoreBtn" class="btn-primary">Read
-                                                                More</button>
+                                    <% if (artist.testLinks && artist.testLinks.length> 0) { %>
+                                        <div class="section-wrapper pl-60 pr-60 video-div">
+                                            <div class="bostami-what-do-wrap mb-30">
+                                                <div class="bostami-section-title-wrap mb-30">
+                                                    <h3 class="section-title">Testimonial Videos</h3>
+                                                </div>
+                                                <div class="row">
+                                                    <% artist.testLinks.forEach(function(link) { %>
+                                                        <div class="col-xxl-6 col-xl-6 col-lg-6 video">
+                                                            <lite-youtube videoid="<%= link %>"
+                                                                params="controls=1"></lite-youtube>
                                                         </div>
-                                                        <div id="fullBlog" class="blog" style="display: none;">
-                                                            <%- artist.blog %>
-                                                                <button id="readLessBtn" class="btn-primary">Read
-                                                                    Less</button>
-                                                        </div>
-                                                        <% } %>
+                                                        <% }); %>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                        <% } %>
+
+                                            <div class="section-wrapper pl-60 pr-60 video-div">
+                                                <div class="bostami-what-do-wrap mb-30">
+                                                    <div class="bostami-section-title-wrap mb-30">
+                                                        <h3 class="section-title">Reviews</h3>
+                                                    </div>
+                                                    <div class="row justify-content-between align-items-center">
+                                                        <% artist.reviews.forEach(function(review) { %>
+                                                            <div class="col-lg-6">
+                                                                <div class="mil-icon-box mil-center mil-mb-60">
+                                                                    <h5 class="mil-up mil-mb-30">"<%= review.title %>"
+                                                                    </h5>
+                                                                    <p class="mil-up mil-mb-30 test-name">
+                                                                        <%= review.desc %>
+                                                                    </p>
+                                                                    <img src="<%= review.pic %>" alt="icon"
+                                                                        class="review-img" />
+                                                                    <p class="mil-up mil-mb-30 test-name">
+                                                                        <%= review.name %>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <% }); %>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="section-wrapper pl-60 pr-60 video-div">
+                                                <div class="bostami-what-do-wrap mb-30">
+                                                    <div class="content">
+                                                        <div class="item">
+                                                            <h1>Biography - <%= artist.name %>
+                                                            </h1>
+                                                            <div class="blog-content">
+                                                                <% if (artist.blog) { %>
+                                                                    <div id="shortBlog">
+                                                                        <div>
+                                                                            <%- artist.blog.substring(0, 300) %>...
+                                                                        </div>
+                                                                        <button id="readMoreBtn"
+                                                                            class="btn-primary">Read
+                                                                            More</button>
+                                                                    </div>
+                                                                    <div id="fullBlog" class="blog"
+                                                                        style="display: none;">
+                                                                        <%- artist.blog %>
+                                                                            <button id="readLessBtn"
+                                                                                class="btn-primary">Read
+                                                                                Less</button>
+                                                                    </div>
+                                                                    <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                     </div>
                 </div>
             </div>
@@ -450,7 +475,7 @@
 
                         <section class="mil-p-90-30">
                             <div class="row justify-content-between align-items-center">
-                                <div class="col-md-4">
+                                <div class="col-6 col-md-4">
                                     <div class="mil-icon-box mil-center mil-mb-60">
                                         <div class="mil-service-icon mil-up">
                                             <img src="/artist/../img/events-type/corporate.svg" alt="icon"
@@ -473,7 +498,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-6 col-md-4">
                                     <div class="mil-icon-box mil-center mil-mb-60">
                                         <div class="mil-service-icon mil-up">
                                             <img src="/artist/../img/events-type/wedding.svg" alt="icon"
@@ -496,7 +521,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-6 col-md-4">
                                     <div class="mil-icon-box mil-center mil-mb-60">
                                         <div class="mil-service-icon mil-up">
                                             <img src="/artist/../img/events-type/college.svg" alt="icon"
@@ -520,7 +545,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-6 col-md-4">
                                     <div class="mil-icon-box mil-center mil-mb-60">
                                         <div class="mil-service-icon mil-up">
                                             <img src="/artist/../img/events-type/house.svg" alt="icon"
@@ -543,7 +568,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-6 col-md-4">
                                     <div class="mil-icon-box mil-center mil-mb-60">
                                         <div class="mil-service-icon mil-up">
                                             <img src="/artist/../img/events-type/private.svg" alt="icon"
@@ -566,7 +591,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-6 col-md-4">
                                     <div class="mil-icon-box mil-center mil-mb-60">
                                         <div class="mil-service-icon mil-up">
                                             <img src="/artist/../img/events-type/virtual.svg" alt="icon"
@@ -619,7 +644,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         var modals = document.querySelectorAll('.modal');
         var modalTriggers = document.querySelectorAll('[data-toggle="modal"]');
-        
+
         modalTriggers.forEach(function (trigger) {
             trigger.addEventListener('click', function () {
                 var target = document.querySelector(trigger.getAttribute('data-target'));
@@ -630,7 +655,7 @@
                 }
             });
         });
-        
+
         modals.forEach(function (modal) {
             modal.addEventListener('click', function (event) {
                 if (event.target === modal) {
@@ -640,7 +665,7 @@
                 }
             });
         });
-        
+
         var closeButtons = document.querySelectorAll('[data-dismiss="modal"]');
         closeButtons.forEach(function (button) {
             button.addEventListener('click', function () {
