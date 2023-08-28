@@ -184,48 +184,47 @@ app.post("/login", async (req, res) => {
 
 app.post("/add-artist", isAuthenticated, (req, res) => {
   const data = req.body;
-  console.log(data);
 
-  // const metaTitle = data.metaTitle;
-  // const metaDesc = data.metaDesc;
-  // const keywords = data.keywords;
-  // const name = data.name;
-  // const lowerCaseName = name.toLowerCase();
-  // const linkid = lowerCaseName.replace(/ /g, '-');
-  // const profilePic = data.profilePic;
-  // const contact = data.contact;
-  // const location = data.location;
-  // const price = data.price;
-  // const artistType = data.artistType;
-  // const bandMemberName = data.bandMemberName;
-  // const code = data.code;
-  // const events = data.events;
-  // const genre = data.genre;
-  // const languages = data.languages;
-  // const playback = data.playback;
-  // const original = data.original;
-  // const time = data.time;
-  // const instruments = data.instruments;
-  // const awards = data.awards;
-  // const gallery = data.galleryLink;
-  // const eventName = data.eventName;
-  // const eventType = data.eventType;
-  // const testLinks = data.testLink;
-  // const reviews = data.review;
-  // const blog = data.blog;
+  const metaTitle = data.metaTitle;
+  const metaDesc = data.metaDesc;
+  const keywords = data.keywords;
+  const name = data.name;
+  const lowerCaseName = name.toLowerCase();
+  const linkid = lowerCaseName.replace(/ /g, '-');
+  const profilePic = data.profilePic;
+  const contact = data.contact;
+  const location = data.location;
+  const price = data.price;
+  const artistType = data.artistType;
+  const bandMemberName = data.bandMemberName;
+  const code = data.code;
+  const events = data.events;
+  const genre = data.genre;
+  const languages = data.languages;
+  const playback = data.playback;
+  const original = data.original;
+  const time = data.time;
+  const instruments = data.instruments;
+  const awards = data.awards;
+  const gallery = data.galleryLink;
+  const eventName = data.eventName;
+  const eventType = data.eventType;
+  const testLinks = data.testLink;
+  const reviews = data.review;
+  const blog = data.blog;
 
-  // const artist = new Artist({
-  //   metaTitle, metaDesc, keywords, name, linkid, profilePic,
-  //   contact, location, price, artistType, bandMemberName, code, events, genre,
-  //   languages, playback, original, time, instruments, awards,
-  //   gallery, eventName, eventType, testLinks, reviews, blog
-  // });
+  const artist = new Artist({
+    metaTitle, metaDesc, keywords, name, linkid, profilePic,
+    contact, location, price, artistType, bandMemberName, code, events, genre,
+    languages, playback, original, time, instruments, awards,
+    gallery, eventName, eventType, testLinks, reviews, blog
+  });
 
-  // artist.save().then(() => {
-  //   res.redirect("user-dashboard")
-  // }).catch((error) => {
-  //   res.send(error)
-  // });
+  artist.save().then(() => {
+    res.redirect("user-dashboard")
+  }).catch((error) => {
+    res.send(error)
+  });
 });
 
 app.post("/add-blog", (req, res) => {
