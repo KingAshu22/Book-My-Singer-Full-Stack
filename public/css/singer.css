@@ -767,8 +767,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 }
 
 .bostami-parsonal-info-contact-item .icon:hover {
-  background-color: var(--theme-primary);
-  color: var(--common-white-two) !important;
+  background-color: var(--common-white-two);
 }
 
 .bostami-parsonal-info-contact-item .text {
