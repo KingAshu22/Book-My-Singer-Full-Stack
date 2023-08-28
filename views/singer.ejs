@@ -11,6 +11,8 @@
     <!-- <script src="../js/singer.js"></script> -->
     <link rel="stylesheet" href="/artist/../css/singer.css">
     <link rel="stylesheet" href="/artist/../css/style.css">
+    <link rel="stylesheet" href="/artist/../css/lite-youtube-embed.css">
+    <script src="/artist/../js/lite-youtube-embed.js"></script>
     <script src="https://kit.fontawesome.com/61d9d2b9ed.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
@@ -217,69 +219,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="section-wrapper pl-60 pr-60">
-                            <div class="bostami-section-title-wrap mb-30">
-                                <h3 class="section-title">What I do!</h3>
-                            </div>
-                            <section class="mil-p-90-30">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-md-4">
-                                        <div class="mil-icon-box mil-center mil-mb-60">
-                                            <div class="mil-service-icon mil-up">
-                                                <img src="/artist/../img/events-type/corporate.svg" alt="icon"
-                                                    class="mil-mb-30">
-                                            </div>
-                                            <h5 class="mil-up mil-mb-30">Corporate Events</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mil-icon-box mil-center mil-mb-60">
-                                            <div class="mil-service-icon mil-up">
-                                                <img src="/artist/../img/events-type/wedding.svg" alt="icon"
-                                                    class="mil-mb-30">
-                                            </div>
-                                            <h5 class="mil-up mil-mb-30">Wedding Events</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mil-icon-box mil-center mil-mb-60">
-                                            <div class="mil-service-icon mil-up">
-                                                <img src="/artist/../img/events-type/college.svg" alt="icon"
-                                                    class="mil-mb-30">
-                                            </div>
-                                            <h5 class="mil-up mil-mb-30">College Events</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mil-icon-box mil-center mil-mb-60">
-                                            <div class="mil-service-icon mil-up">
-                                                <img src="/artist/../img/events-type/house.svg" alt="icon"
-                                                    class="mil-mb-30">
-                                            </div>
-                                            <h5 class="mil-up mil-mb-30">House Events</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mil-icon-box mil-center mil-mb-60">
-                                            <div class="mil-service-icon mil-up">
-                                                <img src="/artist/../img/events-type/private.svg" alt="icon"
-                                                    class="mil-mb-30">
-                                            </div>
-                                            <h5 class="mil-up mil-mb-30">Private Events</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mil-icon-box mil-center mil-mb-60">
-                                            <div class="mil-service-icon mil-up">
-                                                <img src="/artist/../img/events-type/virtual.svg" alt="icon"
-                                                    class="mil-mb-30">
-                                            </div>
-                                            <h5 class="mil-up mil-mb-30">Virtual Events</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div> -->
                         <div class="section-wrapper pl-60 pr-60 gallery-title">
                             <div class="bostami-section-title-wrap mb-30">
                                 <h3 class="section-title">Gallery</h3>
@@ -326,11 +265,7 @@
                                 <div class="row">
                                     <% artist.eventType[0].forEach(function(link) { %>
                                         <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                                            <div class="embed-responsive embed-responsive-16by9">
-                                                <iframe class="embed-responsive-item"
-                                                    src="<%= link %>"
-                                                    allowfullscreen></iframe>
-                                            </div>
+                                                <lite-youtube videoid="<%= link %>" params="controls=1"></lite-youtube>
                                         </div>
                                         <% }); %>
                                 </div>
@@ -347,11 +282,7 @@
                                     <div class="row">
                                         <% artist.testLinks.forEach(function(link) { %>
                                             <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                                                <div class="embed-responsive embed-responsive-16by9">
-                                                    <iframe class="embed-responsive-item"
-                                                        src="https://www.youtube.com/embed/<%= link %>"
-                                                        allowfullscreen></iframe>
-                                                </div>
+                                                    <lite-youtube videoid="<%= link %>" params="controls=1"></lite-youtube>
                                             </div>
                                             <% }); %>
                                     </div>
