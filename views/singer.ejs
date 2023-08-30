@@ -170,7 +170,7 @@
                                             </div>
                                             <div class="text"><span>Events</span>
                                                 <p>
-                                                    <%= artist.events %>
+                                                    <%= artist.eventsType %>
                                                 </p>
                                             </div>
                                         </div>
@@ -255,26 +255,26 @@
                             </div>
 
                         </div>
-                        <% let i=0 %>
-                        <% artist.eventName.forEach(function(event) { %>
+                        <% artist.events.forEach(function(event) { %>
                                 <div class="section-wrapper pl-60 pr-60 video-div">
                                     <div class="bostami-what-do-wrap mb-30">
                                         <div class="bostami-section-title-wrap mb-30">
                                             <h3 class="section-title">
-                                                <%= event %>
+                                                <%= event.name %>
                                             </h3>
                                         </div>
                                         <div class="row">
-                                            <% artist.eventType[i].forEach(function(link) { %>
+                                            <% let i = 0; %>
+                                            <% event.links.forEach(function(link) { %>
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                                                    <lite-youtube videoid="<%= link %>"
+                                                    <lite-youtube videosource="<%= event.type[i] %>" videoid="<%= link %>"
                                                         params="controls=1"></lite-youtube>
                                                 </div>
+                                                <% i++ %>
                                             <% }); %>
                                         </div>
                                     </div>
                                 </div>
-                            <% i++ %>
                         <% }); %>
 
                                     <% if (artist.testLinks && artist.testLinks.length> 0) { %>

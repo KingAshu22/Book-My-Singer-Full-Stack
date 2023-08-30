@@ -48,7 +48,7 @@ const artistSchema = new mongoose.Schema({
   artistType: String,
   bandMemberName: String,
   code: String,
-  events: String,
+  eventsType: String,
   genre: String,
   languages: String,
   playback: String,
@@ -57,8 +57,7 @@ const artistSchema = new mongoose.Schema({
   instruments: String,
   awards: String,
   gallery: Array,
-  eventName: Array,
-  eventType: Array,
+  events: Array,
   testLinks: Array,
   reviews: Array,
   blog: String,
@@ -144,7 +143,7 @@ app.get("/artist/:artistType/:linkid", async (req, res) => {
   }
 });
 
-app.get("/blog/:linkid", async  (req, res) => {
+app.get("/blog/:linkid", async (req, res) => {
   try {
     const { linkid } = req.params;
 
@@ -198,7 +197,7 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
   const artistType = data.artistType;
   const bandMemberName = data.bandMemberName;
   const code = data.code;
-  const events = data.events;
+  const eventsType = data.events;
   const genre = data.genre;
   const languages = data.languages;
   const playback = data.playback;
@@ -209,22 +208,35 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
   const gallery = data.galleryLink;
   const eventName = data.eventName;
   const eventType = data.eventType;
+
+  // Function to determine event type based on link
+  function getEventType(link) {
+    return link.includes('aws') ? 'aws' : 'youtube';
+  }
+
+  // Create the events array
+  const events = eventName.map((name, index) => ({
+    name: name,
+    links: eventType[index],
+    type: eventType[index].map(link => getEventType(link))
+  }));
+
   const testLinks = data.testLink;
   const reviews = data.review;
   const blog = data.blog;
 
   const artist = new Artist({
     metaTitle, metaDesc, keywords, name, linkid, profilePic,
-    contact, location, price, artistType, bandMemberName, code, events, genre,
+    contact, location, price, artistType, bandMemberName, code, eventsType, genre,
     languages, playback, original, time, instruments, awards,
-    gallery, eventName, eventType, testLinks, reviews, blog
+    gallery, events, testLinks, reviews, blog
   });
 
-  artist.save().then(() => {
-    res.redirect("user-dashboard")
-  }).catch((error) => {
-    res.send(error)
-  });
+  // artist.save().then(() => {
+  //   res.redirect("user-dashboard")
+  // }).catch((error) => {
+  //   res.send(error)
+  // });
 });
 
 app.post("/add-blog", (req, res) => {

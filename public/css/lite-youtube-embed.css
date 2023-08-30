@@ -27,7 +27,7 @@ lite-youtube::before {
 /* responsive iframe with a 16:9 aspect ratio
     thanks https://css-tricks.com/responsive-iframes/
 */
-lite-youtube::after {
+lite-youtube.youtube-video::after {
     content: "";
     display: block;
     padding-bottom: calc(100% / (16 / 9));

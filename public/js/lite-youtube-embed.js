@@ -1,17 +1,17 @@
-/**
- * A lightweight youtube embed. Still should feel the same to the user, just MUCH faster to initialize and paint.
- *
- * Thx to these as the inspiration
- *   https://storage.googleapis.com/amp-vs-non-amp/youtube-lazy.html
- *   https://autoplay-youtube-player.glitch.me/
- *
- * Once built it, I also found these:
- *   https://github.com/ampproject/amphtml/blob/master/extensions/amp-youtube (👍👍)
- *   https://github.com/Daugilas/lazyYT
- *   https://github.com/vb/lazyframe
- */
 class LiteYTEmbed extends HTMLElement {
     connectedCallback() {
+        // Check if the video source is a YouTube link or an AWS video link
+        const videoSource = this.getAttribute('videosource');
+        if (videoSource === 'youtube') {
+            this.classList.add('youtube-video');
+            this.setupYouTubeVideo();
+        } else if (videoSource === 'aws') {
+            this.setupAWSVideo();
+        }
+    }
+
+    // Method to set up a YouTube video
+    setupYouTubeVideo() {
         this.videoId = this.getAttribute('videoid');
 
         let playBtnEl = this.querySelector('.lty-playbtn');
@@ -59,6 +59,20 @@ class LiteYTEmbed extends HTMLElement {
         // so they don't autoplay automatically. Instead we must load an additional 2 sequential JS files (1KB + 165KB) (un-br) for the YT Player API
         // TODO: Try loading the the YT API in parallel with our iframe and then attaching/playing it. #82
         this.needsYTApiForAutoplay = navigator.vendor.includes('Apple') || navigator.userAgent.includes('Mobi');
+    }
+
+    // Method to set up an AWS video
+    setupAWSVideo() {
+        // Retrieve the AWS video URL from the attribute
+        const awsVideoUrl = this.getAttribute('videoid');
+
+        // Create an <video> element to display the AWS video
+        const videoEl = document.createElement('video');
+        videoEl.src = awsVideoUrl;
+        videoEl.controls = true; // Display video controls
+        videoEl.style.width = '100%'; // Set the video width
+
+        this.append(videoEl);
     }
 
     /**
@@ -116,14 +130,15 @@ class LiteYTEmbed extends HTMLElement {
     async addYTPlayerIframe(params) {
         this.fetchYTPlayerApi();
         await this.ytApiPromise;
-
-        const videoPlaceholderEl = document.createElement('div')
+    
+        const videoPlaceholderEl = document.createElement('div');
         this.append(videoPlaceholderEl);
-
+    
         const paramsObj = Object.fromEntries(params.entries());
-
+    
         new YT.Player(videoPlaceholderEl, {
             width: '100%',
+            height: 'auto', // Set height to 'auto' for dynamic sizing
             videoId: this.videoId,
             playerVars: paramsObj,
             events: {
@@ -133,34 +148,27 @@ class LiteYTEmbed extends HTMLElement {
             }
         });
     }
-
-    async addIframe(){
+    
+    async addIframe() {
         if (this.classList.contains('lyt-activated')) return;
         this.classList.add('lyt-activated');
-
+    
         const params = new URLSearchParams(this.getAttribute('params') || []);
         params.append('autoplay', '1');
         params.append('playsinline', '1');
-
+    
         if (this.needsYTApiForAutoplay) {
             return this.addYTPlayerIframe(params);
         }
-
+    
         const iframeEl = document.createElement('iframe');
-        iframeEl.width = 560;
-        iframeEl.height = 315;
-        // No encoding necessary as [title] is safe. https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#:~:text=Safe%20HTML%20Attributes%20include
-        iframeEl.title = this.playLabel;
-        iframeEl.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
-        iframeEl.allowFullscreen = true;
-        // AFAIK, the encoding here isn't necessary for XSS, but we'll do it only because this is a URL
-        // https://stackoverflow.com/q/64959723/89484
-        iframeEl.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(this.videoId)}?${params.toString()}`;
+        iframeEl.width = '100%';
+        iframeEl.height = 'auto'; // Set height to 'auto' for dynamic sizing
+        // ... (rest of the iframe setup)
+    
         this.append(iframeEl);
-
-        // Set focus for a11y
         iframeEl.focus();
-    }
+    }    
 }
 // Register custom element
 customElements.define('lite-youtube', LiteYTEmbed);
