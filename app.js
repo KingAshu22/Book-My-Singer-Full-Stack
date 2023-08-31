@@ -166,10 +166,12 @@ app.get("/blog/:linkid", async (req, res) => {
     const blog = await Blog.findOne({ linkid });
     const relatedBlogData = [];
 
-    for (const linkId of blog.relatedBlog) {
-      const blogDocument = await Blog.findOne({ linkId });
-      if (blogDocument) {
-        relatedBlogData.push(blogDocument);
+    if(blog.relatedBlog.length > 1) {
+      for (const linkId of blog.relatedBlog) {
+        const blogDocument = await Blog.findOne({ linkId });
+        if (blogDocument) {
+          relatedBlogData.push(blogDocument);
+        }
       }
     }
 
