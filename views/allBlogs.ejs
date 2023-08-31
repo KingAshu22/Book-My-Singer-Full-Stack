@@ -1,0 +1,46 @@
+<%- include("partials/header"); -%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <div class="mil-content">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>All Blogs Table</h3>
+                </div>
+
+                <section class="mil-p-90-30">
+                    <div class="row justify-content-between align-items-center">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Blog Link ID</th>
+                                    <th scope="col">Blog Meta Title</th>
+                                    <th scope="col">Blog Meta Description</th>
+                                    <th scope="col">View</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% blogs.forEach(function(blog) { %>
+                                    <tr>
+                                        <th scope="row"><%= blog.linkid %></th>
+                                        <td><%= blog.metaTitle %></td>
+                                        <td><%= blog.metaDesc %></td>
+                                        <td><button class="btn btn-dark"><a href="/blog/<%= blog.linkid %>" style="text-decoration: none; color: #fff;">View</a></button></td>
+                                        <td><button class="btn btn-primary">Edit</button></td>
+                                        <td><button class="btn btn-danger">Delete</button></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include("partials/footer"); -%>

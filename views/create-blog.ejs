@@ -30,8 +30,20 @@
 
                     <!-- Gallery Links -->
                     <h4>Image Gallery Details</h4>
-                    <label for="galleryLink">Gallery Link:</label>
-                    <input type="text" id="galleryLink" name="galleryLink[1]" class="form-control">
+                    <div id="galleryContainer">
+                        <div class="gallery">
+                            <label for="galleryLink">Gallery Link:</label>
+                            <input type="text" id="galleryLink" name="gallery[1][link]" class="form-control">
+                            <label>Alt Text</label>
+                            <input type="text" name="gallery[1][alt]" class="form-control">
+                            <label>Title Text</label>
+                            <input type="text" name="gallery[1][title]" class="form-control">
+                            <label>Description Text</label>
+                            <input type="text" name="gallery[1][desc]" class="form-control">
+                            <label>Caption Text</label>
+                            <input type="text" name="gallery[1][caption]" class="form-control">
+                        </div>
+                    </div>
                     <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
 
                     <!-- Event Links -->
@@ -47,6 +59,12 @@
 
                     <label for="blog">Blog</label>
                     <textarea id="editor" name="blog" id="editor" class="form-control"></textarea>
+
+                    <!-- Related Blog Links -->
+                    <h4>Related Blog Details</h4>
+                    <label>Related Blog Link ID:</label>
+                    <input type="text"  name="relatedBlog[1]" class="form-control">
+                    <button type="button" id="addRelatedBlog" class="btn-primary">Add More Related Blog</button><br><br>
 
                     <button type="submit" class="btn btn-danger">Submit</button>
                 </form>
@@ -84,18 +102,40 @@
                     const addEventLinkBtn = document.getElementById("addEventLink");
                     const addEventTypeLinkBtn = document.getElementById("addEventTypeLink");
                     const eventsContainer = document.getElementById("eventsContainer");
+                    const addRelatedBlogBtn = document.getElementById("addRelatedBlog");
+                    const galleryContainer = document.getElementById("galleryContainer");
 
                     let galleryCount = 1;
                     let eventCount = 1;
                     let eventTypeCount = 1;
+                    let blogCount = 1;
 
                     addGalleryLinkBtn.addEventListener("click", () => {
                         galleryCount++;
-                        const galleryLinkInput = document.createElement("input");
-                        galleryLinkInput.type = "text";
-                        galleryLinkInput.name = `galleryLink[${galleryCount}]`;
-                        galleryLinkInput.classList = "form-control"
-                        document.getElementById("myForm").insertBefore(galleryLinkInput, addGalleryLinkBtn);
+                        const galleryDiv = document.createElement("div");
+                        galleryDiv.className = "gallery";
+                        galleryDiv.innerHTML = `
+                        <label for="galleryLink">Gallery Link ${galleryCount}:</label>
+                            <input type="text" id="galleryLink" name="gallery[${galleryCount}][link]" class="form-control">
+                            <label>Alt Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][alt]" class="form-control">
+                            <label>Title Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][title]" class="form-control">
+                            <label>Description Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][desc]" class="form-control">
+                            <label>Caption Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][caption]" class="form-control">
+                        `;
+                        galleryContainer.appendChild(galleryDiv);
+                    });
+
+                    addRelatedBlogBtn.addEventListener("click", () => {
+                        blogCount++;
+                        const relatedBlogInput = document.createElement("input");
+                        relatedBlogInput.type = "text";
+                        relatedBlogInput.name = `relatedBlog[${blogCount}]`;
+                        relatedBlogInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(relatedBlogInput, addRelatedBlogBtn);
                     });
 
                     function addEventLink() {

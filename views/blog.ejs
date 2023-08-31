@@ -3,36 +3,17 @@
 
 <head>
   <meta charSet="utf-8" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <!-- <script src="../js/singer.js"></script> -->
-  <link rel="stylesheet" href="/artist/../css/singer.css">
   <link rel="stylesheet" href="/artist/../css/style.css">
-  <script src="https://kit.fontawesome.com/61d9d2b9ed.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/artist/../css/singer.css">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>
     <%= blog.metaTitle %>
   </title>
   <meta name="description" content="<%= blog.metaDesc %>">
   <meta name="keywords" content="<%= blog.keywords %>">
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-
-  <style>
-    @media screen and (max-width: 768px) {
-      .embed-responsive {
-        margin-left: -10%;
-        width: 120% !important;
-      }
-    }
-  </style>
-</head>
+  <link rel="stylesheet" href="/artist/../css/lite-youtube-embed.css">
+  <script src="/artist/../js/lite-youtube-embed.js"></script>
 
 <body>
   <!-- top bar -->
@@ -87,84 +68,128 @@
 
         <div class="section-wrapper pl-60 pr-60 gallery-title">
           <div class="bostami-section-title-wrap mb-30">
-            <h3 class="section-title">Gallery</h3>
+              <h3 class="section-title">Gallery</h3>
           </div>
           <div class="row justify-content-between align-items-center">
-            <% blog.gallery.forEach(function(image, index) { %>
-              <div class="col-md-4 mb-4">
-                <a href="#" data-toggle="modal" data-target="#imageModal<%= index %>">
-                  <img src="<%= image %>" alt="" class="img-fluid rounded">
-                </a>
-              </div>
-
-              <!-- Modal for Image <%= index %> -->
-              <div class="modal fade" id="imageModal<%= index %>" tabindex="-1" role="dialog"
-                aria-labelledby="imageModalLabel<%= index %>" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="imageModalLabel<%= index %>">Image <%= index + 1 %>
-                      </h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body text-center">
-                      <img src="<%= image %>" alt="" class="img-fluid">
-                    </div>
+              <% blog.gallery.forEach(function(image, index) { %>
+                  <div class="col-6 col-md-4 mb-4">
+                      <a href="#" data-toggle="modal" data-target="#imageModal<%= index %>">
+                          <img src="<%= image.link %>" alt="<%= image.alt %>" title="<%= image.title %>" description="<%= image.desc %>" caption="<%= image.caption %>" class="img-fluid rounded">
+                      </a>
                   </div>
-                </div>
-              </div>
-              <% }); %>
+
+                  <!-- Modal for Image <%= index %> -->
+                  <div class="modal fade" id="imageModal<%= index %>" tabindex="-1" role="dialog"
+                      aria-labelledby="imageModalLabel<%= index %>" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="imageModalLabel<%= index %>">Image <%=
+                                          index + 1 %>
+                                  </h5>
+                                  <button type="button" class="close" data-dismiss="modal"
+                                      aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body text-center">
+                                  <img src="<%= image.link %>" alt="<%= image.alt %>" title="<%= image.title %>" description="<%= image.desc %>" caption="<%= image.caption %>" class="img-fluid">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <% }); %>
           </div>
 
-        </div>
-        <% blog.eventName.forEach(function(event) { %>
-          <% let i=0 %>
+      </div>
+
+        <% blog.events.forEach(function(event) { %>
+          <div class="section-wrapper pl-60 pr-60 video-div">
+            <div class="bostami-what-do-wrap mb-30">
+              <div class="bostami-section-title-wrap mb-30">
+                <h3 class="section-title">
+                  <%= event.name %>
+                </h3>
+              </div>
+              <div class="row">
+                <% let i=0; %>
+                  <% event.links.forEach(function(link) { %>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 video">
+                      <lite-youtube videosource="<%= event.type[i] %>" videoid="<%= link %>"
+                        params="controls=1"></lite-youtube>
+                    </div>
+                    <% i++ %>
+                      <% }); %>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+
             <div class="section-wrapper pl-60 pr-60 video-div">
               <div class="bostami-what-do-wrap mb-30">
-                <div class="bostami-section-title-wrap mb-30">
-                  <h3 class="section-title">
-                    <%= event %>
-                  </h3>
-                </div>
-                <div class="row">
-                  <% blog.eventType[0].forEach(function(link) { %>
-                    <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                      <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="<%= link %>" allowfullscreen></iframe>
-                      </div>
+                <div class="content">
+                  <div class="item">
+                    <div class="blog-content">
+                      <% if (blog.blog) { %>
+                        <div id="shortBlog">
+                          <div>
+                            <%- blog.blog.substring(0, 300) %>...
+                          </div>
+                          <button id="readMoreBtn" class="btn-primary">Read
+                            More</button>
+                        </div>
+                        <div id="fullBlog" class="blog" style="display: none;">
+                          <%- blog.blog %>
+                            <button id="readLessBtn" class="btn-primary">Read
+                              Less</button>
+                        </div>
+                        <% } %>
                     </div>
-                    <% }); %>
+                  </div>
                 </div>
               </div>
             </div>
-            <% }); %>
 
-              <div class="section-wrapper pl-60 pr-60 video-div">
-                <div class="bostami-what-do-wrap mb-30">
-                  <div class="content">
-                    <div class="item">
-                      <div class="blog-content">
-                        <% if (blog.blog) { %>
-                          <div id="shortBlog">
-                            <div>
-                              <%- blog.blog.substring(0, 300) %>...
-                            </div>
-                            <button id="readMoreBtn" class="btn-primary">Read
-                              More</button>
-                          </div>
-                          <div id="fullBlog" class="blog" style="display: none;">
-                            <%- blog.blog %>
-                              <button id="readLessBtn" class="btn-primary">Read
-                                Less</button>
-                          </div>
-                          <% } %>
+            <div class="mil-section-title mil-up">
+              <div class="mil-divider"></div>
+              <h3>Related Blogs</h3>
+            </div>
+
+            <!-- blog -->
+            <section class="mil-p-90-30">
+              <div class="row justify-content-between align-items-center">
+                <% relatedBlogData.forEach(function(blog) { %>
+                  <div class="col-lg-4">
+                    <a href="/blog/<%= blog.linkid %>" class="mil-blog-card mil-mb-60">
+                      <div class="mil-cover mil-up">
+                        <img src="<%= blog.thumbnail %>" alt="cover" />
+                        <div class="mil-link mil-icon-link">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-arrow-right">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                          </svg>
+                        </div>
                       </div>
-                    </div>
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          <%= blog.title %>
+                        </h4>
+                        <p class="mil-up">
+                          <%= blog.metaDesc %>
+                        </p>
+                      </div>
+                    </a>
                   </div>
-                </div>
+                  <% }); %>
               </div>
+              <button class="show-more-btn" style="text-align: center; display: block; margin: 0 auto">
+                Show More Blogs
+              </button>
+            </section>
+            <!-- blog end -->
+
       </div>
     </div>
   </div>

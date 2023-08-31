@@ -73,9 +73,9 @@ const blogSchema = new mongoose.Schema({
   title: String,
   thumbnail: String,
   gallery: Array,
-  eventName: Array,
-  eventType: Array,
+  events: Array,
   blog: String,
+  relatedBlog: Array
 });
 
 const Blog = new mongoose.model("Blog", blogSchema);
@@ -115,6 +115,22 @@ app.get("/artist", async (req, res) => {
   })
 });
 
+app.get("/all-artists", async (req, res) => {
+  const artists = await Artist.find({}).sort({ _id: -1 });
+
+  res.render("allArtists", {
+    artists
+  })
+});
+
+app.get("/all-blogs", async (req, res) => {
+  const blogs = await Blog.find({}).sort({ _id: -1 });
+
+  res.render("allBlogs", {
+    blogs
+  })
+});
+
 app.get("/blog", async (req, res) => {
   const blogs = await Blog.find({}).sort({ _id: -1 });
 
@@ -148,9 +164,17 @@ app.get("/blog/:linkid", async (req, res) => {
     const { linkid } = req.params;
 
     const blog = await Blog.findOne({ linkid });
+    const relatedBlogData = [];
+
+    for (const linkId of blog.relatedBlog) {
+      const blogDocument = await Blog.findOne({ linkId });
+      if (blogDocument) {
+        relatedBlogData.push(blogDocument);
+      }
+    }
 
     if (blog) {
-      res.render('blog', { blog });
+      res.render('blog', { blog, relatedBlogData });
     } else {
       res.redirect('/');
     }
@@ -252,10 +276,22 @@ app.post("/add-blog", (req, res) => {
   const gallery = data.galleryLink;
   const eventName = data.eventName;
   const eventType = data.eventType;
+  const relatedBlog = data.relatedBlog;
+  // Function to determine event type based on link
+  function getEventType(link) {
+    return link.includes('aws') ? 'aws' : 'youtube';
+  }
+
+  // Create the events array
+  const events = eventName.map((name, index) => ({
+    name: name,
+    links: eventType[index],
+    type: eventType[index].map(link => getEventType(link))
+  }));
   const blog = data.blog;
 
   const blogs = new Blog({
-    metaTitle, metaDesc, keywords, title, thumbnail, linkid, gallery, eventName, eventType, blog
+    metaTitle, metaDesc, keywords, title, thumbnail, linkid, gallery, events, blog, relatedBlog
   });
 
   blogs.save().then(() => {
