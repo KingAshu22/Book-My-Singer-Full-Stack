@@ -199,7 +199,6 @@ app.get("/edit-blog/:linkid", async (req, res) => {
           relatedBlogData.push(blogDocument);
         }
       }
-    console.log(blog);
     if (blog) {
       res.render('edit-blog', { blog, relatedBlogData });
     } else {
@@ -323,6 +322,32 @@ app.post("/add-blog", (req, res) => {
 
   blogs.save().then(() => {
     res.redirect("user-dashboard")
+  }).catch((error) => {
+    res.send(error)
+  });
+});
+
+app.post("/edit-blog", async (req, res) => {
+  const data = req.body;
+
+  const metaTitle = data.metaTitle;
+  const metaDesc = data.metaDesc;
+  const keywords = data.keywords;
+  const title = data.title;
+  const thumbnail = data.thumbnail;
+  const lowerCaseName = title.toLowerCase();
+  const linkid = lowerCaseName.replace(/ /g, '-');
+  const gallery = data.galleryLink;
+  const relatedBlog = data.relatedBlog;
+  const blog = data.blog;
+
+  const blogs = await Blog.updateOne(
+    { linkid },
+    {
+      metaTitle, metaDesc, keywords, title, thumbnail, gallery, blog, relatedBlog
+    }
+  ).then(() => {
+    res.redirect("/blog/" + linkid);
   }).catch((error) => {
     res.send(error)
   });
