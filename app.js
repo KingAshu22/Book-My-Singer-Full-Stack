@@ -186,6 +186,31 @@ app.get("/blog/:linkid", async (req, res) => {
   }
 });
 
+app.get("/edit-blog/:linkid", async (req, res) => {
+  try {
+    const { linkid } = req.params;
+
+    const blog = await Blog.findOne({ linkid });
+    const relatedBlogData = [];
+
+      for (const linkId of blog.relatedBlog) {
+        const blogDocument = await Blog.findOne({ linkId });
+        if (blogDocument) {
+          relatedBlogData.push(blogDocument);
+        }
+      }
+    console.log(blog);
+    if (blog) {
+      res.render('edit-blog', { blog, relatedBlogData });
+    } else {
+      res.redirect('/');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.get("/user-dashboard", isAuthenticated, (req, res) => {
   res.render("user-dashboard");
 });

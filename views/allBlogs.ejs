@@ -20,7 +20,6 @@
                                     <th scope="col">Blog Meta Description</th>
                                     <th scope="col">View</th>
                                     <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,8 +29,7 @@
                                         <td><%= blog.metaTitle %></td>
                                         <td><%= blog.metaDesc %></td>
                                         <td><button class="btn btn-dark"><a href="/blog/<%= blog.linkid %>" style="text-decoration: none; color: #fff;">View</a></button></td>
-                                        <td><button class="btn btn-primary">Edit</button></td>
-                                        <td><button class="btn btn-danger">Delete</button></td>
+                                        <td><button class="btn btn-primary"><a href="/edit-blog/<%= blog.linkid %>" style="text-decoration: none; color: #fff;">Edit</a></button></td>
                                     </tr>
                                 <% }); %>
                             </tbody>
