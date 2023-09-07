@@ -80,6 +80,22 @@ const blogSchema = new mongoose.Schema({
 
 const Blog = new mongoose.model("Blog", blogSchema);
 
+const artistCategorySchema = new mongoose.Schema({
+  metaTitle: String,
+  metaDesc: String,
+  keywords: String,
+  category: String,
+  subCategory: String,
+  title: String,
+  thumbnail: String,
+  gallery: Array,
+  events: Array,
+  blog: String,
+  relatedBlog: Array
+});
+
+const ArtistCategory = new mongoose.model("ArtistCategory", artistCategorySchema);
+
 function isAuthenticated(req, res, next) {
   if (req.session.user.role === "admin" || req.session.user.role === "user") {
     return next();
@@ -107,12 +123,36 @@ app.get("/create-blog", isAuthenticated, (req, res) => {
   res.render("create-blog");
 });
 
+app.get("/create-category", isAuthenticated, (req, res) => {
+  res.render("create-category");
+});
+
 app.get("/artist", async (req, res) => {
   const artists = await Artist.find({}).sort({ _id: -1 });
 
   res.render("artist", {
     artists
   })
+});
+
+app.get("/artist-category/:category/:subCategory", async (req, res) => {
+  try {
+    const { category, subCategory } = req.params;
+
+    // Fetch artist from the database based on artistType and linkid
+    const artistCategory = await ArtistCategory.findOne({ category, subCategory });
+
+    if (artistCategory) {
+      // Render the "singer" view and pass the artist's information
+      res.render('category', { artistCategory });
+    } else {
+      // Redirect to the login page if artist is not found
+      res.redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.get("/all-artists", async (req, res) => {
@@ -322,6 +362,44 @@ app.post("/add-blog", (req, res) => {
 
   blogs.save().then(() => {
     res.redirect("/all-blogs")
+  }).catch((error) => {
+    res.send(error)
+  });
+});
+
+app.post("/add-category", (req, res) => {
+  const data = req.body;
+
+  const metaTitle = data.metaTitle;
+  const metaDesc = data.metaDesc;
+  const keywords = data.keywords;
+  let category = data.category.toLowerCase().replace(/ /g, '-');
+  let subCategory = data.subCategory.toLowerCase().replace(/ /g, '-');
+  const title = data.title;
+  const thumbnail = data.thumbnail;
+  const gallery = data.galleryLink;
+  const eventName = data.eventName;
+  const eventType = data.eventType;
+  const relatedBlog = data.relatedBlog;
+  // Function to determine event type based on link
+  function getEventType(link) {
+    return link.includes('aws') ? 'aws' : 'youtube';
+  }
+
+  // Create the events array
+  const events = eventName.map((name, index) => ({
+    name: name,
+    links: eventType[index],
+    type: eventType[index].map(link => getEventType(link))
+  }));
+  const blog = data.blog;
+
+  const artistCategory = new ArtistCategory({
+    metaTitle, metaDesc, keywords, category, subCategory, title, thumbnail, gallery, events, blog, relatedBlog
+  });
+
+  artistCategory.save().then(() => {
+    res.redirect("/artist-category/" + category + "/" + subCategory)
   }).catch((error) => {
     res.send(error)
   });
