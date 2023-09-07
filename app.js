@@ -321,7 +321,7 @@ app.post("/add-blog", (req, res) => {
   });
 
   blogs.save().then(() => {
-    res.render("allBlogs")
+    res.redirect("/allBlogs")
   }).catch((error) => {
     res.send(error)
   });
