@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charSet="utf-8" />
+
+  <link rel="stylesheet" href="/artist/../css/style.css">
+  <link rel="stylesheet" href="/artist/../css/singer.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>
+    <%= eventCategory.metaTitle %>
+  </title>
+  <meta name="description" content="<%= eventCategory.metaDesc %>">
+  <meta name="keywords" content="<%= eventCategory.keywords %>">
+  <link rel="stylesheet" href="/artist/../css/lite-youtube-embed.css">
+  <script src="/artist/../js/lite-youtube-embed.js"></script>
+<body>
+  <!-- top bar -->
+  <div class="mil-top-panel">
+    <!-- You need to remove the "mil-dot" class if you don't need a dot -->
+    <a href="/" class="mil-logo"><img src="/img/book-my-singer-logo.png" alt="Logo" /></a>
+
+    <div class="mil-navigation">
+      <nav id="swupMenu" class="mil-menu-transition">
+        <ul>
+          <li class="mil-has-children mil-active">
+            <a href="">Home</a>
+          </li>
+          <li class="mil-has-children">
+            <a href="/about-us.html">About</a>
+          </li>
+          <li class="mil-has-children">
+            <a href="">Singers</a>
+          </li>
+          <li class="mil-has-children">
+            <a href="contact.html">Events</a>
+          </li>
+          <li class="mil-has-children">
+            <a href="">Contacts</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mil-top-panel-btns">
+      <a href="contact.html" class="mil-contact-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+      </a>
+
+      <div class="mil-menu-btn">
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- top bar end -->
+
+  <div class="mil-content justify-content-center">
+    <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+      <div class="mil-container-fw">
+        <h2 style="padding-top: 5%;">
+          <%= eventCategory.title %>
+        </h2>
+
+        <% if (eventCategory.gallery.length > 1) { %>
+        <div class="section-wrapper pl-60 pr-60 gallery-title">
+          <div class="bostami-section-title-wrap mb-30">
+              <h3 class="section-title">Gallery</h3>
+          </div>
+          <div class="row justify-content-between align-items-center">
+              <% eventCategory.gallery.forEach(function(image, index) { %>
+                  <div class="col-6 col-md-4 mb-4">
+                      <a href="#" data-toggle="modal" data-target="#imageModal<%= index %>">
+                          <img src="<%= image.link %>" alt="<%= image.alt %>" title="<%= image.title %>" description="<%= image.desc %>" caption="<%= image.caption %>" class="img-fluid rounded">
+                      </a>
+                  </div>
+
+                  <!-- Modal for Image <%= index %> -->
+                  <div class="modal fade" id="imageModal<%= index %>" tabindex="-1" role="dialog"
+                      aria-labelledby="imageModalLabel<%= index %>" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="imageModalLabel<%= index %>">Image <%=
+                                          index + 1 %>
+                                  </h5>
+                                  <button type="button" class="close" data-dismiss="modal"
+                                      aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body text-center">
+                                  <img src="<%= image.link %>" alt="<%= image.alt %>" title="<%= image.title %>" description="<%= image.desc %>" caption="<%= image.caption %>" class="img-fluid">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <% }); %>
+          </div>
+
+      </div>
+      <% } %>
+        <% if (eventCategory.events[0].name.length > 0 ) { %>
+        <% eventCategory.events.forEach(function(event) { %>
+          <div class="section-wrapper pl-60 pr-60 video-div">
+            <div class="bostami-what-do-wrap mb-30">
+              <div class="bostami-section-title-wrap mb-30">
+                <h3 class="section-title">
+                  <%= event.name %>
+                </h3>
+              </div>
+              <div class="row">
+                <% let i=0; %>
+                  <% event.links.forEach(function(link) { %>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 video">
+                      <lite-youtube videosource="<%= event.type[i] %>" videoid="<%= link %>"
+                        params="controls=1"></lite-youtube>
+                    </div>
+                    <% i++ %>
+                      <% }); %>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+          <% } %>
+
+            <div class="section-wrapper pl-60 pr-60 video-div">
+              <div class="bostami-what-do-wrap mb-30">
+                <div class="content">
+                  <div class="item">
+                    <div class="blog-content">
+                      <% if (eventCategory.blog) { %>
+                        <div id="shortBlog">
+                          <div>
+                            <%- eventCategory.blog.substring(0, 300) %>...
+                          </div>
+                          <button id="readMoreBtn" class="btn-primary">Read
+                            More</button>
+                        </div>
+                        <div id="fullBlog" class="blog" style="display: none;">
+                          <%- eventCategory.blog %>
+                            <button id="readLessBtn" class="btn-primary">Read
+                              Less</button>
+                        </div>
+                        <% } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer class="mil-fw">
+    <p class="mil-light-soft">
+      © 2023. Book My Singer. All rights reserved.
+    </p>
+  </footer>
+  <!-- footer end -->
+  </div>
+  </div>
+  </div>
+  <!-- content -->
+
+  <div id="whatsapp-chat">
+    <a href="https://api.whatsapp.com/send?phone=917021630747" target="_blank" rel="noopener noreferrer">
+      <img src="/img/whatsapp.png" alt="Whatsapp" class="whatsappImg" />
+    </a>
+  </div>
+  <div class="call-button">
+    <a href="tel:+917021630747">
+      <img src="/img/telephone.png" alt="Call" />
+    </a>
+  </div>
+  <script>
+    const readMoreBtn = document.getElementById('readMoreBtn');
+    const readLessBtn = document.getElementById('readLessBtn');
+    const shortBlog = document.getElementById('shortBlog');
+    const fullBlog = document.getElementById('fullBlog');
+
+    readMoreBtn.addEventListener('click', () => {
+      shortBlog.style.display = 'none';
+      fullBlog.style.display = 'block';
+    });
+
+    readLessBtn.addEventListener('click', () => {
+      shortBlog.style.display = 'block';
+      fullBlog.style.display = 'none';
+    });
+  </script>
+</body>
+
+</html>
