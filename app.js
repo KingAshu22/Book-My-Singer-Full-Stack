@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const redirections = require('./redirections');
 
 const app = express();
 app.set("view engine", "ejs");
@@ -122,6 +123,12 @@ function isAuthenticated(req, res, next) {
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
+});
+
+redirections.forEach((rule) => {
+  app.get(rule.oldUrl, (req, res) => {
+    res.redirect(301, rule.newUrl);
+  });
 });
 
 app.get("/login", (req, res) => {
@@ -363,11 +370,11 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
     gallery, events, testLinks, reviews, blog
   });
 
-  // artist.save().then(() => {
-  //   res.redirect("user-dashboard")
-  // }).catch((error) => {
-  //   res.send(error)
-  // });
+  artist.save().then(() => {
+    res.redirect("user-dashboard")
+  }).catch((error) => {
+    res.send(error)
+  });
 });
 
 app.post("/add-blog", (req, res) => {
