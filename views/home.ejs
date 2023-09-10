@@ -1,4 +1,5 @@
 <%- include("partials/header"); -%>
+<link rel="stylesheet" href="/css/contact-form.css">
 
   <!-- content -->
   <div class="mil-content">
@@ -784,19 +785,83 @@
         </section>
         <!-- testimonial videos end -->
 
-        <div class="mil-divider mil-up mil-mb-90"></div>
+        <div class="mil-section-title mil-up">
+          <div class="mil-divider"></div>
+          <h3>Get in Touch</h3>
+        </div>
 
         <!-- call to action -->
         <section class="mil-p-0-90">
           <div class="row justify-content-center">
             <div class="col-lg-10">
               <div class="mil-center">
-                <h1 class="mil-h1-sm mil-up mil-mb-60">
-                  Interested in bringing life to your events? We're here to
-                  help.
-                </h1>
-                <div class="mil-up">
-                  <a href="contact.html" class="mil-btn mil-sm-btn">Contact Us</a>
+                <div id="contact" class="mil-p-90-60">
+                  <form id="contactForm" action="https://formsubmit.co/bookanartist2@gmail.com" method="POST"
+                    class="row align-items-center">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <div class="form-outline mb-4">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" required autocomplete="off" />
+                          </div>
+                          <div class="form-outline mb-4">
+                            <label class="form-label">Contact Number</label>
+                            <input type="text" name="contact" class="form-control" autocomplete="off" required />
+                          </div>
+                          <div class="form-outline mb-4">
+                            <label class="form-label">Event Type</label>
+                            <select name="eventType" class="form-control" id="artistTypeSelect" required>
+                              <option value="corporate">Corporate Event</option>
+                              <option value="wedding">Wedding Event</option>
+                              <option value="college">College Event</option>
+                              <option value="private">Private Event</option>
+                              <option value="house">House Parties</option>
+                              <option value="virtual">Virtual Event</option>
+                              <option value="other">Any Other</option>
+                            </select>
+                          </div>
+                          <div class="form-outline mb-4">
+                            <label class="form-label">Event Date</label>
+                            <input type="date" name="date" class="form-control" autocomplete="off" required />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <div class="form-outline mb-4">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" name="email" class="form-control" autocomplete="off" />
+                          </div>
+                          <div class="form-outline mb-4">
+                            <label class="form-label">Event City</label>
+                            <input type="text" name="city" class="form-control" autocomplete="off" />
+                          </div>
+                          <div class="form-outline mb-4">
+                            <label class="form-label">Artist Type</label>
+                            <select name="artistType" class="form-control" id="artistTypeSelect" required>
+                              <option value="singer">Singer</option>
+                              <option value="musician">Musician</option>
+                              <option value="live-band">Live Band</option>
+                              <option value="dj">Dj</option>
+                              <option value="actor">Actor</option>
+                              <option value="comedian">Comedian</option>
+                            </select>
+                          </div>
+                          <div class="form-outline mb-4">
+                            <label class="form-label">Budget</label>
+                            <input type="text" name="budget" class="form-control" autocomplete="off" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <label class="form-label">Message</label>
+                      <textarea name="message" class="form-control" cols="30" rows="10"></textarea>
+                    </div>
+                    <button class="show-more-btn" style="text-align: center; display: block; margin: 0 auto"
+                      type="submit">Submit</button>
+                  </form>
                 </div>
               </div>
             </div>
