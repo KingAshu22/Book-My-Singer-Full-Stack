@@ -1,86 +1,52 @@
-lite-youtube {
-    background-color: #000;
+.youtube-player {
     position: relative;
-    display: block;
-    contain: content;
-    background-position: center center;
-    background-size: cover;
-    cursor: pointer;
-    max-width: 720px;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin: 5px;
+    cursor: pointer; /* Add this to make the entire player clickable */
 }
 
-/* gradient */
-lite-youtube::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADGCAYAAAAT+OqFAAAAdklEQVQoz42QQQ7AIAgEF/T/D+kbq/RWAlnQyyazA4aoAB4FsBSA/bFjuF1EOL7VbrIrBuusmrt4ZZORfb6ehbWdnRHEIiITaEUKa5EJqUakRSaEYBJSCY2dEstQY7AuxahwXFrvZmWl2rh4JZ07z9dLtesfNj5q0FU3A5ObbwAAAABJRU5ErkJggg==);
-    background-position: top;
-    background-repeat: repeat-x;
-    height: 60px;
-    padding-bottom: 50px;
-    width: 100%;
-    transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
-}
-
-/* responsive iframe with a 16:9 aspect ratio
-    thanks https://css-tricks.com/responsive-iframes/
-*/
-lite-youtube.youtube-video::after {
-    content: "";
-    display: block;
-    padding-bottom: calc(100% / (16 / 9));
-}
-lite-youtube > iframe {
-    width: 100%;
-    height: 100%;
+.youtube-player iframe {
     position: absolute;
     top: 0;
     left: 0;
-    border: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: transparent;
 }
 
-/* play button */
-lite-youtube > .lty-playbtn {
+.youtube-player img {
+    object-fit: cover;
     display: block;
-    width: 68px;
-    height: 50px;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    width: 100%;
     position: absolute;
-    cursor: pointer;
-    transform: translate3d(-50%, -50%, 0);
-    top: 50%;
-    left: 50%;
-    z-index: 1;
-    background-color: transparent;
-    /* YT's actual play button svg */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 48"><path d="M45.563,29.174l-22-15c-0.307-0.208-0.703-0.231-1.031-0.058C22.205,14.289,22,14.629,22,15v30c0,0.371,0.205,0.711,0.533,0.884C22.679,45.962,22.84,46,23,46c0.197,0,0.394-0.059,0.563-0.174l22-15C45.836,30.64,46,30.331,46,30S45.836,29.36,45.563,29.174z M24,43.107V16.893L43.225,30L24,43.107z" fill="white"/></svg>');
-    filter: grayscale(100%);
-    transition: filter .1s cubic-bezier(0, 0, 0.2, 1);
+    right: 0;
+    top: 0;
     border: none;
+    height: auto;
+    cursor: pointer;
+    /* Remove the hover effect by removing the following lines */
+    /* transition: 0.4s all; */
 }
 
-lite-youtube:hover > .lty-playbtn,
-lite-youtube .lty-playbtn:focus {
-    filter: none;
-}
-
-/* Post-click styles */
-lite-youtube.lyt-activated {
-    cursor: unset;
-}
-lite-youtube.lyt-activated::before,
-lite-youtube.lyt-activated > .lty-playbtn {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.lyt-visually-hidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
+.youtube-player .play-button {
+    height: 68px; /* Adjust dimensions */
+    width: 68px; /* Adjust dimensions */
+    left: 50%;
+    top: 50%;
+    margin-left: -34px;
+    margin-top: -34px; /* Half of the height and width to center */
     position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
+    background: url('https://i.ibb.co/j3jcJKv/yt.png') no-repeat center center; /* Center the play button icon */
+    cursor: pointer;
+    /* Remove the hover effect by removing the following line */
+    /* opacity: 0; */
+}

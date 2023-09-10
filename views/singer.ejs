@@ -277,8 +277,7 @@
                                             <% let i = 0; %>
                                             <% event.links.forEach(function(link) { %>
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                                                    <lite-youtube videosource="<%= event.type[i] %>" videoid="<%= link %>"
-                                                        params="controls=1"></lite-youtube>
+                                                    <div class="youtube-player" videosource="<%= event.type[i] %>" data-id="<%= link %>"></div>
                                                 </div>
                                                 <% i++ %>
                                             <% }); %>
