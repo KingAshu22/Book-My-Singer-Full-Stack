@@ -15,18 +15,32 @@
   <link rel="stylesheet" href="/css/bootstrap.css">
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-WMP6WBM');</script>
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WMP6WBM');</script>
   <!-- End Google Tag Manager -->
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $("#menu-toggle").click(function () {
+        $(".mil-menu-transition ul").toggleClass("show-menu");
+      });
+    });
+  </script>
+
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WMP6WBM"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WMP6WBM" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
   <!-- top bar -->
   <div class="mil-top-panel">
@@ -40,23 +54,26 @@
             <a href="">Home</a>
           </li>
           <li class="mil-has-children">
-            <a href="/about-us.html">About</a>
+            <a href="#artist">Artists</a>
           </li>
           <li class="mil-has-children">
-            <a href="">Singers</a>
+            <a href="#events">Events</a>
           </li>
           <li class="mil-has-children">
-            <a href="contact.html">Events</a>
+            <a href="#videos">Videos</a>
           </li>
           <li class="mil-has-children">
-            <a href="">Contacts</a>
+            <a href="#blog">Blog</a>
+          </li>
+          <li class="mil-has-children">
+            <a href="#contact">Contact Us</a>
           </li>
         </ul>
       </nav>
     </div>
 
     <div class="mil-top-panel-btns">
-      <a href="contact.html" class="mil-contact-btn">
+      <a href="#contact" class="mil-contact-btn">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -64,7 +81,7 @@
         </svg>
       </a>
 
-      <div class="mil-menu-btn">
+      <div class="mil-menu-btn" id="menu-toggle">
         <span></span>
       </div>
     </div>

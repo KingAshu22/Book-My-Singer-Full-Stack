@@ -623,7 +623,11 @@ frame
   }
 }
 
-.mil-menu-btn {
+.show-menu {
+  display: block;
+}
+
+/* .mil-menu-btn {
   height: 24px;
   cursor: pointer;
   display: none;
@@ -668,7 +672,7 @@ frame
 }
 .mil-menu-btn span:after {
   top: 8px;
-}
+} */
 
 .mil-content {
   padding-top: 0px;
