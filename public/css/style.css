@@ -237,6 +237,24 @@ Whatsapp & Call Button
   zoom: 15%;
 }
 
+@media (max-width: 768px) {
+  #whatsapp-chat {
+    box-shadow: none;
+  }
+  .call-button {
+    box-shadow: none;
+  }
+  #whatsapp-chat .whatsappImg, .call-button a img {
+    width: 70%;
+    height: 70%;
+  }
+  #whatsapp-chat .whatsappImg {
+    zoom: 15%;
+  }
+  .call-button a img {
+    zoom: 15%;
+  }
+}
 /* -------------------------------------------
 
 link
