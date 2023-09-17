@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const nodemailer = require('nodemailer');
+const Recaptcha = require('express-recaptcha').RecaptchaV3;
 const redirections = require('./redirections');
 
 const app = express();
@@ -13,6 +15,9 @@ app.use(express.static("public"));
 app.use(
   session({ secret: "your-secret-key", resave: true, saveUninitialized: true })
 );
+
+// Configure reCAPTCHA with your secret key
+const recaptcha = new Recaptcha('6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH', '6LcO1TAoAAAAABTUFWk1LfuVLHugKDSIELY828nB');
 
 mongoose.connect(
   "mongodb+srv://bookanartist2:NRMVq0Q1CJI4xZNa@book-my-singer.da90nao.mongodb.net/",
@@ -254,7 +259,7 @@ app.get("/blog/:linkid", async (req, res) => {
     const blog = await Blog.findOne({ linkid });
     const relatedBlogData = [];
 
-    if(blog.relatedBlog.length > 1) {
+    if (blog.relatedBlog.length > 1) {
       for (const linkId of blog.relatedBlog) {
         const blogDocument = await Blog.findOne({ linkId });
         if (blogDocument) {
@@ -281,12 +286,12 @@ app.get("/edit-blog/:linkid", async (req, res) => {
     const blog = await Blog.findOne({ linkid });
     const relatedBlogData = [];
 
-      for (const linkId of blog.relatedBlog) {
-        const blogDocument = await Blog.findOne({ linkId });
-        if (blogDocument) {
-          relatedBlogData.push(blogDocument);
-        }
+    for (const linkId of blog.relatedBlog) {
+      const blogDocument = await Blog.findOne({ linkId });
+      if (blogDocument) {
+        relatedBlogData.push(blogDocument);
       }
+    }
     if (blog) {
       res.render('edit-blog', { blog, relatedBlogData });
     } else {
@@ -489,6 +494,43 @@ app.post("/add-event", (req, res) => {
   }).catch((error) => {
     res.send(error)
   });
+});
+
+app.post('/contact-form', recaptcha.middleware.verify, (req, res) => {
+  if (!req.recaptcha.error) {
+    const formData = req.body;
+
+    // Create a nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: 'gmail', // e.g., Gmail
+      auth: {
+        user: 'bookanartist2@gmail.com',
+        pass: 'omxn rmun oufa olvm',
+      },
+    });
+
+    // Email data
+    const mailOptions = {
+      from: formData.email, // Sender's email address
+      to: 'yogendra12355@gmail.com', // Your email address
+      subject: 'Contact Form Submission',
+      text: `Name: ${formData.name}\nEmail: ${formData.email}\nContact Number: ${formData.contact}\nEvent City: ${formData.city}\nEvent Type: ${formData.eventType}\nArtist Type: ${formData.artistType}\nEvent Date: ${formData.date}\nBudget: ${formData.budget}\nMessage: ${formData.message}`,
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send('Error sending email');
+      } else {
+        console.log('Email sent: ' + info.response);
+        res.send('Message sent successfully');
+      }
+    });
+  } else {
+    // Verification failed; display an error message
+    res.status(400).send('reCAPTCHA verification failed. Please try again.');
+  }
 });
 
 app.post("/edit-blog", async (req, res) => {
