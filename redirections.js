@@ -753,6 +753,186 @@ const redirections = [
   {
     oldUrl: '/ammy-virk',
     newUrl: '/artist/celebrity-singer/ammy-virk'
+  },
+  {
+    oldUrl: '/book-live-singers-music-bands-and-celebrities-for-virtual-events',
+    newUrl: '/event-category/virtual/virtual-events'
+  },
+  {
+    oldUrl: '/aastha-gill',
+    newUrl: '/artist/celebrity-singer/aastha-gill'
+  },
+  {
+    oldUrl: '/hire-singers-for-wedding-in-mumbai/',
+    newUrl: '/event-category/wedding/live-singer'
+  },
+  {
+    oldUrl: '/bollywood-male-singer',
+    newUrl: '/artist-category/singers/bollywood-singers'
+  },
+  {
+    oldUrl: '/female-singer-for-wedding',
+    newUrl: '/artist-category/singers/female-singers'
+  },
+  {
+    oldUrl: '/neha-kakkar',
+    newUrl: '/artist/celebrity-singer/neha-kakkar'
+  },
+  {
+    oldUrl: '/hire-bollywood-singers-in-malaysia',
+    newUrl: '/blog/book-singer-in-malaysia'
+  },
+  {
+    oldUrl: '/book-a-live-band-in-mumbai',
+    newUrl: '/blog/book-singers-in-mumbai'
+  },
+  {
+    oldUrl: '/bollywood-singers-for-virtual-events',
+    newUrl: '/artist-category/singers/bollywood-singers'
+  },
+  {
+    oldUrl: '/singer-for-wedding-sangeet',
+    newUrl: '/blog/live-bands-and-singers-for-wedding-sangeet'
+  },
+  {
+    oldUrl: '/antara-mitra',
+    newUrl: '/artist/singer/antara-mitra'
+  },
+  {
+    oldUrl: '/pritam-chakraborty',
+    newUrl: '/artist/singer/pritam-chakraborty'
+  },
+  {
+    oldUrl: '/nikhita-gandhi-book-my-singer',
+    newUrl: '/artist/singer/nikhita-gandhi'
+  },
+  {
+    oldUrl: '/live-band-for-corporate-events',
+    newUrl: '/event-category/corporate/corporate-event'
+  },
+  {
+    oldUrl: '/shashwat-singh',
+    newUrl: '/artist/celebrity-singer/shashwat-singh'
+  },
+  {
+    oldUrl: '/shalmali-kholgade',
+    newUrl: '/artist/celebrity-singer/shalmali-kholgade'
+  },
+  {
+    oldUrl: '/shilpa-rao',
+    newUrl: '/artist/celebrity-singer/shilpa-rao'
+  },
+  {
+    oldUrl: '/harrdy-sandhu',
+    newUrl: '/artist/celebrity-singer/harrdy-sandhu'
+  },
+  {
+    oldUrl: '/siddharth-mahadevan',
+    newUrl: '/artist/celebrity-singer/siddharth-mahadevan'
+  },
+  {
+    oldUrl: '/tony-kakkar',
+    newUrl: '/artist/celebrity-singer/tony-kakkar'
+  },
+  {
+    oldUrl: '/sagar-tripathy',
+    newUrl: '/artist/singer/sagar-tripathy'
+  },
+  {
+    oldUrl: '/book-hindi-singer-in-suriname',
+    newUrl: '/blog/book-hindi-singer-in-suriname'
+  },
+  {
+    oldUrl: '/book-a-live-band-for-party',
+    newUrl: '/artist-category/live-bands/live-bands'
+  },
+  {
+    oldUrl: '/instrumental-music-band-for-corporate-events',
+    newUrl: '/event-category/corporate/corporate-event'
+  },
+  {
+    oldUrl: '/jonita-gandhi',
+    newUrl: '/artist/celebrity-singer/jonita-gandhi'
+  },
+  {
+    oldUrl: '/hire-live-ghazal-singer',
+    newUrl: '/artist-category/singers/ghazal-singers'
+  },
+  {
+    oldUrl: '/book-sonu-nigam',
+    newUrl: '/artist/celebrity-singer/sonu-nigam'
+  },
+  {
+    oldUrl: '/female-singers-for-corporate-events',
+    newUrl: '/event-category/corporate/corporate-event'
+  },
+  {
+    oldUrl: '/book-shruti-rane-2',
+    newUrl: '/artist/singer/shruti-rane'
+  },
+  {
+    oldUrl: '/hire-bollywood-female-singer',
+    newUrl: '/blog/hire-bollywood-female-singers'
+  },
+  {
+    oldUrl: '/hire-bollywood-singer-for-event-in-dubai',
+    newUrl: '/blog/book-singers-in-dubai'
+  },
+  {
+    oldUrl: '/hire-singers-for-mayra-or-bhaat-ceremony',
+    newUrl: '/blog/hire-live-singers-and-bands-for-mayra-bhaat'
+  },
+  {
+    oldUrl: '/book-singer-for-punjabi-haldi-or-mehndi-ceremony',
+    newUrl: '/blog/hire-live-singers-and-bands-for-punjabi-wedding'
+  },
+  {
+    oldUrl: '/bollywood-singer-for-wedding-in-dubai',
+    newUrl: '/blog/book-singers-in-dubai'
+  },
+  {
+    oldUrl: '/book-singers-for-punjabi-wedding',
+    newUrl: '/blog/hire-live-singers-and-bands-for-punjabi-wedding'
+  },
+  {
+    oldUrl: '/blog/singers-and-live-bands-for-ganesh-puja',
+    newUrl: '/hire-live-singers-and-bands-for-wedding-ganesh-puja'
+  },
+  {
+    oldUrl: '/guitarist-for-events',
+    newUrl: '/artist-category/musicians/guitarist'
+  },
+  {
+    oldUrl: '/book-live-instrumentalists',
+    newUrl: '/blog/book-instrumentalists-musicians-for-your-events'
+  },
+  {
+    oldUrl: '/music-band-in-mauritius-wedding',
+    newUrl: '/blog/book-singers-in-mauritius'
+  },
+  {
+    oldUrl: '/guitarist-for-birthday-party/',
+    newUrl: '/artist-category/musicians/guitarist'
+  },
+  {
+    oldUrl: '/singer-and-live-music-band-for-mehndi-ceremony-for-wedding',
+    newUrl: '/blog/hire-live-singers-and-bands-for-wedding-mehndi'
+  },
+  {
+    oldUrl: '/live-singer-for-mehndi-ceremony-in-wedding',
+    newUrl: '/blog/hire-live-singers-and-bands-for-wedding-mehndi'
+  },
+  {
+    oldUrl: '/book-grand-piano-for-wedding-reception',
+    newUrl: '/artist-category/musicians/grand-piano'
+  },
+  {
+    oldUrl: '/book-flute-artist-for-wedding-reception',
+    newUrl: '/artist-category/musicians/flute-player'
+  },
+  {
+    oldUrl: '/sufi-singers-in-mumbai',
+    newUrl: '/blog/book-sufi-live-bands-for-events'
   }
 ];
 
