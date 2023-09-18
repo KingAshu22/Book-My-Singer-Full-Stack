@@ -254,7 +254,11 @@ const redirections = [
   { oldUrl: '/book-dancer', newUrl: '/artist-category/dancer/dancer' },
   {
     oldUrl: '/book-choreographer',
-    newUrl: '/artist-category/choreographer/choreographer/book-photographer'
+    newUrl: '/artist-category/choreographer/choreographer'
+  },
+  {
+    oldUrl: '/book-photographer',
+    newUrl: '/artist-category/photographer/photographer'
   },
   {
     oldUrl: '/book-live-bands-for-events',
@@ -370,7 +374,7 @@ const redirections = [
   },
   {
     oldUrl: '/singers-and-live-bands-for-ganesh-puja',
-    newUrl: '/blog/singers-and-live-bands-for-ganesh-puja'
+    newUrl: '/blog/hire-live-singers-and-bands-for-wedding-ganesh-puja'
   },
   {
     oldUrl: '/virtual-wedding-events',
@@ -442,7 +446,7 @@ const redirections = [
   },
   {
     oldUrl: '/book-celebrity-singer-for-wedding-events',
-    newUrl: '/blog/book-celebrity-singer-for-wedding-events'
+    newUrl: '/blog/hire-celebrity-singers-for-wedding'
   },
   { oldUrl: '/dj-for-wedding', newUrl: '/blog/dj-for-wedding' },
   {
@@ -689,6 +693,66 @@ const redirections = [
   {
     oldUrl: '/book-singer-for-concert',
     newUrl: '/event-category/concerts/singers'
+  },
+  {
+    oldUrl: '/krishna-pandey-live',
+    newUrl: '/artist/singer/krishna-pandey-live'
+  },
+  {
+    oldUrl: '/book-singers-in-mumbai',
+    newUrl: '/blog/book-singers-in-mumbai'
+  },
+  {
+    oldUrl: '/singers-in-mumbai',
+    newUrl: '/blog/book-singers-in-mumbai'
+  },
+  {
+    oldUrl: 'book-singer-for-event',
+    newUrl: '/blog/book-singers-for-event'
+  },
+  {
+    oldUrl: '/abhigyan-das',
+    newUrl: '/artist/singer/abhigyan-das-live'
+  },
+  {
+    oldUrl: '/book-live-singers-bands-and-celebrities-for-college-festivals',
+    newUrl: '/blog/book-live-singers,-bands-and-celebrities-for-college-festivals'
+  },
+  {
+    oldUrl: '/musical-entertainer-for-wedding',
+    newUrl: '/blog/hire-musical-entertainer-for-wedding'
+  },
+  {
+    oldUrl: '/singers-for-wedding',
+    newUrl: '/event-category/wedding/live-singer'
+  },
+  {
+    oldUrl: '/book-live-singers-bands-instrumentalists-and-celebrities-for-corporate-events',
+    newUrl: '/event-category/corporate/corporate-event'
+  },
+  {
+    oldUrl: '/saaj-bhatt',
+    newUrl: '/artist/live-band/saaj-bhatt-live'
+  },
+  {
+    oldUrl: '/guitarist-for-event',
+    newUrl: '/artist-category/musicians/guitarist'
+  },
+  {
+    oldUrl: '/book-live-singers',
+    newUrl: '/artist-category/singers/singers'
+  },
+  {
+    oldUrl: '/book-celebrity-singers-for-events',
+    newUrl: '/artist-category/singers/celebrity-singers'
+  },
+  {
+    oldUrl: '/salman-ali',
+    newUrl: '/artist/singer/salman-ali'
+  },
+  {
+    oldUrl: '/ammy-virk',
+    newUrl: '/artist/celebrity-singer/ammy-virk'
   }
 ];
 

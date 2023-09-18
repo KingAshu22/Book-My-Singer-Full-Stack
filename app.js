@@ -307,6 +307,10 @@ app.get("/user-dashboard", isAuthenticated, (req, res) => {
   res.render("user-dashboard");
 });
 
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
+
 app.post("/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
