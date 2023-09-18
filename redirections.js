@@ -796,15 +796,15 @@ const redirections = [
   },
   {
     oldUrl: '/antara-mitra',
-    newUrl: '/artist/singer/antara-mitra'
+    newUrl: '/artist/celebrity-singer/antara-mitra'
   },
   {
     oldUrl: '/pritam-chakraborty',
-    newUrl: '/artist/singer/pritam-chakraborty'
+    newUrl: '/artist/celebrity-singer/pritam-chakraborty'
   },
   {
     oldUrl: '/nikhita-gandhi-book-my-singer',
-    newUrl: '/artist/singer/nikhita-gandhi'
+    newUrl: '/artist/celebrity-singer/nikhita-gandhi'
   },
   {
     oldUrl: '/live-band-for-corporate-events',
