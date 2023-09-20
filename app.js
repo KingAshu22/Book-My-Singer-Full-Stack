@@ -525,15 +525,13 @@ app.post('/contact-form', recaptcha.middleware.verify, (req, res) => {
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error(error);
-        res.status(500).send('Error sending email');
+        res.render("error");
       } else {
-        console.log('Email sent: ' + info.response);
-        res.send('Message sent successfully');
+        res.render("success");
       }
     });
   } else {
-    // Verification failed; display an error message
-    res.status(400).send('reCAPTCHA verification failed. Please try again.');
+    res.render("error");
   }
 });
 

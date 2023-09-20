@@ -787,53 +787,5 @@
           });
         </script>
 
-        <script>
-          document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("contact-form");
-            const loader = document.getElementById("loader");
-            const message = document.getElementById("message");
-
-            form.addEventListener("submit", async function (event) {
-              event.preventDefault();
-
-              // Show loader
-              loader.style.display = "block";
-
-              // Disable the submit button while processing
-              const submitButton = form.querySelector("button");
-              submitButton.disabled = true;
-
-              // Send the form data to the server
-              const formData = new FormData(form);
-
-              try {
-                const response = await fetch("/contact-form", {
-                  method: "POST",
-                  body: formData,
-                });
-
-                if (response.ok) {
-                  // Email sent successfully
-                  message.textContent = "Message sent successfully";
-                  message.style.color = "green";
-                  message.style.display = "block";
-                } else {
-                  // Email sending failed
-                  message.textContent = "Message not sent";
-                  message.style.color = "red";
-                  message.style.display = "block";
-                }
-              } catch (error) {
-                console.error(error);
-                // Handle network or other errors here
-              } finally {
-                // Hide loader and re-enable the submit button
-                loader.style.display = "none";
-                submitButton.disabled = false;
-              }
-            });
-          });
-        </script>
-
 
         <%- include("partials/footer"); -%>
