@@ -48,5 +48,5 @@
     background: url('https://i.ibb.co/j3jcJKv/yt.png') no-repeat center center; /* Center the play button icon */
     cursor: pointer;
     /* Remove the hover effect by removing the following line */
-    /* opacity: 0; */
+    opacity: 70%;
 }
