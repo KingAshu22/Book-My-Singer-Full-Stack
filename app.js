@@ -62,6 +62,7 @@ const artistSchema = new mongoose.Schema({
   time: String,
   instruments: String,
   awards: String,
+  spotify: String,
   gallery: Array,
   events: Array,
   testLinks: Array,

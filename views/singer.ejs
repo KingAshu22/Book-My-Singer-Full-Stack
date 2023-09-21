@@ -13,18 +13,21 @@
     <meta name="description" content="<%= artist.metaDesc %>">
     <meta name="keywords" content="<%= artist.keywords %>">
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WMP6WBM');</script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WMP6WBM');</script>
     <!-- End Google Tag Manager -->
 </head>
 
 <body class="">
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WMP6WBM"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WMP6WBM" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- top bar -->
     <div class="mil-top-panel">
@@ -237,7 +240,9 @@
                                 <% artist.gallery.forEach(function(image, index) { %>
                                     <div class="col-6 col-md-4 mb-4">
                                         <a href="#" data-toggle="modal" data-target="#imageModal<%= index %>">
-                                            <img src="<%= image.link %>" alt="<%= image.alt %>" title="<%= image.title %>" description="<%= image.desc %>" caption="<%= image.caption %>" class="img-fluid rounded">
+                                            <img src="<%= image.link %>" alt="<%= image.alt %>"
+                                                title="<%= image.title %>" description="<%= image.desc %>"
+                                                caption="<%= image.caption %>" class="img-fluid rounded">
                                         </a>
                                     </div>
 
@@ -256,7 +261,9 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body text-center">
-                                                    <img src="<%= image.link %>" alt="<%= image.alt %>" title="<%= image.title %>" description="<%= image.desc %>" caption="<%= image.caption %>" class="img-fluid">
+                                                    <img src="<%= image.link %>" alt="<%= image.alt %>"
+                                                        title="<%= image.title %>" description="<%= image.desc %>"
+                                                        caption="<%= image.caption %>" class="img-fluid">
                                                 </div>
                                             </div>
                                         </div>
@@ -265,101 +272,120 @@
                             </div>
 
                         </div>
+                        <% if (artist.spotify) { %>
+                        <div class="section-wrapper pl-60 pr-60 video-div">
+                            <div class="bostami-what-do-wrap mb-30">
+                                <div class="bostami-section-title-wrap mb-30">
+                                    <h3 class="section-title">
+                                        Latest Songs
+                                    </h3>
+                                </div>
+                                <div class="row">
+                                    <iframe style="border-radius:12px"
+                                        src="<%= artist.spotify %>"
+                                        width="100%" height="352" frameBorder="0" allowfullscreen=""
+                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                        loading="lazy"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
                         <% artist.events.forEach(function(event) { %>
-                                <div class="section-wrapper pl-60 pr-60 video-div">
-                                    <div class="bostami-what-do-wrap mb-30">
-                                        <div class="bostami-section-title-wrap mb-30">
-                                            <h3 class="section-title">
-                                                <%= event.name %>
-                                            </h3>
-                                        </div>
-                                        <div class="row">
-                                            <% let i = 0; %>
+                            <div class="section-wrapper pl-60 pr-60 video-div">
+                                <div class="bostami-what-do-wrap mb-30">
+                                    <div class="bostami-section-title-wrap mb-30">
+                                        <h3 class="section-title">
+                                            <%= event.name %>
+                                        </h3>
+                                    </div>
+                                    <div class="row">
+                                        <% let i=0; %>
                                             <% event.links.forEach(function(link) { %>
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                                                    <div class="youtube-player" videosource="<%= event.type[i] %>" data-id="<%= link %>"></div>
+                                                    <div class="youtube-player" videosource="<%= event.type[i] %>"
+                                                        data-id="<%= link %>"></div>
                                                 </div>
                                                 <% i++ %>
-                                            <% }); %>
-                                        </div>
+                                                    <% }); %>
                                     </div>
                                 </div>
-                        <% }); %>
-                                <h1><%= artist.testimonial %></h1>
+                            </div>
+                            <% }); %>
+                                <h1>
+                                    <%= artist.testimonial %>
+                                </h1>
 
-                                    <% if (artist.testimonial && artist.testimonial.length > 0) { %>
+                                <% if (artist.testimonial && artist.testimonial.length> 0) { %>
+                                    <div class="section-wrapper pl-60 pr-60 video-div">
+                                        <div class="bostami-what-do-wrap mb-30">
+                                            <div class="bostami-section-title-wrap mb-30">
+                                                <h3 class="section-title">Testimonial Videos</h3>
+                                            </div>
+                                            <div class="row">
+                                                <% artist.testLinks.forEach(function(link) { %>
+                                                    <div class="col-xxl-6 col-xl-6 col-lg-6 video">
+                                                        <lite-youtube videoid="<%= link %>"
+                                                            params="controls=1"></lite-youtube>
+                                                    </div>
+                                                    <% }); %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+
                                         <div class="section-wrapper pl-60 pr-60 video-div">
                                             <div class="bostami-what-do-wrap mb-30">
                                                 <div class="bostami-section-title-wrap mb-30">
-                                                    <h3 class="section-title">Testimonial Videos</h3>
+                                                    <h3 class="section-title">Reviews</h3>
                                                 </div>
-                                                <div class="row">
-                                                    <% artist.testLinks.forEach(function(link) { %>
-                                                        <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                                                            <lite-youtube videoid="<%= link %>"
-                                                                params="controls=1"></lite-youtube>
+                                                <div class="row justify-content-between align-items-center">
+                                                    <% artist.reviews.forEach(function(review) { %>
+                                                        <div class="col-lg-6">
+                                                            <div class="mil-icon-box mil-center mil-mb-60">
+                                                                <h5 class="mil-up mil-mb-30">"<%= review.title %>"
+                                                                </h5>
+                                                                <p class="mil-up mil-mb-30 test-name">
+                                                                    <%= review.desc %>
+                                                                </p>
+                                                                <img src="<%= review.pic %>" alt="icon"
+                                                                    class="review-img" />
+                                                                <p class="mil-up mil-mb-30 test-name">
+                                                                    <%= review.name %>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                         <% }); %>
                                                 </div>
                                             </div>
                                         </div>
-                                        <% } %>
 
-                                            <div class="section-wrapper pl-60 pr-60 video-div">
-                                                <div class="bostami-what-do-wrap mb-30">
-                                                    <div class="bostami-section-title-wrap mb-30">
-                                                        <h3 class="section-title">Reviews</h3>
-                                                    </div>
-                                                    <div class="row justify-content-between align-items-center">
-                                                        <% artist.reviews.forEach(function(review) { %>
-                                                            <div class="col-lg-6">
-                                                                <div class="mil-icon-box mil-center mil-mb-60">
-                                                                    <h5 class="mil-up mil-mb-30">"<%= review.title %>"
-                                                                    </h5>
-                                                                    <p class="mil-up mil-mb-30 test-name">
-                                                                        <%= review.desc %>
-                                                                    </p>
-                                                                    <img src="<%= review.pic %>" alt="icon"
-                                                                        class="review-img" />
-                                                                    <p class="mil-up mil-mb-30 test-name">
-                                                                        <%= review.name %>
-                                                                    </p>
+                                        <div class="section-wrapper pl-60 pr-60 video-div">
+                                            <div class="bostami-what-do-wrap mb-30">
+                                                <div class="content">
+                                                    <div class="item">
+                                                        <h1>Biography - <%= artist.name %>
+                                                        </h1>
+                                                        <div class="blog-content">
+                                                            <% if (artist.blog) { %>
+                                                                <div id="shortBlog">
+                                                                    <div>
+                                                                        <%- artist.blog.substring(0, 300) %>...
+                                                                    </div>
+                                                                    <button id="readMoreBtn" class="btn-primary">Read
+                                                                        More</button>
                                                                 </div>
-                                                            </div>
-                                                            <% }); %>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="section-wrapper pl-60 pr-60 video-div">
-                                                <div class="bostami-what-do-wrap mb-30">
-                                                    <div class="content">
-                                                        <div class="item">
-                                                            <h1>Biography - <%= artist.name %>
-                                                            </h1>
-                                                            <div class="blog-content">
-                                                                <% if (artist.blog) { %>
-                                                                    <div id="shortBlog">
-                                                                        <div>
-                                                                            <%- artist.blog.substring(0, 300) %>...
-                                                                        </div>
-                                                                        <button id="readMoreBtn"
+                                                                <div id="fullBlog" class="blog" style="display: none;">
+                                                                    <%- artist.blog %>
+                                                                        <button id="readLessBtn"
                                                                             class="btn-primary">Read
-                                                                            More</button>
-                                                                    </div>
-                                                                    <div id="fullBlog" class="blog"
-                                                                        style="display: none;">
-                                                                        <%- artist.blog %>
-                                                                            <button id="readLessBtn"
-                                                                                class="btn-primary">Read
-                                                                                Less</button>
-                                                                    </div>
-                                                                    <% } %>
-                                                            </div>
+                                                                            Less</button>
+                                                                </div>
+                                                                <% } %>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                     </div>
                 </div>
             </div>
