@@ -30,7 +30,7 @@
                                         <td><%= artist.name %></td>
                                         <td style="text-transform: capitalize;"><%= artist.artistType %></td>
                                         <td><button class="btn btn-dark"><a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>" style="text-decoration: none; color: #fff;">View</a></button></td>
-                                        <td><button class="btn btn-primary">Edit</button></td>
+                                        <td><a href="/edit-artist/<%= artist.artistType %>/<%= artist.linkid %>"><button class="btn btn-primary">Edit</button></a></td>
                                         <td><button class="btn btn-danger">Delete</button></td>
                                     </tr>
                                 <% }); %>

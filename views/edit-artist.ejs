@@ -1,0 +1,295 @@
+<%- include("partials/header"); -%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <div class="mil-content">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>Artist Edit Form</h3>
+                </div>
+
+                <form id="myForm" action="/edit-artist" method="POST">
+                    <h4>Meta Tag Details</h4>
+                    <label for="metaTitle">Meta Tag Title (Not More than 70 Characters)</label>
+                    <input type="text" name="metaTitle" class="form-control" maxlength="70" value="<%= artist.metaTitle %>">
+
+                    <label for="metaDesc">Meta Tag Description (Not more than 160 Characters)</label>
+                    <textarea name="metaDesc" class="form-control" maxlength="160"><%= artist.metaDesc %></textarea>
+
+                    <label for="keywords">Enter Keywords (Comma Seperated Value)</label>
+                    <input type="text" name="keywords" class="form-control" value="<%= artist.keywords %>">
+                    <hr>
+
+                    <h4>Artist Bio Details</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- From Country input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Artist Name</label>
+                                    <input type="text" name="name" class="form-control" autocomplete="off" value="<%= artist.name %>" disabled/>
+                                </div>
+                                <!-- To Country input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Profile Pic Link (350 x 350)</label>
+                                    <input type="text" name="profilePic" class="form-control" autocomplete="off" value="<%= artist.profilePic %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Contact Number</label>
+                                    <input type="text" name="contact" class="form-control" autocomplete="off"
+                                        value="+91 98700 62178" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" name="location" class="form-control" autocomplete="off" value="<%= artist.location %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Price</label>
+                                    <input type="text" name="price" class="form-control" autocomplete="off" value="<%= artist.price %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Artist Type</label>
+                                    <select name="artistType" class="form-control" id="artistTypeSelect" disabled>
+                                        <option value="singer" <%= artist.artistType === 'singer' ? 'selected' : '' %>>Singer</option>
+                                        <option value="musician" <%= artist.artistType === 'musician' ? 'selected' : '' %>>Musician</option>
+                                        <option value="live-band" <%= artist.artistType === 'live-band' ? 'selected' : '' %>>Live Band</option>
+                                        <option value="dj" <%= artist.artistType === 'dj' ? 'selected' : '' %>>Dj</option>
+                                        <option value="celebrity-singer" <%= artist.artistType === 'celebrity-singer' ? 'selected' : '' %>>Celebrity Singer</option>
+                                        <option value="actor" <%= artist.artistType === 'actor' ? 'selected' : '' %>>Actor</option>
+                                        <option value="comedian" <%= artist.artistType === 'comedian' ? 'selected' : '' %>>Comedian</option>
+                                    </select>
+                                </div>                                
+                                <div class="form-outline mb-4" id="bandMembersInput" style="display: none;">
+                                    <label class="form-label">Band Member's Name</label>
+                                    <input type="text" name="bandMemberName" class="form-control" value="<%= artist.bandMemberName %>">
+                                </div>
+                                <label class="form-label">Artist Code</label>
+                                <input type="text" name="code" class="form-control" autocomplete="off" value="<%= artist.code %>" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Event Types</label>
+                                    <input type="text" name="events" class="form-control" value="<%= artist.eventsType %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Genre</label>
+                                    <input type="text" name="genre" class="form-control" value="<%= artist.genre %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Languages</label>
+                                    <input type="text" name="languages" class="form-control" value="<%= artist.languages %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Movie Playback Songs</label>
+                                    <input type="text" name="playback" class="form-control" autocomplete="off" value="<%= artist.playback %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Original Songs</label>
+                                    <input type="text" name="original" class="form-control" autocomplete="off" value="<%= artist.original %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Performance Time</label>
+                                    <input type="text" name="time" class="form-control" autocomplete="off" value="<%= artist.time %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Instruments</label>
+                                    <input type="text" name="instruments" class="form-control" autocomplete="off" value="<%= artist.instruments %>"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Awards/Achievements/Fame</label>
+                                    <input type="text" name="awards" class="form-control" autocomplete="off" value="<%= artist.awards %>"/>
+                                </div>
+                                <input type="hidden" name="name" value="<%= artist.name %>">
+                                <input type="hidden" name="artistType" value="<%= artist.artistType %>">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Gallery Links -->
+                    <h4>Image Gallery Details</h4>
+                    <div id="galleryContainer">
+                        <% for (let i=0; i < artist.gallery.length; i++) { %>
+                            <div class="gallery">
+                                <label for="galleryLink">Gallery Link <%= i+1 %>:</label>
+                                <input type="text" id="galleryLink" name="gallery[<%= i %>][link]" class="form-control"
+                                    value="<%= artist.gallery[i].link %>">
+                                <label>Alt Text <%= i+1 %></label>
+                                <input type="text" name="gallery[<%= i %>][alt]" class="form-control"
+                                    value="<%= artist.gallery[i].alt %>">
+                                <label>Title Text <%= i+1 %></label>
+                                <input type="text" name="gallery[<%= i %>][title]" class="form-control"
+                                    value="<%= artist.gallery[i].title %>">
+                                <label>Description Text <%= i+1 %></label>
+                                <input type="text" name="gallery[<%= i %>][desc]" class="form-control"
+                                    value="<%= artist.gallery[i].desc %>">
+                                <label>Caption Text <%= i+1 %></label>
+                                <input type="text" name="gallery[<%= i %>][caption]" class="form-control"
+                                    value="<%= artist.gallery[i].caption %>">
+                                <br><br>
+                                <hr>
+                            </div>
+                            <% } %>
+                    </div>
+                    <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
+
+                    <!-- Event Links -->
+                    <div id="eventsContainer">
+                        <% for (let i=0; i < artist.events.length; i++) { %>
+                        <label for="eventName">Event Name:</label>
+                        <input type="text" id="eventName" name="eventName[<%= i %>]" class="form-control" value="<%= artist.events[i].name %>">
+                        <% for (let j=0; j < artist.events[i].links.length; j++) { %>
+                        <label for="youtubeLink">Event Link:</label>
+                        <input type="text" id="eventLink" name="eventType[<%= i %>][<%= j %>]" class="form-control" value="<%= artist.events[i].links[j] %>">
+                        <% } %>
+                        <button type="button" id="addEventLink1" onclick="addEventLink()" class="btn-primary">Add More
+                            Event Link</button><br><br>
+                            <% } %>
+                    </div>
+                    <button type="button" id="addEventTypeLink" class="btn-danger">Add More Event
+                        Types</button><br><br>
+
+                    <label for="blog">Blog</label>
+                    <textarea id="editor" name="blog" id="editor" class="form-control"><%- artist.blog %></textarea>
+
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </form>
+                <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+                <script>
+                    // Define a configuration object with limited features
+                    var limitedConfig = {
+                        toolbar: [
+                            // Specify the toolbar buttons you want to include
+                            'heading', '|', 'link'
+                        ],
+                        heading: {
+                            options: [
+                                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                                { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                                { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                                { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                            ]
+                        }
+                        // You can include any other configuration options you need
+                    };
+
+                    // Create the CKEditor instance using the limited configuration
+                    ClassicEditor.create(document.querySelector("#editor"), limitedConfig)
+                        .catch(err => {
+                            console.error(err);
+                        });
+                </script>
+                <script>
+                    const artistTypeSelect = document.getElementById('artistTypeSelect');
+                    const bandMembersInput = document.getElementById('bandMembersInput');
+
+                    artistTypeSelect.addEventListener('change', function () {
+                        if (artistTypeSelect.value === 'live-band') {
+                            bandMembersInput.style.display = 'block';
+                        } else {
+                            bandMembersInput.style.display = 'none';
+                        }
+                    });
+                </script>
+                <script>
+                    const addGalleryLinkBtn = document.getElementById("addGalleryLink");
+                    const addEventLinkBtn = document.getElementById("addEventLink");
+                    const addEventTypeLinkBtn = document.getElementById("addEventTypeLink");
+                    const addTestLinkBtn = document.getElementById("addTestLink");
+                    const addReviewBtn = document.getElementById("addReview");
+                    const eventsContainer = document.getElementById("eventsContainer");
+                    const reviewsContainer = document.getElementById("reviewsContainer");
+                    const galleryContainer = document.getElementById("galleryContainer");
+
+                    const galleryLinks = [];
+                    const youtubeLinks = [];
+                    const testLinks = [];
+                    const reviews = [];
+                    let galleryCount = 1;
+                    let eventCount = 1;
+                    let eventTypeCount = 1;
+                    let testCount = 1;
+                    let reviewCount = 1;
+
+                    addGalleryLinkBtn.addEventListener("click", () => {
+                        galleryCount++;
+                        const galleryDiv = document.createElement("div");
+                        galleryDiv.className = "gallery";
+                        galleryDiv.innerHTML = `
+                        <label for="galleryLink">Gallery Link ${galleryCount}:</label>
+                            <input type="text" id="galleryLink" name="gallery[${galleryCount}][link]" class="form-control">
+                            <label>Alt Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][alt]" class="form-control">
+                            <label>Title Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][title]" class="form-control">
+                            <label>Description Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][desc]" class="form-control">
+                            <label>Caption Text ${galleryCount}</label>
+                            <input type="text" name="gallery[${galleryCount}][caption]" class="form-control">
+                        `;
+                        galleryContainer.appendChild(galleryDiv);
+                    });
+
+                    function addEventLink() {
+                        document.getElementById(`addEventLink${eventCount}`)
+                            .addEventListener("click", () => {
+                                console.log("i am pressed");
+                                eventCount++;
+                                const eventLinkInput = document.createElement("input");
+                                eventLinkInput.type = "text";
+                                eventLinkInput.name = `eventType[${eventTypeCount}][${eventCount}]`;
+                                eventLinkInput.classList = "form-control"
+                                eventsContainer.insertBefore(eventLinkInput, addEventLinkBtn);
+                            });
+                        eventCount++;
+                    }
+
+                    addEventTypeLinkBtn.addEventListener("click", () => {
+                        eventCount = 1;
+                        eventTypeCount++;
+                        const eventDiv = document.createElement("div");
+                        eventDiv.className = "event";
+                        eventDiv.innerHTML = `
+                            <label for="eventName">Event Name:</label>
+                            <input type="text" name="eventName[${eventTypeCount}]" class="form-control">
+                            <label for="youtubeLink">Event Link:</label>
+                            <input type="text" name="eventType[${eventTypeCount}][1]" class="form-control">
+                            <button type="button" id="addEventLink${eventTypeCount}" onclick="addEventLink()" class="btn-primary">Add More Event Link</button><br><br>
+                        `;
+                        eventsContainer.appendChild(eventDiv);
+                    });
+
+                    addTestLinkBtn.addEventListener("click", () => {
+                        testCount++;
+                        const testLinkInput = document.createElement("input");
+                        testLinkInput.type = "text";
+                        testLinkInput.name = `testLink[${testCount}]`;
+                        testLinkInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(testLinkInput, addTestLinkBtn);
+                    });
+
+                    addReviewBtn.addEventListener("click", () => {
+                        reviewCount++;
+                        const reviewDiv = document.createElement("div");
+                        reviewDiv.className = "review";
+                        reviewDiv.innerHTML = `
+                            <label for="reviewTitle">Review Title:</label>
+                            <input type="text" class="reviewTitle form-control" name="review[${reviewCount}][[title]]"><br>
+                            <label for="reviewDescription">Review Description:</label>
+                            <input type="text" class="reviewDescription form-control" name="review[${reviewCount}][desc]"><br>
+                            <label for="reviewName">Review Name:</label>
+                            <input type="text" class="reviewName form-control" name="review[${reviewCount}][name]"><br>
+                            <label for="reviewPic">Review Pic:</label>
+                            <input type="text" class="reviewPic form-control" name="review[${reviewCount}][pic]"><br>
+                        `;
+                        reviewsContainer.appendChild(reviewDiv);
+                    });
+                </script>
+
+                <%- include("partials/footer"); -%>

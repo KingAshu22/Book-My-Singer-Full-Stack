@@ -253,6 +253,25 @@ app.get("/artist/:artistType/:linkid", async (req, res) => {
   }
 });
 
+app.get("/edit-artist/:artistType/:linkid", isAuthenticated, async (req, res) => {
+  try {
+    const { artistType, linkid } = req.params;
+
+    const artist = await Artist.findOne({ artistType, linkid });
+
+    if (artist) {
+      // Render the "singer" view and pass the artist's information
+      res.render('edit-artist', { artist });
+    } else {
+      // Redirect to the login page if artist is not found
+      res.status(404).send("No Artist Found")
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.get("/blog/:linkid", async (req, res) => {
   try {
     const { linkid } = req.params;
@@ -386,6 +405,62 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
     res.send(error)
   });
 });
+
+app.post("/edit-artist", async (req, res) => {
+  const data = req.body;
+
+  const metaTitle = data.metaTitle;
+  const metaDesc = data.metaDesc;
+  const keywords = data.keywords;
+  const name = data.name;
+  const lowerCaseName = name.toLowerCase();
+  const linkid = lowerCaseName.replace(/ /g, '-');
+  const profilePic = data.profilePic;
+  const contact = data.contact;
+  const location = data.location;
+  const price = data.price;
+  const artistType = data.artistType;
+  const bandMemberName = data.bandMemberName;
+  const code = data.code;
+  const eventsType = data.events;
+  const genre = data.genre;
+  const languages = data.languages;
+  const playback = data.playback;
+  const original = data.original;
+  const time = data.time;
+  const instruments = data.instruments;
+  const awards = data.awards;
+  const gallery = data.galleryLink;
+  const eventName = data.eventName;
+  const eventType = data.eventType;
+
+  // Function to determine event type based on link
+  function getEventType(link) {
+    return link.includes('aws') ? 'aws' : 'youtube';
+  }
+
+  // Create the events array
+  const events = eventName.map((name, index) => ({
+    name: name,
+    links: eventType[index],
+    type: eventType[index].map(link => getEventType(link))
+  }));
+
+  const testLinks = data.testLink;
+  const reviews = data.review;
+  const blog = data.blog;
+
+  const artist = await Artist.updateOne(
+    { artistType, linkid },
+    {
+      metaTitle, metaDesc, keywords, name, profilePic, contact, location, price, bandMemberName, code, eventsType, genre, languages, playback, original, time, instruments, awards, gallery, events, reviews, blog
+    }
+  ).then(() => {
+    res.redirect("/artist/" + artistType + "/" + linkid);
+  }).catch((error) => {
+    res.send(error)
+  });
+})
 
 app.post("/add-blog", (req, res) => {
   const data = req.body;
