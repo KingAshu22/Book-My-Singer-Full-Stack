@@ -210,11 +210,21 @@ app.get("/event-category/:category/:subCategory", async (req, res) => {
   }
 });
 
-app.get("/all-artists", async (req, res) => {
+app.get("/all-artists", isAuthenticated, async (req, res) => {
   const artists = await Artist.find({}).sort({ _id: -1 });
 
   res.render("allArtists", {
     artists
+  })
+});
+
+app.get("/all-artist-category", isAuthenticated, async (req, res) => {
+  const artistCategories = await ArtistCategory.find({}).sort({ _id: -1 });
+
+  const seoScores = artistCategories.map(calculateOnPageSEOScore);
+
+  res.render("allArtistCategory", {
+    artistCategories, seoScores
   })
 });
 
@@ -270,7 +280,7 @@ function calculateOnPageSEOScore(blog) {
   };
 }
 
-app.get("/all-blogs", async (req, res) => {
+app.get("/all-blogs", isAuthenticated, async (req, res) => {
   const blogs = await Blog.find({}).sort({ _id: -1 });
 
   const seoScores = blogs.map(calculateOnPageSEOScore);
@@ -327,6 +337,25 @@ app.get("/edit-artist/:artistType/:linkid", isAuthenticated, async (req, res) =>
   }
 });
 
+app.get("/edit-artist-category/:category/:subCategory", isAuthenticated, async (req, res) => {
+  try {
+    const { category, subCategory } = req.params;
+
+    const artistCategory = await ArtistCategory.findOne({ category, subCategory });
+
+    if (artistCategory) {
+      // Render the "singer" view and pass the artist's information
+      res.render('edit-artist-category', { artistCategory });
+    } else {
+      // Redirect to the login page if artist is not found
+      res.status(404).send("No Artist Found")
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.get("/blog/:linkid", async (req, res) => {
   try {
     const { linkid } = req.params;
@@ -354,7 +383,7 @@ app.get("/blog/:linkid", async (req, res) => {
   }
 });
 
-app.get("/edit-blog/:linkid", async (req, res) => {
+app.get("/edit-blog/:linkid", isAuthenticated, async (req, res) => {
   try {
     const { linkid } = req.params;
 
@@ -461,7 +490,7 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
   });
 });
 
-app.post("/edit-artist", async (req, res) => {
+app.post("/edit-artist", isAuthenticated, async (req, res) => {
   const data = req.body;
 
   const metaTitle = data.metaTitle;
@@ -517,7 +546,7 @@ app.post("/edit-artist", async (req, res) => {
   });
 })
 
-app.post("/add-blog", (req, res) => {
+app.post("/add-blog", isAuthenticated, (req, res) => {
   const data = req.body;
 
   const metaTitle = data.metaTitle;
@@ -556,7 +585,7 @@ app.post("/add-blog", (req, res) => {
   });
 });
 
-app.post("/add-category", (req, res) => {
+app.post("/add-category", isAuthenticated, (req, res) => {
   const data = req.body;
 
   const metaTitle = data.metaTitle;
@@ -594,7 +623,7 @@ app.post("/add-category", (req, res) => {
   });
 });
 
-app.post("/add-event", (req, res) => {
+app.post("/add-event", isAuthenticated, (req, res) => {
   const data = req.body;
 
   const metaTitle = data.metaTitle;
@@ -667,7 +696,7 @@ app.post('/contact-form', recaptcha.middleware.verify, (req, res) => {
   }
 });
 
-app.post("/edit-blog", async (req, res) => {
+app.post("/edit-blog", isAuthenticated, async (req, res) => {
   const data = req.body;
 
   const metaTitle = data.metaTitle;
