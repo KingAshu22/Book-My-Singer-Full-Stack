@@ -79,6 +79,7 @@ const blogSchema = new mongoose.Schema({
   linkid: String,
   title: String,
   thumbnail: String,
+  thumbCap: String,
   gallery: Array,
   events: Array,
   blog: String,
@@ -217,11 +218,65 @@ app.get("/all-artists", async (req, res) => {
   })
 });
 
+function calculateOnPageSEOScore(blog) {
+  // Your SEO scoring logic here
+  const metaTitle = blog.metaTitle.toLowerCase();
+  const metaDesc = blog.metaDesc.toLowerCase();
+  const blogContent = blog.blog.toLowerCase();
+  const title = blog.title.toLowerCase();
+  const keywords = blog.keywords.toLowerCase();
+  const keywordList = keywords.split(',').map(keyword => keyword.trim());
+
+  let metaTitleScore = 0;
+  let metaDescScore = 0;
+  let blogContentScore = 0;
+  let titleScore = 0;
+
+  // Check if at least one keyword is found in each part of the content
+  keywordList.forEach(keyword => {
+    if (metaTitle.includes(keyword)) {
+      metaTitleScore += 10; // Score if a keyword is found in meta title
+    }
+    if (metaDesc.includes(keyword)) {
+      metaDescScore += 10; // Score if a keyword is found in meta description
+    }
+    if (blogContent.includes(keyword)) {
+      blogContentScore += 10; // Score if a keyword is found in blog content
+    }
+    if (title.includes(keyword)) {
+      titleScore += 10; // Score if a keyword is found in title
+    }
+  });
+
+  // Calculate the total SEO score
+  const totalScore = metaTitleScore + metaDescScore + blogContentScore + titleScore;
+
+  // Calculate the individual scores as an object
+  const individualScores = {
+    metaTitleScore,
+    metaDescScore,
+    blogContentScore,
+    titleScore,
+  };
+
+  // Calculate the percentage score
+  const percentage = (totalScore / 40) * 100;
+
+  // Return an object with individual scores and total score
+  return {
+    individualScores,
+    totalScore,
+    percentage: percentage.toFixed(2),
+  };
+}
+
 app.get("/all-blogs", async (req, res) => {
   const blogs = await Blog.find({}).sort({ _id: -1 });
 
+  const seoScores = blogs.map(calculateOnPageSEOScore);
+
   res.render("allBlogs", {
-    blogs
+    blogs, seoScores
   })
 });
 
@@ -470,6 +525,7 @@ app.post("/add-blog", (req, res) => {
   const keywords = data.keywords;
   const title = data.title;
   const thumbnail = data.thumbnail;
+  const thumbCap = data.thumbCap;
   const lowerCaseName = title.toLowerCase();
   const linkid = lowerCaseName.replace(/ /g, '-');
   const gallery = data.galleryLink;
@@ -490,7 +546,7 @@ app.post("/add-blog", (req, res) => {
   const blog = data.blog;
 
   const blogs = new Blog({
-    metaTitle, metaDesc, keywords, title, thumbnail, linkid, gallery, events, blog, relatedBlog
+    metaTitle, metaDesc, keywords, title, thumbnail, thumbCap, linkid, gallery, events, blog, relatedBlog
   });
 
   blogs.save().then(() => {
@@ -619,6 +675,7 @@ app.post("/edit-blog", async (req, res) => {
   const keywords = data.keywords;
   const title = data.title;
   const thumbnail = data.thumbnail;
+  const thumbCap = data.thumbCap;
   const lowerCaseName = title.toLowerCase();
   const linkid = lowerCaseName.replace(/ /g, '-');
   const gallery = data.galleryLink;
@@ -628,7 +685,7 @@ app.post("/edit-blog", async (req, res) => {
   const blogs = await Blog.updateOne(
     { linkid },
     {
-      metaTitle, metaDesc, keywords, title, thumbnail, gallery, blog, relatedBlog
+      metaTitle, metaDesc, keywords, title, thumbnail, thumbCap, gallery, blog, relatedBlog
     }
   ).then(() => {
     res.redirect("/blog/" + linkid);

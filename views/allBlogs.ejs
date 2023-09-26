@@ -18,20 +18,36 @@
                                     <th scope="col">Blog Link ID</th>
                                     <th scope="col">Blog Meta Title</th>
                                     <th scope="col">Blog Meta Description</th>
+                                    <th scope="col">SEO Score</th>
                                     <th scope="col">View</th>
                                     <th scope="col">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% blogs.forEach(function(blog) { %>
+                                <% blogs.forEach(function(blog, index) { %>
                                     <tr>
-                                        <th scope="row"><%= blog.linkid %></th>
-                                        <td><%= blog.metaTitle %></td>
-                                        <td><%= blog.metaDesc %></td>
-                                        <td><button class="btn btn-dark"><a href="/blog/<%= blog.linkid %>" style="text-decoration: none; color: #fff;">View</a></button></td>
-                                        <td><button class="btn btn-primary"><a href="/edit-blog/<%= blog.linkid %>" style="text-decoration: none; color: #fff;">Edit</a></button></td>
+                                        <th scope="row">
+                                            <%= blog.linkid %>
+                                        </th>
+                                        <td>
+                                            <%= blog.metaTitle %>
+                                        </td>
+                                        <td>
+                                            <%= blog.metaDesc %>
+                                        </td>
+                                        <td class="score-cell"
+                                            data-metaTitleScore="<%= seoScores[index].individualScores.metaTitleScore %>"
+                                            data-metaDescScore="<%= seoScores[index].individualScores.metaDescScore %>"
+                                            data-blogContentScore="<%= seoScores[index].individualScores.blogContentScore %>"
+                                            data-titleScore="<%= seoScores[index].individualScores.titleScore %>">
+                                            <%= seoScores[index].percentage %>
+                                        </td>
+                                        <td><button class="btn btn-dark"><a href="/blog/<%= blog.linkid %>"
+                                                    style="text-decoration: none; color: #fff;">View</a></button></td>
+                                        <td><button class="btn btn-primary"><a href="/edit-blog/<%= blog.linkid %>"
+                                                    style="text-decoration: none; color: #fff;">Edit</a></button></td>
                                     </tr>
-                                <% }); %>
+                                    <% }); %>
                             </tbody>
                         </table>
                     </div>
@@ -40,5 +56,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const scoreCells = document.querySelectorAll(".score-cell");
+
+        scoreCells.forEach(scoreCell => {
+            scoreCell.addEventListener("click", () => {
+                const metaTitleScore = scoreCell.getAttribute("data-metaTitleScore");
+                const metaDescScore = scoreCell.getAttribute("data-metaDescScore");
+                const blogContentScore = scoreCell.getAttribute("data-blogContentScore");
+                const titleScore = scoreCell.getAttribute("data-titleScore");
+
+                // Display the individual scores in a tooltip or alert
+                alert(`Meta Title Score: ${metaTitleScore}\nMeta Desc Score: ${metaDescScore}\nBlog Content Score: ${blogContentScore}\nTitle Score: ${titleScore}`);
+            });
+        });
+    </script>
 
     <%- include("partials/footer"); -%>

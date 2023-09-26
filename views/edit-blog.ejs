@@ -11,24 +11,25 @@
                 </div>
 
                 <form id="myForm" action="/edit-blog" method="POST">
+                    <label for="keywords">1. Keywords (Comma Seperated Value)</label>
+                    <input type="text" name="keywords" class="form-control" value="<%= blog.keywords %>">
+
+                    <label for="title">2. Enter Blog Title</label>
+                    <input type="text" name="title" class="form-control" value="<%= blog.title %>">
+
                     <h4>Meta Tag Details</h4>
-                    <label for="metaTitle">Meta Tag Title (Not More than 70 Characters)</label>
+                    <label for="metaTitle">3. Meta Tag Title (Not More than 70 Characters)</label>
                     <input type="text" name="metaTitle" class="form-control" maxlength="70"
                         value="<%= blog.metaTitle %>">
 
-                    <label for="metaDesc">Meta Tag Description (Not more than 250 Characters)</label>
+                    <label for="metaDesc">4. Meta Tag Description (Not more than 250 Characters)</label>
                     <textarea name="metaDesc" class="form-control" maxlength="250"><%= blog.metaDesc %></textarea>
 
-                    <label for="keywords">Enter Keywords (Comma Seperated Value)</label>
-                    <input type="text" name="keywords" class="form-control" value="<%= blog.keywords %>">
-                    <hr>
-
-                    <h4>Blog Details</h4>
-                    <label for="title">Enter Blog Title</label>
-                    <input type="text" name="title" class="form-control" value="<%= blog.title %>">
-
-                    <label for="title">Enter Blog Thumbnail (3 x 2)</label>
+                    <label for="title">5. Enter Blog Thumbnail (3 x 2)</label>
                     <input type="text" name="thumbnail" class="form-control" value="<%= blog.thumbnail %>">
+
+                    <label for="title">6. Thumbnail Caption</label>
+                    <input type="text" name="thumbCap" class="form-control" value="<%= blog.thumbCap %>">
 
                     <!-- Gallery Links -->
                     <h4>Image Gallery Details</h4>
@@ -58,11 +59,11 @@
 
                     <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
 
-                    <label for="blog">Blog</label>
+                    <label for="blog">8. Blog</label>
                     <textarea id="editor" name="blog" id="editor" class="form-control"><%- blog.blog %></textarea>
 
                     <!-- Related Blog Links -->
-                    <h4>Related Blog Details</h4>
+                    <h4>9. Related Blog Details</h4>
                     <label>Related Blog Link ID:</label>
                     <% let i=1 %>
                         <% blog.relatedBlog.forEach(function(blog) { %>

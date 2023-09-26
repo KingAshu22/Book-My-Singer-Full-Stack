@@ -1,5 +1,18 @@
 <%- include("partials/header"); -%>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <style>
+        .invalid-input {
+            border: 1px solid red;
+            color: red;
+        }
+
+        .valid-input {
+            border: 1px solid green;
+            color: green;
+        }
+    </style>
 
     <div class="mil-content">
         <div class="mil-scroll-wrapper transition-fade" id="swupMain">
@@ -10,23 +23,39 @@
                 </div>
 
                 <form id="myForm" action="/add-blog" method="POST">
-                    <h4>Meta Tag Details</h4>
-                    <label for="metaTitle">Meta Tag Title (Not More than 70 Characters)</label>
-                    <input type="text" name="metaTitle" class="form-control" maxlength="70">
+                    <label for="mainKeyword">1. Keywords (Comma Seperated Value)</label>
+                    <input type="text" id="mainKeyword" name="keywords" class="form-control" maxlength="70">
 
-                    <label for="metaDesc">Meta Tag Description (Not more than 160 Characters)</label>
-                    <textarea name="metaDesc" class="form-control" maxlength="160"></textarea>
+                    <label for="title">2. Title</label>
+                    <input type="text" name="title" id="title" class="form-control">
 
-                    <label for="keywords">Enter Keywords (Comma Seperated Value)</label>
-                    <input type="text" name="keywords" class="form-control">
+                    <label for="metaTitle">3. Meta Title (Not More than 70 Characters)</label>
+                    <input type="text" name="metaTitle" id="metaTitle" class="form-control" maxlength="70" disabled>
+
+                    <label for="metaDesc">4. Meta Description (Not more than 160 Characters)</label>
+                    <textarea name="metaDesc" class="form-control" id="metaDesc" maxlength="900"></textarea>
                     <hr>
 
                     <h4>Blog Details</h4>
-                    <label for="title">Enter Blog Title</label>
-                    <input type="text" name="title" class="form-control">
 
-                    <label for="title">Enter Blog Thumbnail (3 x 2)</label>
+                    <label for="title">5. Blog URL</label>
+                    <input type="text" name="url" id="url" class="form-control" disabled>
+
+                    <label for="title">6. Blog Thumbnail Link (3 x 2)</label>
                     <input type="text" name="thumbnail" class="form-control">
+
+                    <label for="title">6.1. Thumbnail alt Text</label>
+                    <input type="text" name="thumbAlt" id="thumbAlt" class="form-control" disabled>
+
+                    <label for="title">6.2. Thumbnail title Text</label>
+                    <input type="text" name="thumbTitle" id="thumbTitle" class="form-control" disabled>
+
+                    <label for="title">6.3. Thumbnail description Text</label>
+                    <input type="text" name="thumbDesc" id="thumbDesc" class="form-control" disabled>
+
+                    <label for="title">6.4. Thumbnail caption Text</label>
+                    <input type="text" name="thumbCap" id="thumbCap" class="form-control">
+
 
                     <!-- Gallery Links -->
                     <h4>Image Gallery Details</h4>
@@ -47,15 +76,20 @@
                     <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
 
                     <!-- Event Links -->
+                    <h3>Videos</h3>
                     <div id="eventsContainer">
-                        <label for="eventName">Event Name:</label>
+                        <label for="eventName">Event Category Name:</label>
                         <input type="text" id="eventName" name="eventName[1]" class="form-control">
                         <label for="youtubeLink">Event Link:</label>
                         <input type="text" id="eventLink" name="eventType[1][1]" class="form-control">
-                        <button type="button" id="addEventLink1" onclick="addEventLink()" class="btn-primary">Add More Event Link</button><br><br>
+                        <button type="button" id="addEventLink1" onclick="addEventLink()" class="btn-primary">Add More
+                            Event Link</button><br><br>
                     </div>
                     <button type="button" id="addEventTypeLink" class="btn-danger">Add More Event
                         Types</button><br><br>
+
+                    <label for="metaDesc">7. H1 Paragraph (same as MetaDesc ) (approx 150 words )</label>
+                    <textarea name="h1para" id="h1para" class="form-control" maxlength="900" disabled></textarea>
 
                     <label for="blog">Blog</label>
                     <textarea id="editor" name="blog" id="editor" class="form-control"></textarea>
@@ -63,7 +97,7 @@
                     <!-- Related Blog Links -->
                     <h4>Related Blog Details</h4>
                     <label>Related Blog Link ID:</label>
-                    <input type="text"  name="relatedBlog[1]" class="form-control">
+                    <input type="text" name="relatedBlog[1]" class="form-control">
                     <button type="button" id="addRelatedBlog" class="btn-primary">Add More Related Blog</button><br><br>
 
                     <button type="submit" class="btn btn-danger">Submit</button>
@@ -140,16 +174,16 @@
 
                     function addEventLink() {
                         document.getElementById(`addEventLink${eventCount}`)
-                        .addEventListener("click", () => {
-                        console.log("i am pressed");
+                            .addEventListener("click", () => {
+                                console.log("i am pressed");
+                                eventCount++;
+                                const eventLinkInput = document.createElement("input");
+                                eventLinkInput.type = "text";
+                                eventLinkInput.name = `eventType[${eventTypeCount}][${eventCount}]`;
+                                eventLinkInput.classList = "form-control"
+                                eventsContainer.insertBefore(eventLinkInput, addEventLinkBtn);
+                            });
                         eventCount++;
-                        const eventLinkInput = document.createElement("input");
-                        eventLinkInput.type = "text";
-                        eventLinkInput.name = `eventType[${eventTypeCount}][${eventCount}]`;
-                        eventLinkInput.classList = "form-control"
-                        eventsContainer.insertBefore(eventLinkInput, addEventLinkBtn);
-                    });
-                    eventCount++;
                     }
 
                     addEventTypeLinkBtn.addEventListener("click", () => {
@@ -166,6 +200,90 @@
                         `;
                         eventsContainer.appendChild(eventDiv);
                     });
+                </script>
+
+                <!-- <script>
+                    const mainKeywordInput = document.getElementById('mainKeyword');
+                    const title = document.getElementById('title');
+                    const metaTitle = document.getElementById('metaTitle');
+
+                    mainKeywordInput.addEventListener('input', checkMainKeywordInFields);
+                    title.addEventListener('input', checkMainKeywordInFields);
+                    metaTitle.addEventListener('input', checkMainKeywordInFields);
+
+                    function checkMainKeywordInFields() {
+                        const mainKeyword = mainKeywordInput.value.toLowerCase();
+
+                        const fieldsToCheck = [
+                            'metaTitle',
+                            'metaDesc',
+                            'title',
+                            'thumbAlt',
+                            'thumbTitle',
+                            'thumbDesc',
+                            'thumbCap',
+                            'blog'
+                        ];
+
+                        fieldsToCheck.forEach(fieldName => {
+                            const fieldInput = document.querySelector(`[name="${fieldName}"]`);
+                            if (fieldInput) {
+                                const fieldValue = fieldInput.value.toLowerCase();
+                                const isValid = fieldValue.includes(mainKeyword);
+
+                                // Update the input field's class and value to show the appropriate symbol
+                                if (isValid) {
+                                    fieldInput.classList.remove('invalid-input');
+                                    fieldInput.classList.add('valid-input');
+                                } else {
+                                    fieldInput.classList.remove('valid-input');
+                                    fieldInput.classList.add('invalid-input');
+                                }
+                            }
+                        });
+                    }
+                </script> -->
+
+                <script>
+                    // Get references to the title and metaTitle input elements
+                    const keywords = document.getElementById('mainKeyword');
+                    const titleInput = document.getElementById('title');
+                    const metaTitleInput = document.getElementById('metaTitle');
+                    const metaDesc = document.getElementById('metaDesc');
+                    const url = document.getElementById('url');
+                    const thumbTitle = document.getElementById('thumbTitle');
+                    const thumbDesc = document.getElementById('thumbDesc');
+                    const thumbAlt = document.getElementById('thumbAlt');
+                    const h1para = document.getElementById('h1para');
+
+                    // Add an event listener to the title input
+                    titleInput.addEventListener('input', function () {
+                        // Get the value of the title input
+                        const titleValue = titleInput.value;
+
+                        // Create the meta title by appending " | Book My Singer" to the title
+                        const metaTitleValue = titleValue + " | Book My Singer";
+
+                        const lowerCaseName = titleValue.toLowerCase();
+                        const linkid = lowerCaseName.replace(/ /g, '-');
+
+                        const urlValue = "www.bookmysinger.com/blog/" + linkid;
+
+                        // Set the value of the metaTitle input to the new value
+                        metaTitleInput.value = metaTitleValue;
+                        url.value = urlValue;
+                        thumbTitle.value = titleValue;
+                    });
+
+                    metaDesc.addEventListener('input', function () {
+                        const metaDescValue = metaDesc.value;
+                        thumbDesc.value = metaDescValue;
+                        h1para.value = metaDescValue;
+                    });
+
+                    keywords.addEventListener('input', function () {
+                        thumbAlt.value = keywords.value;
+                    })
                 </script>
 
                 <%- include("partials/footer"); -%>
