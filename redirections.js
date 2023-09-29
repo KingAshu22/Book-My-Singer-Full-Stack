@@ -933,6 +933,10 @@ const redirections = [
   {
     oldUrl: '/sufi-singers-in-mumbai',
     newUrl: '/blog/book-sufi-live-bands-for-events'
+  },
+  {
+    oldUrl: '/top-10-bollywood-singers/',
+    newUrl: '/blog/top-10-bollywood-singers'
   }
 ];
 

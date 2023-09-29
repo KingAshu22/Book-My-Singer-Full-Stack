@@ -59,6 +59,23 @@
 
                     <button type="button" id="addGalleryLink" class="btn-primary">Add More Gallery Link</button><br><br>
 
+                    <!-- Event Links -->
+                    <h3>Videos</h3>
+                    <div id="eventsContainer">
+                        <% for (let i=0; i < blog.events.length; i++) { %>
+                        <label for="eventName">Event Name:</label>
+                        <input type="text" id="eventName" name="eventName[<%= i %>]" class="form-control" value="<%= blog.events[i].name %>">
+                        <% for (let j=0; j < blog.events[i].links.length; j++) { %>
+                        <label for="youtubeLink">Event Link:</label>
+                        <input type="text" id="eventLink" name="eventType[<%= i %>][<%= j %>]" class="form-control" value="<%= blog.events[i].links[j] %>">
+                        <% } %>
+                        <button type="button" id="addEventLink1" onclick="addEventLink()" class="btn-primary">Add More
+                            Event Link</button><br><br>
+                            <% } %>
+                    </div>
+                    <button type="button" id="addEventTypeLink" class="btn-danger">Add More Event
+                        Types</button><br><br>
+
                     <label for="blog">8. Blog</label>
                     <textarea id="editor" name="blog" id="editor" class="form-control"><%- blog.blog %></textarea>
 
@@ -107,11 +124,16 @@
                 </script>
                 <script>
                     const addGalleryLinkBtn = document.getElementById("addGalleryLink");
+                    const addEventLinkBtn = document.getElementById("addEventLink");
+                    const addEventTypeLinkBtn = document.getElementById("addEventTypeLink");
+                    const eventsContainer = document.getElementById("eventsContainer");
                     const addRelatedBlogBtn = document.getElementById("addRelatedBlog");
                     const galleryContainer = document.getElementById("galleryContainer");
 
-                    let galleryCount = <%= blog.gallery.length %>;
-                    let blogCount = <%= blog.relatedBlog.length %>;
+                    let galleryCount = 1;
+                    let eventCount = 1;
+                    let eventTypeCount = 1;
+                    let blogCount = 1;
 
                     addGalleryLinkBtn.addEventListener("click", () => {
                         galleryCount++;
@@ -139,6 +161,35 @@
                         relatedBlogInput.name = `relatedBlog[${blogCount}]`;
                         relatedBlogInput.classList = "form-control"
                         document.getElementById("myForm").insertBefore(relatedBlogInput, addRelatedBlogBtn);
+                    });
+
+                    function addEventLink() {
+                        document.getElementById(`addEventLink${eventCount}`)
+                            .addEventListener("click", () => {
+                                console.log("i am pressed");
+                                eventCount++;
+                                const eventLinkInput = document.createElement("input");
+                                eventLinkInput.type = "text";
+                                eventLinkInput.name = `eventType[${eventTypeCount}][${eventCount}]`;
+                                eventLinkInput.classList = "form-control"
+                                eventsContainer.insertBefore(eventLinkInput, addEventLinkBtn);
+                            });
+                        eventCount++;
+                    }
+
+                    addEventTypeLinkBtn.addEventListener("click", () => {
+                        eventCount = 1;
+                        eventTypeCount++;
+                        const eventDiv = document.createElement("div");
+                        eventDiv.className = "event";
+                        eventDiv.innerHTML = `
+                            <label for="eventName">Event Name:</label>
+                            <input type="text" name="eventName[${eventTypeCount}]" class="form-control">
+                            <label for="youtubeLink">Event Link:</label>
+                            <input type="text" name="eventType[${eventTypeCount}][1]" class="form-control">
+                            <button type="button" id="addEventLink${eventTypeCount}" onclick="addEventLink()" class="btn-primary">Add More Event Link</button><br><br>
+                        `;
+                        eventsContainer.appendChild(eventDiv);
                     });
                 </script>
 
