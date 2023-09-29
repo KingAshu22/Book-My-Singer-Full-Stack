@@ -708,7 +708,7 @@ const redirections = [
   },
   {
     oldUrl: '/book-singer-for-event',
-    newUrl: '/blog/book-singers-for-event'
+    newUrl: '/artist-category/singers/singers'
   },
   {
     oldUrl: '/abhigyan-das',
