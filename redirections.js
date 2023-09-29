@@ -707,7 +707,7 @@ const redirections = [
     newUrl: '/blog/book-singers-in-mumbai'
   },
   {
-    oldUrl: '/book-singer-for-event',
+    oldUrl: '/book-singer-for-event/',
     newUrl: '/artist-category/singers/singers'
   },
   {
