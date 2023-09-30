@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/artist/../css/lite-youtube-embed.css">
     <script src="/artist/../js/lite-youtube-embed.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="<%= artist.metaTitle %>">
+    <meta property="og:description" content="<%= artist.metaDesc %>">
+    <meta property="og:image" content="<%= artist.profilePic %>">
+    <meta property="og:url" content="bookmysinger.com/artist/<%= artist.artistType %>/<%= artist.linkid %>">
     <title>
         <%= artist.metaTitle %>
     </title>

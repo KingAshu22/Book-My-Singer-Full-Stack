@@ -1,0 +1,85 @@
+<%- include("partials/header"); -%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <div class="mil-content">
+        <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+            <div class="mil-container-fw">
+                <div class="mil-section-title mil-up">
+                    <div class="mil-divider"></div>
+                    <h3>All Event Category Table</h3>
+                </div>
+
+                <section class="mil-p-90-30">
+                    <div class="row justify-content-between align-items-center">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Sub Category</th>
+                                    <th scope="col">Blog Meta Title</th>
+                                    <th scope="col">SEO Score</th>
+                                    <th scope="col">View</th>
+                                    <th scope="col">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% const categoryOrder=["corporate", "wedding" , "college" , "virtual" , "private"
+                                    , "get-together", "house-parties", "festivals", "shows", "concerts", "live-bands", "holiday", "religious", "comedy" ]; %>
+                                    <% categoryOrder.forEach(category=> { %>
+                                        <% eventCategories.filter(eventCategory=> eventCategory.category ===
+                                            category).forEach((eventCategory, index) => { %>
+                                            <tr>
+                                                <th scope="row">
+                                                    <%= eventCategory.category %>
+                                                </th>
+                                                <td>
+                                                    <%= eventCategory.subCategory %>
+                                                </td>
+                                                <td>
+                                                    <%= eventCategory.metaTitle %>
+                                                </td>
+                                                <td class="score-cell"
+                                                    data-metaTitleScore="<%= seoScores[index].individualScores.metaTitleScore %>"
+                                                    data-metaDescScore="<%= seoScores[index].individualScores.metaDescScore %>"
+                                                    data-artistCategoryContentScore="<%= seoScores[index].individualScores.eventCategoryContentScore %>"
+                                                    data-titleScore="<%= seoScores[index].individualScores.titleScore %>">
+                                                    <%= seoScores[index].percentage %>
+                                                </td>
+                                                <td><button class="btn btn-dark"><a
+                                                            href="/event-category/<%= eventCategory.category %>/<%= eventCategory.subCategory %>"
+                                                            style="text-decoration: none; color: #fff;">View</a></button>
+                                                </td>
+                                                <td><button class="btn btn-primary"><a
+                                                            href="/edit-event-category/<%= eventCategory.category %>/<%= eventCategory.subCategory %>"
+                                                            style="text-decoration: none; color: #fff;">Edit</a></button>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scoreCells = document.querySelectorAll(".score-cell");
+
+        scoreCells.forEach(scoreCell => {
+            scoreCell.addEventListener("click", () => {
+                const metaTitleScore = scoreCell.getAttribute("data-metaTitleScore");
+                const metaDescScore = scoreCell.getAttribute("data-metaDescScore");
+                const artistCategoryContentScore = scoreCell.getAttribute("data-artistCategoryContentScore");
+                const titleScore = scoreCell.getAttribute("data-titleScore");
+
+                // Display the individual scores in a tooltip or alert
+                alert(`Meta Title Score: ${metaTitleScore}\nMeta Desc Score: ${metaDescScore}\nBlog Content Score: ${artistCategoryContentScore}\nTitle Score: ${titleScore}`);
+            });
+        });
+    </script>
+
+    <%- include("partials/footer"); -%>

@@ -228,6 +228,16 @@ app.get("/all-artist-category", isAuthenticated, async (req, res) => {
   })
 });
 
+app.get("/all-event-category", isAuthenticated, async (req, res) => {
+  const eventCategories = await EventCategory.find({}).sort({ _id: -1 });
+
+  const seoScores = eventCategories.map(calculateOnPageSEOScore);
+
+  res.render("allEventCategory", {
+    eventCategories, seoScores
+  });
+});
+
 function calculateOnPageSEOScore(blog) {
   // Your SEO scoring logic here
   const metaTitle = blog.metaTitle.toLowerCase();
