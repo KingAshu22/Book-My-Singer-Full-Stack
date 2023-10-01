@@ -366,6 +366,25 @@ app.get("/edit-artist-category/:category/:subCategory", isAuthenticated, async (
   }
 });
 
+app.get("/edit-event-category/:category/:subCategory", isAuthenticated, async (req, res) => {
+  try {
+    const { category, subCategory } = req.params;
+
+    const eventCategory = await EventCategory.findOne({ category, subCategory });
+
+    if (eventCategory) {
+      // Render the "singer" view and pass the artist's information
+      res.render('edit-event-category', { eventCategory });
+    } else {
+      // Redirect to the login page if artist is not found
+      res.status(404).send("No Artist Found")
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.get("/blog/:linkid", async (req, res) => {
   try {
     const { linkid } = req.params;
@@ -554,7 +573,7 @@ app.post("/edit-artist", isAuthenticated, async (req, res) => {
   }).catch((error) => {
     res.send(error)
   });
-})
+});
 
 app.post("/add-blog", isAuthenticated, (req, res) => {
   const data = req.body;
@@ -666,6 +685,46 @@ app.post("/add-event", isAuthenticated, (req, res) => {
 
   eventCategory.save().then(() => {
     res.redirect("/event-category/" + category + "/" + subCategory)
+  }).catch((error) => {
+    res.send(error)
+  });
+});
+
+app.post("/edit-event", isAuthenticated, async (req, res) => {
+  const data = req.body;
+  
+  const id = data.id;
+  const metaTitle = data.metaTitle;
+  const metaDesc = data.metaDesc;
+  const keywords = data.keywords;
+  let category = data.category.toLowerCase().replace(/ /g, '-');
+  let subCategory = data.subCategory.toLowerCase().replace(/ /g, '-');
+  const title = data.title;
+  const thumbnail = data.thumbnail;
+  const gallery = data.galleryLink;
+  const eventName = data.eventName;
+  const eventType = data.eventType;
+  const relatedBlog = data.relatedBlog;
+  // Function to determine event type based on link
+  function getEventType(link) {
+    return link.includes('aws') ? 'aws' : 'youtube';
+  }
+
+  // Create the events array
+  const events = eventName.map((name, index) => ({
+    name: name,
+    links: eventType[index],
+    type: eventType[index].map(link => getEventType(link))
+  }));
+  const blog = data.blog;
+
+  const eventCategory = await EventCategory.updateOne(
+    { id },
+    {
+      metaTitle, metaDesc, keywords, category, subCategory, title, thumbnail, gallery, events, blog, relatedBlog
+    }
+  ).then(() => {
+    res.redirect("/event-category/" + category + "/" + subCategory);
   }).catch((error) => {
     res.send(error)
   });
