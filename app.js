@@ -170,6 +170,10 @@ app.get("/artist", async (req, res) => {
   })
 });
 
+app.get("/event-category", async (req, res) => {
+  res.render("event-home");
+});
+
 app.get("/artist-category/:category/:subCategory", async (req, res) => {
   try {
     const { category, subCategory } = req.params;
