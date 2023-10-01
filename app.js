@@ -197,9 +197,20 @@ app.get("/event-category/:category/:subCategory", async (req, res) => {
     // Fetch artist from the database based on artistType and linkid
     const eventCategory = await EventCategory.findOne({ category, subCategory });
 
+    // Convert the category to lowercase
+    const lowercaseCategory = category.toLowerCase();
+
+    // Use a regular expression to perform a case-insensitive search
+    const regexCategory = new RegExp(lowercaseCategory, "i");
+
+    // Find artists with eventType containing the category
+    const singers = await Artist.find({ eventType: regexCategory, artistType: "singer" });
+    const bands = await Artist.find({ eventType: regexCategory, artistType: "live-band" });
+    const celebrity = await Artist.find({ eventType: regexCategory, artistType: "celebrity-singer" });
+
     if (eventCategory) {
       // Render the "singer" view and pass the artist's information
-      res.render('event', { eventCategory });
+      res.render('event', { eventCategory, singers, bands, celebrity });
     } else {
       // Redirect to the login page if artist is not found
       res.redirect('/login');

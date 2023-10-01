@@ -21,6 +21,12 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-WMP6WBM');</script>
   <!-- End Google Tag Manager -->
+  <style>
+      .mil-icon-box .mil-service-icon {
+        width: 200px !important;
+        height: 200px !important;
+      }
+  </style>
 <body>
   <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WMP6WBM"
@@ -136,6 +142,105 @@
           </div>
           <% }); %>
           <% } %>
+
+          <% if (singers.length > 0) { %>
+          <section class="mil-p-90-30">
+            <h3>Singers For <span><%= eventCategory.category %></span> Event with us.</h3>
+            <div class="row justify-content-between align-items-center">
+                <% singers.forEach(function(artist) { %>
+                    <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>">
+                        <div class="col-xl-3 col-lg-2">
+                            <div class="mil-icon-box mil-center mil-mb-60">
+                                <div class="mil-service-icon mil-up artist">
+                                    <img src="<%= artist.profilePic %>" alt="" class="mil-mb-30" />
+                                </div>
+                                <h5 class="mil-up mil-mb-30">
+                                    <%= artist.name %>
+                                </h5>
+                                <div class="mil-up">
+                                    <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>" class="mil-link mil-icon-link">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-arrow-right">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <% }); %>
+            </div>
+        </section>
+        <% } %>
+
+        <% if (bands.length > 0) { %>
+          <section class="mil-p-90-30">
+            <h3>Bands For <span><%= eventCategory.category %></span> Event with us.</h3>
+            <div class="row justify-content-between align-items-center">
+                <% bands.forEach(function(artist) { %>
+                    <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>">
+                        <div class="col-xl-3 col-lg-2">
+                            <div class="mil-icon-box mil-center mil-mb-60">
+                                <div class="mil-service-icon mil-up artist">
+                                    <img src="<%= artist.profilePic %>" alt="" class="mil-mb-30" />
+                                </div>
+                                <h5 class="mil-up mil-mb-30">
+                                    <%= artist.name %>
+                                </h5>
+                                <div class="mil-up">
+                                    <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>" class="mil-link mil-icon-link">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-arrow-right">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <% }); %>
+            </div>
+        </section>
+        <% } %>
+
+        <% if (celebrity.length > 0) { %>
+          <section class="mil-p-90-30">
+            <h3>Celebrity For <span><%= eventCategory.category %></span> Event with us.</h3>
+            <div class="row justify-content-between align-items-center">
+                <% celebrity.forEach(function(artist) { %>
+                    <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>">
+                        <div class="col-xl-3 col-lg-2">
+                            <div class="mil-icon-box mil-center mil-mb-60">
+                                <div class="mil-service-icon mil-up artist">
+                                    <img src="<%= artist.profilePic %>" alt="" class="mil-mb-30" />
+                                </div>
+                                <h5 class="mil-up mil-mb-30">
+                                    <%= artist.name %>
+                                </h5>
+                                <div class="mil-up">
+                                    <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>" class="mil-link mil-icon-link">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-arrow-right">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <% }); %>
+            </div>
+        </section>
+        <% } %>
 
             <div class="section-wrapper pl-60 pr-60 video-div">
               <div class="bostami-what-do-wrap mb-30">
