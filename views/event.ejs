@@ -22,7 +22,7 @@
   })(window,document,'script','dataLayer','GTM-WMP6WBM');</script>
   <!-- End Google Tag Manager -->
   <style>
-      .mil-icon-box .mil-service-icon {
+      .mil-icon-box .artist {
         width: 200px !important;
         height: 200px !important;
       }
@@ -150,7 +150,7 @@
                 <% singers.forEach(function(artist) { %>
                     <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>">
                         <div class="col-xl-3 col-lg-2">
-                            <div class="mil-icon-box mil-center mil-mb-60">
+                            <div class="mil-icon-box mil-center mil-mb-60 artist">
                                 <div class="mil-service-icon mil-up artist">
                                     <img src="<%= artist.profilePic %>" alt="" class="mil-mb-30" />
                                 </div>
@@ -183,7 +183,7 @@
                 <% bands.forEach(function(artist) { %>
                     <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>">
                         <div class="col-xl-3 col-lg-2">
-                            <div class="mil-icon-box mil-center mil-mb-60">
+                            <div class="mil-icon-box mil-center mil-mb-60 artist">
                                 <div class="mil-service-icon mil-up artist">
                                     <img src="<%= artist.profilePic %>" alt="" class="mil-mb-30" />
                                 </div>
@@ -216,7 +216,7 @@
                 <% celebrity.forEach(function(artist) { %>
                     <a href="/artist/<%= artist.artistType %>/<%= artist.linkid %>">
                         <div class="col-xl-3 col-lg-2">
-                            <div class="mil-icon-box mil-center mil-mb-60">
+                            <div class="mil-icon-box mil-center mil-mb-60 artist">
                                 <div class="mil-service-icon mil-up artist">
                                     <img src="<%= artist.profilePic %>" alt="" class="mil-mb-30" />
                                 </div>
