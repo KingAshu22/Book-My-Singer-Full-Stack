@@ -719,7 +719,7 @@ app.post("/edit-event", isAuthenticated, async (req, res) => {
   const blog = data.blog;
 
   const eventCategory = await EventCategory.updateOne(
-    { id },
+    { category, subCategory },
     {
       metaTitle, metaDesc, keywords, category, subCategory, title, thumbnail, gallery, events, blog, relatedBlog
     }

@@ -26,7 +26,7 @@
                     <h4>Category Details</h4>
                     <div class="form-outline mb-4">
                         <label class="form-label">Event Type</label>
-                        <select name="category" class="form-control" id="artistTypeSelect">
+                        <select name="category" class="form-control" id="artistTypeSelect" disabled>
                             <option value="corporate" <%= eventCategory.category === 'corporate' ? 'selected' : '' %>>Corporate</option>
                             <option value="wedding" <%= eventCategory.category === 'wedding' ? 'selected' : '' %>>Wedding</option>
                             <option value="college" <%= eventCategory.category === 'college' ? 'selected' : '' %>>College</option>
@@ -46,7 +46,7 @@
                     </div>
 
                     <label for="title">Enter Sub Category Name</label>
-                    <input type="text" name="subCategory" class="form-control" value="<%= eventCategory.subCategory %>">
+                    <input type="text" name="subCategory" class="form-control" value="<%= eventCategory.subCategory %>" disabled>
 
                     <label for="title">Enter Title</label>
                     <input type="text" name="title" class="form-control" value="<%= eventCategory.title %>">
