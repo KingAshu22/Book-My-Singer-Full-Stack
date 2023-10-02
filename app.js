@@ -3,9 +3,9 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const nodemailer = require('nodemailer');
-const Recaptcha = require('express-recaptcha').RecaptchaV3;
-const redirections = require('./redirections');
+const nodemailer = require("nodemailer");
+const Recaptcha = require("express-recaptcha").RecaptchaV3;
+const redirections = require("./redirections");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -17,7 +17,10 @@ app.use(
 );
 
 // Configure reCAPTCHA with your secret key
-const recaptcha = new Recaptcha('6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH', '6LcO1TAoAAAAABTUFWk1LfuVLHugKDSIELY828nB');
+const recaptcha = new Recaptcha(
+  "6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH",
+  "6LcO1TAoAAAAABTUFWk1LfuVLHugKDSIELY828nB"
+);
 
 mongoose.connect(
   "mongodb+srv://bookanartist2:NRMVq0Q1CJI4xZNa@book-my-singer.da90nao.mongodb.net/",
@@ -28,7 +31,7 @@ const userSchema = new mongoose.Schema({
   name: String,
   username: String,
   password: String,
-  role: String
+  role: String,
 });
 
 const User = new mongoose.model("User", userSchema);
@@ -36,7 +39,7 @@ const User = new mongoose.model("User", userSchema);
 const adminSchema = new mongoose.Schema({
   username: String,
   password: String,
-  role: String
+  role: String,
 });
 
 const Admin = new mongoose.model("Admin", adminSchema);
@@ -83,7 +86,7 @@ const blogSchema = new mongoose.Schema({
   gallery: Array,
   events: Array,
   blog: String,
-  relatedBlog: Array
+  relatedBlog: Array,
 });
 
 const Blog = new mongoose.model("Blog", blogSchema);
@@ -99,10 +102,13 @@ const artistCategorySchema = new mongoose.Schema({
   gallery: Array,
   events: Array,
   blog: String,
-  relatedBlog: Array
+  relatedBlog: Array,
 });
 
-const ArtistCategory = new mongoose.model("ArtistCategory", artistCategorySchema);
+const ArtistCategory = new mongoose.model(
+  "ArtistCategory",
+  artistCategorySchema
+);
 
 const eventCategorySchema = new mongoose.Schema({
   metaTitle: String,
@@ -115,11 +121,10 @@ const eventCategorySchema = new mongoose.Schema({
   gallery: Array,
   events: Array,
   blog: String,
-  relatedBlog: Array
+  relatedBlog: Array,
 });
 
 const EventCategory = new mongoose.model("EventCategory", eventCategorySchema);
-
 
 function isAuthenticated(req, res, next) {
   if (req.session.user.role === "admin" || req.session.user.role === "user") {
@@ -166,8 +171,8 @@ app.get("/artist", async (req, res) => {
   const artists = await Artist.find({}).sort({ _id: -1 });
 
   res.render("artist", {
-    artists
-  })
+    artists,
+  });
 });
 
 app.get("/event-category", async (req, res) => {
@@ -179,18 +184,21 @@ app.get("/artist-category/:category/:subCategory", async (req, res) => {
     const { category, subCategory } = req.params;
 
     // Fetch artist from the database based on artistType and linkid
-    const artistCategory = await ArtistCategory.findOne({ category, subCategory });
+    const artistCategory = await ArtistCategory.findOne({
+      category,
+      subCategory,
+    });
 
     if (artistCategory) {
       // Render the "singer" view and pass the artist's information
-      res.render('category', { artistCategory });
+      res.render("category", { artistCategory });
     } else {
       // Redirect to the login page if artist is not found
-      res.redirect('/login');
+      res.redirect("/login");
     }
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -199,7 +207,10 @@ app.get("/event-category/:category/:subCategory", async (req, res) => {
     const { category, subCategory } = req.params;
 
     // Fetch artist from the database based on artistType and linkid
-    const eventCategory = await EventCategory.findOne({ category, subCategory });
+    const eventCategory = await EventCategory.findOne({
+      category,
+      subCategory,
+    });
 
     // Convert the category to lowercase
     const lowercaseCategory = category.toLowerCase();
@@ -208,20 +219,29 @@ app.get("/event-category/:category/:subCategory", async (req, res) => {
     const regexCategory = new RegExp(lowercaseCategory, "i");
 
     // Find artists with eventType containing the category
-    const singers = await Artist.find({ eventType: regexCategory, artistType: "singer" });
-    const bands = await Artist.find({ eventType: regexCategory, artistType: "live-band" });
-    const celebrity = await Artist.find({ eventType: regexCategory, artistType: "celebrity-singer" });
+    const singers = await Artist.find({
+      eventType: regexCategory,
+      artistType: "singer",
+    });
+    const bands = await Artist.find({
+      eventType: regexCategory,
+      artistType: "live-band",
+    });
+    const celebrity = await Artist.find({
+      eventType: regexCategory,
+      artistType: "celebrity-singer",
+    });
 
     if (eventCategory) {
       // Render the "singer" view and pass the artist's information
-      res.render('event', { eventCategory, singers, bands, celebrity });
+      res.render("event", { eventCategory, singers, bands, celebrity });
     } else {
       // Redirect to the login page if artist is not found
-      res.redirect('/login');
+      res.redirect("/login");
     }
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -229,8 +249,8 @@ app.get("/all-artists", isAuthenticated, async (req, res) => {
   const artists = await Artist.find({}).sort({ _id: -1 });
 
   res.render("allArtists", {
-    artists
-  })
+    artists,
+  });
 });
 
 app.get("/all-artist-category", isAuthenticated, async (req, res) => {
@@ -239,8 +259,9 @@ app.get("/all-artist-category", isAuthenticated, async (req, res) => {
   const seoScores = artistCategories.map(calculateOnPageSEOScore);
 
   res.render("allArtistCategory", {
-    artistCategories, seoScores
-  })
+    artistCategories,
+    seoScores,
+  });
 });
 
 app.get("/all-event-category", isAuthenticated, async (req, res) => {
@@ -249,7 +270,8 @@ app.get("/all-event-category", isAuthenticated, async (req, res) => {
   const seoScores = eventCategories.map(calculateOnPageSEOScore);
 
   res.render("allEventCategory", {
-    eventCategories, seoScores
+    eventCategories,
+    seoScores,
   });
 });
 
@@ -260,7 +282,7 @@ function calculateOnPageSEOScore(blog) {
   const blogContent = blog.blog.toLowerCase();
   const title = blog.title.toLowerCase();
   const keywords = blog.keywords.toLowerCase();
-  const keywordList = keywords.split(',').map(keyword => keyword.trim());
+  const keywordList = keywords.split(",").map((keyword) => keyword.trim());
 
   let metaTitleScore = 0;
   let metaDescScore = 0;
@@ -268,7 +290,7 @@ function calculateOnPageSEOScore(blog) {
   let titleScore = 0;
 
   // Check if at least one keyword is found in each part of the content
-  keywordList.forEach(keyword => {
+  keywordList.forEach((keyword) => {
     if (metaTitle.includes(keyword)) {
       metaTitleScore += 10; // Score if a keyword is found in meta title
     }
@@ -284,7 +306,8 @@ function calculateOnPageSEOScore(blog) {
   });
 
   // Calculate the total SEO score
-  const totalScore = metaTitleScore + metaDescScore + blogContentScore + titleScore;
+  const totalScore =
+    metaTitleScore + metaDescScore + blogContentScore + titleScore;
 
   // Calculate the individual scores as an object
   const individualScores = {
@@ -311,16 +334,17 @@ app.get("/all-blogs", isAuthenticated, async (req, res) => {
   const seoScores = blogs.map(calculateOnPageSEOScore);
 
   res.render("allBlogs", {
-    blogs, seoScores
-  })
+    blogs,
+    seoScores,
+  });
 });
 
 app.get("/blog", async (req, res) => {
   const blogs = await Blog.find({}).sort({ _id: -1 });
 
   res.render("blog-list", {
-    blogs
-  })
+    blogs,
+  });
 });
 
 app.get("/artist/:artistType/:linkid", async (req, res) => {
@@ -332,73 +356,91 @@ app.get("/artist/:artistType/:linkid", async (req, res) => {
 
     if (artist) {
       // Render the "singer" view and pass the artist's information
-      res.render('singer', { artist });
+      res.render("singer", { artist });
     } else {
       // Redirect to the login page if artist is not found
-      res.redirect('/login');
+      res.redirect("/login");
     }
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
-app.get("/edit-artist/:artistType/:linkid", isAuthenticated, async (req, res) => {
-  try {
-    const { artistType, linkid } = req.params;
+app.get(
+  "/edit-artist/:artistType/:linkid",
+  isAuthenticated,
+  async (req, res) => {
+    try {
+      const { artistType, linkid } = req.params;
 
-    const artist = await Artist.findOne({ artistType, linkid });
+      const artist = await Artist.findOne({ artistType, linkid });
 
-    if (artist) {
-      // Render the "singer" view and pass the artist's information
-      res.render('edit-artist', { artist });
-    } else {
-      // Redirect to the login page if artist is not found
-      res.status(404).send("No Artist Found")
+      if (artist) {
+        // Render the "singer" view and pass the artist's information
+        res.render("edit-artist", { artist });
+      } else {
+        // Redirect to the login page if artist is not found
+        res.status(404).send("No Artist Found");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("Internal Server Error");
     }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
   }
-});
+);
 
-app.get("/edit-artist-category/:category/:subCategory", isAuthenticated, async (req, res) => {
-  try {
-    const { category, subCategory } = req.params;
+app.get(
+  "/edit-artist-category/:category/:subCategory",
+  isAuthenticated,
+  async (req, res) => {
+    try {
+      const { category, subCategory } = req.params;
 
-    const artistCategory = await ArtistCategory.findOne({ category, subCategory });
+      const artistCategory = await ArtistCategory.findOne({
+        category,
+        subCategory,
+      });
 
-    if (artistCategory) {
-      // Render the "singer" view and pass the artist's information
-      res.render('edit-artist-category', { artistCategory });
-    } else {
-      // Redirect to the login page if artist is not found
-      res.status(404).send("No Artist Found")
+      if (artistCategory) {
+        // Render the "singer" view and pass the artist's information
+        res.render("edit-artist-category", { artistCategory });
+      } else {
+        // Redirect to the login page if artist is not found
+        res.status(404).send("No Artist Found");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("Internal Server Error");
     }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
   }
-});
+);
 
-app.get("/edit-event-category/:category/:subCategory", isAuthenticated, async (req, res) => {
-  try {
-    const { category, subCategory } = req.params;
+app.get(
+  "/edit-event-category/:category/:subCategory",
+  isAuthenticated,
+  async (req, res) => {
+    try {
+      const { category, subCategory } = req.params;
 
-    const eventCategory = await EventCategory.findOne({ category, subCategory });
+      const eventCategory = await EventCategory.findOne({
+        category,
+        subCategory,
+      });
 
-    if (eventCategory) {
-      // Render the "singer" view and pass the artist's information
-      res.render('edit-event-category', { eventCategory });
-    } else {
-      // Redirect to the login page if artist is not found
-      res.status(404).send("No Artist Found")
+      if (eventCategory) {
+        // Render the "singer" view and pass the artist's information
+        res.render("edit-event-category", { eventCategory });
+      } else {
+        // Redirect to the login page if artist is not found
+        res.status(404).send("No Artist Found");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("Internal Server Error");
     }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
   }
-});
+);
 
 app.get("/blog/:linkid", async (req, res) => {
   try {
@@ -417,13 +459,13 @@ app.get("/blog/:linkid", async (req, res) => {
     }
 
     if (blog) {
-      res.render('blog', { blog, relatedBlogData });
+      res.render("blog", { blog, relatedBlogData });
     } else {
-      res.redirect('/');
+      res.redirect("/");
     }
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -441,13 +483,13 @@ app.get("/edit-blog/:linkid", isAuthenticated, async (req, res) => {
       }
     }
     if (blog) {
-      res.render('edit-blog', { blog, relatedBlogData });
+      res.render("edit-blog", { blog, relatedBlogData });
     } else {
-      res.redirect('/');
+      res.redirect("/");
     }
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -455,8 +497,8 @@ app.get("/user-dashboard", isAuthenticated, (req, res) => {
   res.render("user-dashboard");
 });
 
-app.get('*', (req, res) => {
-  res.redirect('/');
+app.get("*", (req, res) => {
+  res.redirect("/");
 });
 
 app.post("/login", async (req, res) => {
@@ -468,7 +510,7 @@ app.post("/login", async (req, res) => {
     if ((await password) === user.password) {
       req.session.user = user;
       res.render("user-dashboard", {
-        user
+        user,
       });
     }
   } else {
@@ -484,7 +526,7 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
   const keywords = data.keywords;
   const name = data.name;
   const lowerCaseName = name.toLowerCase();
-  const linkid = lowerCaseName.replace(/ /g, '-');
+  const linkid = lowerCaseName.replace(/ /g, "-");
   const profilePic = data.profilePic;
   const contact = data.contact;
   const location = data.location;
@@ -506,14 +548,14 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
 
   // Function to determine event type based on link
   function getEventType(link) {
-    return link.includes('aws') ? 'aws' : 'youtube';
+    return link.includes("aws") ? "aws" : "youtube";
   }
 
   // Create the events array
   const events = eventName.map((name, index) => ({
     name: name,
     links: eventType[index],
-    type: eventType[index].map(link => getEventType(link))
+    type: eventType[index].map((link) => getEventType(link)),
   }));
 
   const testLinks = data.testLink;
@@ -521,17 +563,41 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
   const blog = data.blog;
 
   const artist = new Artist({
-    metaTitle, metaDesc, keywords, name, linkid, profilePic,
-    contact, location, price, artistType, bandMemberName, code, eventsType, genre,
-    languages, playback, original, time, instruments, awards,
-    gallery, events, testLinks, reviews, blog
+    metaTitle,
+    metaDesc,
+    keywords,
+    name,
+    linkid,
+    profilePic,
+    contact,
+    location,
+    price,
+    artistType,
+    bandMemberName,
+    code,
+    eventsType,
+    genre,
+    languages,
+    playback,
+    original,
+    time,
+    instruments,
+    awards,
+    gallery,
+    events,
+    testLinks,
+    reviews,
+    blog,
   });
 
-  artist.save().then(() => {
-    res.redirect("user-dashboard")
-  }).catch((error) => {
-    res.send(error)
-  });
+  artist
+    .save()
+    .then(() => {
+      res.redirect("user-dashboard");
+    })
+    .catch((error) => {
+      res.send(error);
+    });
 });
 
 app.post("/edit-artist", isAuthenticated, async (req, res) => {
@@ -542,7 +608,7 @@ app.post("/edit-artist", isAuthenticated, async (req, res) => {
   const keywords = data.keywords;
   const name = data.name;
   const lowerCaseName = name.toLowerCase();
-  const linkid = lowerCaseName.replace(/ /g, '-');
+  const linkid = lowerCaseName.replace(/ /g, "-");
   const profilePic = data.profilePic;
   const contact = data.contact;
   const location = data.location;
@@ -564,14 +630,14 @@ app.post("/edit-artist", isAuthenticated, async (req, res) => {
 
   // Function to determine event type based on link
   function getEventType(link) {
-    return link.includes('aws') ? 'aws' : 'youtube';
+    return link.includes("aws") ? "aws" : "youtube";
   }
 
   // Create the events array
   const events = eventName.map((name, index) => ({
     name: name,
     links: eventType[index],
-    type: eventType[index].map(link => getEventType(link))
+    type: eventType[index].map((link) => getEventType(link)),
   }));
 
   const testLinks = data.testLink;
@@ -581,13 +647,36 @@ app.post("/edit-artist", isAuthenticated, async (req, res) => {
   const artist = await Artist.updateOne(
     { artistType, linkid },
     {
-      metaTitle, metaDesc, keywords, name, profilePic, contact, location, price, bandMemberName, code, eventsType, genre, languages, playback, original, time, instruments, awards, gallery, events, reviews, blog
+      metaTitle,
+      metaDesc,
+      keywords,
+      name,
+      profilePic,
+      contact,
+      location,
+      price,
+      bandMemberName,
+      code,
+      eventsType,
+      genre,
+      languages,
+      playback,
+      original,
+      time,
+      instruments,
+      awards,
+      gallery,
+      events,
+      reviews,
+      blog,
     }
-  ).then(() => {
-    res.redirect("/artist/" + artistType + "/" + linkid);
-  }).catch((error) => {
-    res.send(error)
-  });
+  )
+    .then(() => {
+      res.redirect("/artist/" + artistType + "/" + linkid);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
 });
 
 app.post("/add-blog", isAuthenticated, (req, res) => {
@@ -600,33 +689,46 @@ app.post("/add-blog", isAuthenticated, (req, res) => {
   const thumbnail = data.thumbnail;
   const thumbCap = data.thumbCap;
   const lowerCaseName = title.toLowerCase();
-  const linkid = lowerCaseName.replace(/ /g, '-');
+  const linkid = lowerCaseName.replace(/ /g, "-");
   const gallery = data.galleryLink;
   const eventName = data.eventName;
   const eventType = data.eventType;
   const relatedBlog = data.relatedBlog;
   // Function to determine event type based on link
   function getEventType(link) {
-    return link.includes('aws') ? 'aws' : 'youtube';
+    return link.includes("aws") ? "aws" : "youtube";
   }
 
   // Create the events array
   const events = eventName.map((name, index) => ({
     name: name,
     links: eventType[index],
-    type: eventType[index].map(link => getEventType(link))
+    type: eventType[index].map((link) => getEventType(link)),
   }));
   const blog = data.blog;
 
   const blogs = new Blog({
-    metaTitle, metaDesc, keywords, title, thumbnail, thumbCap, linkid, gallery, events, blog, relatedBlog
+    metaTitle,
+    metaDesc,
+    keywords,
+    title,
+    thumbnail,
+    thumbCap,
+    linkid,
+    gallery,
+    events,
+    blog,
+    relatedBlog,
   });
 
-  blogs.save().then(() => {
-    res.redirect("/all-blogs")
-  }).catch((error) => {
-    res.send(error)
-  });
+  blogs
+    .save()
+    .then(() => {
+      res.redirect("/all-blogs");
+    })
+    .catch((error) => {
+      res.send(error);
+    });
 });
 
 app.post("/add-category", isAuthenticated, (req, res) => {
@@ -635,8 +737,8 @@ app.post("/add-category", isAuthenticated, (req, res) => {
   const metaTitle = data.metaTitle;
   const metaDesc = data.metaDesc;
   const keywords = data.keywords;
-  let category = data.category.toLowerCase().replace(/ /g, '-');
-  let subCategory = data.subCategory.toLowerCase().replace(/ /g, '-');
+  let category = data.category.toLowerCase().replace(/ /g, "-");
+  let subCategory = data.subCategory.toLowerCase().replace(/ /g, "-");
   const title = data.title;
   const thumbnail = data.thumbnail;
   const gallery = data.galleryLink;
@@ -645,26 +747,39 @@ app.post("/add-category", isAuthenticated, (req, res) => {
   const relatedBlog = data.relatedBlog;
   // Function to determine event type based on link
   function getEventType(link) {
-    return link.includes('aws') ? 'aws' : 'youtube';
+    return link.includes("aws") ? "aws" : "youtube";
   }
 
   // Create the events array
   const events = eventName.map((name, index) => ({
     name: name,
     links: eventType[index],
-    type: eventType[index].map(link => getEventType(link))
+    type: eventType[index].map((link) => getEventType(link)),
   }));
   const blog = data.blog;
 
   const artistCategory = new ArtistCategory({
-    metaTitle, metaDesc, keywords, category, subCategory, title, thumbnail, gallery, events, blog, relatedBlog
+    metaTitle,
+    metaDesc,
+    keywords,
+    category,
+    subCategory,
+    title,
+    thumbnail,
+    gallery,
+    events,
+    blog,
+    relatedBlog,
   });
 
-  artistCategory.save().then(() => {
-    res.redirect("/artist-category/" + category + "/" + subCategory)
-  }).catch((error) => {
-    res.send(error)
-  });
+  artistCategory
+    .save()
+    .then(() => {
+      res.redirect("/artist-category/" + category + "/" + subCategory);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
 });
 
 app.post("/add-event", isAuthenticated, (req, res) => {
@@ -673,8 +788,8 @@ app.post("/add-event", isAuthenticated, (req, res) => {
   const metaTitle = data.metaTitle;
   const metaDesc = data.metaDesc;
   const keywords = data.keywords;
-  let category = data.category.toLowerCase().replace(/ /g, '-');
-  let subCategory = data.subCategory.toLowerCase().replace(/ /g, '-');
+  let category = data.category.toLowerCase().replace(/ /g, "-");
+  let subCategory = data.subCategory.toLowerCase().replace(/ /g, "-");
   const title = data.title;
   const thumbnail = data.thumbnail;
   const gallery = data.galleryLink;
@@ -683,37 +798,50 @@ app.post("/add-event", isAuthenticated, (req, res) => {
   const relatedBlog = data.relatedBlog;
   // Function to determine event type based on link
   function getEventType(link) {
-    return link.includes('aws') ? 'aws' : 'youtube';
+    return link.includes("aws") ? "aws" : "youtube";
   }
 
   // Create the events array
   const events = eventName.map((name, index) => ({
     name: name,
     links: eventType[index],
-    type: eventType[index].map(link => getEventType(link))
+    type: eventType[index].map((link) => getEventType(link)),
   }));
   const blog = data.blog;
 
   const eventCategory = new EventCategory({
-    metaTitle, metaDesc, keywords, category, subCategory, title, thumbnail, gallery, events, blog, relatedBlog
+    metaTitle,
+    metaDesc,
+    keywords,
+    category,
+    subCategory,
+    title,
+    thumbnail,
+    gallery,
+    events,
+    blog,
+    relatedBlog,
   });
 
-  eventCategory.save().then(() => {
-    res.redirect("/event-category/" + category + "/" + subCategory)
-  }).catch((error) => {
-    res.send(error)
-  });
+  eventCategory
+    .save()
+    .then(() => {
+      res.redirect("/event-category/" + category + "/" + subCategory);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
 });
 
 app.post("/edit-event", isAuthenticated, async (req, res) => {
   const data = req.body;
-  
+
   const id = data.id;
   const metaTitle = data.metaTitle;
   const metaDesc = data.metaDesc;
   const keywords = data.keywords;
-  let category = data.category.toLowerCase().replace(/ /g, '-');
-  let subCategory = data.subCategory.toLowerCase().replace(/ /g, '-');
+  let category = data.category.toLowerCase().replace(/ /g, "-");
+  let subCategory = data.subCategory.toLowerCase().replace(/ /g, "-");
   const title = data.title;
   const thumbnail = data.thumbnail;
   const gallery = data.galleryLink;
@@ -722,47 +850,59 @@ app.post("/edit-event", isAuthenticated, async (req, res) => {
   const relatedBlog = data.relatedBlog;
   // Function to determine event type based on link
   function getEventType(link) {
-    return link.includes('aws') ? 'aws' : 'youtube';
+    return link.includes("aws") ? "aws" : "youtube";
   }
 
   // Create the events array
   const events = eventName.map((name, index) => ({
     name: name,
     links: eventType[index],
-    type: eventType[index].map(link => getEventType(link))
+    type: eventType[index].map((link) => getEventType(link)),
   }));
   const blog = data.blog;
 
   const eventCategory = await EventCategory.updateOne(
     { category, subCategory },
     {
-      metaTitle, metaDesc, keywords, category, subCategory, title, thumbnail, gallery, events, blog, relatedBlog
+      metaTitle,
+      metaDesc,
+      keywords,
+      category,
+      subCategory,
+      title,
+      thumbnail,
+      gallery,
+      events,
+      blog,
+      relatedBlog,
     }
-  ).then(() => {
-    res.redirect("/event-category/" + category + "/" + subCategory);
-  }).catch((error) => {
-    res.send(error)
-  });
+  )
+    .then(() => {
+      res.redirect("/event-category/" + category + "/" + subCategory);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
 });
 
-app.post('/contact-form', recaptcha.middleware.verify, (req, res) => {
+app.post("/contact-form", recaptcha.middleware.verify, (req, res) => {
   if (!req.recaptcha.error) {
     const formData = req.body;
 
     // Create a nodemailer transporter
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // e.g., Gmail
+      service: "gmail", // e.g., Gmail
       auth: {
-        user: 'bookanartist2@gmail.com',
-        pass: 'omxn rmun oufa olvm',
+        user: "bookanartist2@gmail.com",
+        pass: "fdaa dmng kekg alim",
       },
     });
 
     // Email data
     const mailOptions = {
       from: formData.email, // Sender's email address
-      to: 'yogendra12355@gmail.com', // Your email address
-      subject: 'Contact Form Submission',
+      to: "yogendra12355@gmail.com", // Your email address
+      subject: "Contact Form Submission",
       text: `Name: ${formData.name}\nEmail: ${formData.email}\nContact Number: ${formData.contact}\nEvent City: ${formData.city}\nEvent Type: ${formData.eventType}\nArtist Type: ${formData.artistType}\nEvent Date: ${formData.date}\nBudget: ${formData.budget}\nMessage: ${formData.message}`,
     };
 
@@ -790,7 +930,7 @@ app.post("/edit-blog", isAuthenticated, async (req, res) => {
   const thumbnail = data.thumbnail;
   const thumbCap = data.thumbCap;
   const lowerCaseName = title.toLowerCase();
-  const linkid = lowerCaseName.replace(/ /g, '-');
+  const linkid = lowerCaseName.replace(/ /g, "-");
   const gallery = data.galleryLink;
   const relatedBlog = data.relatedBlog;
   const blog = data.blog;
@@ -798,13 +938,23 @@ app.post("/edit-blog", isAuthenticated, async (req, res) => {
   const blogs = await Blog.updateOne(
     { linkid },
     {
-      metaTitle, metaDesc, keywords, title, thumbnail, thumbCap, gallery, blog, relatedBlog
+      metaTitle,
+      metaDesc,
+      keywords,
+      title,
+      thumbnail,
+      thumbCap,
+      gallery,
+      blog,
+      relatedBlog,
     }
-  ).then(() => {
-    res.redirect("/blog/" + linkid);
-  }).catch((error) => {
-    res.send(error)
-  });
+  )
+    .then(() => {
+      res.redirect("/blog/" + linkid);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
 });
 
 app.listen(process.env.PORT || 3000, function () {
