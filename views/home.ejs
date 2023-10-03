@@ -50,6 +50,52 @@
     typeText(document.getElementById("typewriter"), words, delay);
   </script>
 
+<script>
+  const event = ["Corporate", "College", "Wedding", "Private", "Virtual"];
+  const delayTime = 10; // Delay between phrases in milliseconds
+
+  const typeTexts = (element, event, delayTime) => {
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+      const currentWord = event[wordIndex];
+      const text = currentWord.substring(0, charIndex + 1);
+
+      document.getElementById("events").textContent = text;
+
+      if (!isDeleting && text === currentWord) {
+        isDeleting = true;
+        setTimeout(() => {
+          charIndex--;
+          if (charIndex === -1) {
+            isDeleting = false;
+            setTimeout(type, delayTime);
+          } else {
+            setTimeout(type, 9000);
+          }
+        }, 500); // Delay before backspacing
+      } else if (isDeleting && text === "") {
+        isDeleting = false;
+        charIndex = 0;
+        wordIndex = (wordIndex + 1) % event.length;
+        setTimeout(type, delayTime);
+      } else if (isDeleting) {
+        charIndex--;
+        setTimeout(type, 100);
+      } else {
+        charIndex++;
+        setTimeout(type, 100);
+      }
+    }
+
+    setTimeout(type, delayTime);
+  };
+
+  typeTexts(document.getElementById("events"), event, delayTime);
+</script>
+
   <!-- content -->
   <div class="mil-content">
     <div class="mil-scroll-wrapper transition-fade" id="swupMain">
@@ -62,7 +108,7 @@
               www.bookmysinger.com
             </div>
             <h1 class="mil-up mil-mb-30 title">
-              Book <span id="typewriter" style="color: #f44336;"></span>
+              Book <span id="typewriter" style="color: #f44336;"></span> <br> for <span id="events" style="color: #f44336;"></span> events
             </h1>
             <a href="#contact"><button class="mil-upper mil-dark mil-up mil-btn mil-sm-btn btn" style="background-color: #202124;">
                 Book Now

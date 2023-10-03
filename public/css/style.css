@@ -1121,7 +1121,7 @@ Typewriter effect
 
 /* Blinking cursor */
 .title::after {
-  content: "|"; /* Display a blinking cursor */
+  content: ""; /* Display a blinking cursor */
   animation: blink 0.7s step-end infinite;
 }
 
