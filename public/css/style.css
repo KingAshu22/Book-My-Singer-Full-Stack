@@ -1106,3 +1106,27 @@ page transitions
   -webkit-transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
   transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
 }
+
+/* -------------------------------------------
+
+Typewriter effect
+
+------------------------------------------- */
+
+.title {
+  /* ... (existing styles) */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;    /* Hide overflowing text */
+}
+
+/* Blinking cursor */
+.title::after {
+  content: "|"; /* Display a blinking cursor */
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
