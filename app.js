@@ -82,6 +82,9 @@ const blogSchema = new mongoose.Schema({
   linkid: String,
   title: String,
   thumbnail: String,
+  thumbAlt: String,
+  thumbTitle: String,
+  thumbDesc: String,
   thumbCap: String,
   gallery: Array,
   events: Array,
@@ -281,7 +284,7 @@ app.get("/all-event-category", isAuthenticated, async (req, res) => {
 
 function calculateOnPageSEOScore(blog) {
   // Your SEO scoring logic here
-  const metaTitle = blog.metaTitle.toLowerCase();
+  const metaTitle = blog?.metaTitle?.toLowerCase();
   const metaDesc = blog.metaDesc.toLowerCase();
   const blogContent = blog.blog.toLowerCase();
   const title = blog.title.toLowerCase();
@@ -295,7 +298,7 @@ function calculateOnPageSEOScore(blog) {
 
   // Check if at least one keyword is found in each part of the content
   keywordList.forEach((keyword) => {
-    if (metaTitle.includes(keyword)) {
+    if (metaTitle?.includes(keyword)) {
       metaTitleScore += 10; // Score if a keyword is found in meta title
     }
     if (metaDesc.includes(keyword)) {
@@ -691,6 +694,9 @@ app.post("/add-blog", isAuthenticated, (req, res) => {
   const keywords = data.keywords;
   const title = data.title;
   const thumbnail = data.thumbnail;
+  const thumbAlt = data.thumbAlt;
+  const thumbTitle = data.thumbTitle;
+  const thumbDesc = data.thumbDesc;
   const thumbCap = data.thumbCap;
   const lowerCaseName = title.toLowerCase();
   const linkid = lowerCaseName.replace(/ /g, "-");
@@ -717,6 +723,9 @@ app.post("/add-blog", isAuthenticated, (req, res) => {
     keywords,
     title,
     thumbnail,
+    thumbAlt,
+    thumbTitle,
+    thumbDesc,
     thumbCap,
     linkid,
     gallery,
