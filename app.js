@@ -201,7 +201,7 @@ app.get("/artist-category/:category/:subCategory", async (req, res) => {
       res.render("category", { artistCategory });
     } else {
       // Redirect to the login page if artist is not found
-      res.redirect("/login");
+      res.redirect("/");
     }
   } catch (error) {
     res.redirect("/");
@@ -243,7 +243,7 @@ app.get("/event-category/:category/:subCategory", async (req, res) => {
       res.render("event", { eventCategory, singers, bands, celebrity });
     } else {
       // Redirect to the login page if artist is not found
-      res.redirect("/login");
+      res.redirect("/");
     }
   } catch (error) {
     res.redirect("/");
@@ -364,7 +364,7 @@ app.get("/artist/:artistType/:linkid", async (req, res) => {
       res.render("singer", { artist });
     } else {
       // Redirect to the login page if artist is not found
-      res.redirect("/login");
+      res.redirect("/");
     }
   } catch (error) {
     res.redirect("/");
