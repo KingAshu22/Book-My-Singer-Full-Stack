@@ -204,8 +204,7 @@ app.get("/artist-category/:category/:subCategory", async (req, res) => {
       res.redirect("/login");
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    res.redirect("/");
   }
 });
 
@@ -247,8 +246,7 @@ app.get("/event-category/:category/:subCategory", async (req, res) => {
       res.redirect("/login");
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    res.redirect("/");
   }
 });
 
@@ -369,8 +367,7 @@ app.get("/artist/:artistType/:linkid", async (req, res) => {
       res.redirect("/login");
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    res.redirect("/");
   }
 });
 
@@ -391,8 +388,7 @@ app.get(
         res.status(404).send("No Artist Found");
       }
     } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Internal Server Error");
+      res.redirect("/");
     }
   }
 );
@@ -417,8 +413,7 @@ app.get(
         res.status(404).send("No Artist Found");
       }
     } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Internal Server Error");
+      res.redirect("/");
     }
   }
 );
@@ -443,8 +438,7 @@ app.get(
         res.status(404).send("No Artist Found");
       }
     } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Internal Server Error");
+      res.redirect("/");
     }
   }
 );
@@ -471,8 +465,7 @@ app.get("/blog/:linkid", async (req, res) => {
       res.redirect("/");
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    res.redirect("/");
   }
 });
 
@@ -495,8 +488,7 @@ app.get("/edit-blog/:linkid", isAuthenticated, async (req, res) => {
       res.redirect("/");
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    res.redirect("/");
   }
 });
 
