@@ -50,51 +50,51 @@
     typeText(document.getElementById("typewriter"), words, delay);
   </script>
 
-<script>
-  const event = ["Corporate", "College", "Wedding", "Private", "Virtual"];
-  const delayTime = 10; // Delay between phrases in milliseconds
+  <script>
+    const event = ["Corporate", "College", "Wedding", "Private", "Virtual"];
+    const delayTime = 10; // Delay between phrases in milliseconds
 
-  const typeTexts = (element, event, delayTime) => {
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
+    const typeTexts = (element, event, delayTime) => {
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
 
-    function type() {
-      const currentWord = event[wordIndex];
-      const text = currentWord.substring(0, charIndex + 1);
+      function type() {
+        const currentWord = event[wordIndex];
+        const text = currentWord.substring(0, charIndex + 1);
 
-      document.getElementById("events").textContent = text;
+        document.getElementById("events").textContent = text;
 
-      if (!isDeleting && text === currentWord) {
-        isDeleting = true;
-        setTimeout(() => {
+        if (!isDeleting && text === currentWord) {
+          isDeleting = true;
+          setTimeout(() => {
+            charIndex--;
+            if (charIndex === -1) {
+              isDeleting = false;
+              setTimeout(type, delayTime);
+            } else {
+              setTimeout(type, 9000);
+            }
+          }, 500); // Delay before backspacing
+        } else if (isDeleting && text === "") {
+          isDeleting = false;
+          charIndex = 0;
+          wordIndex = (wordIndex + 1) % event.length;
+          setTimeout(type, delayTime);
+        } else if (isDeleting) {
           charIndex--;
-          if (charIndex === -1) {
-            isDeleting = false;
-            setTimeout(type, delayTime);
-          } else {
-            setTimeout(type, 9000);
-          }
-        }, 500); // Delay before backspacing
-      } else if (isDeleting && text === "") {
-        isDeleting = false;
-        charIndex = 0;
-        wordIndex = (wordIndex + 1) % event.length;
-        setTimeout(type, delayTime);
-      } else if (isDeleting) {
-        charIndex--;
-        setTimeout(type, 100);
-      } else {
-        charIndex++;
-        setTimeout(type, 100);
+          setTimeout(type, 100);
+        } else {
+          charIndex++;
+          setTimeout(type, 100);
+        }
       }
-    }
 
-    setTimeout(type, delayTime);
-  };
+      setTimeout(type, delayTime);
+    };
 
-  typeTexts(document.getElementById("events"), event, delayTime);
-</script>
+    typeTexts(document.getElementById("events"), event, delayTime);
+  </script>
 
   <!-- content -->
   <div class="mil-content">
@@ -108,7 +108,8 @@
               www.bookmysinger.com
             </div>
             <h1 class="mil-up mil-mb-30 title">
-              Book <span id="typewriter" style="color: #f44336;"></span> <br> for <span id="events" style="color: #f44336;"></span> events
+              Book <span id="typewriter" style="color: #f44336;"></span> <br> for <span id="events"
+                style="color: #f44336;"></span> events
             </h1>
             <a href="#contact"><button class="mil-upper mil-dark mil-up mil-btn mil-sm-btn btn">
                 Book Now
@@ -116,6 +117,42 @@
           </div>
         </section>
         <!-- banner end -->
+
+        <div id="videos" class="mil-section-title mil-up">
+          <div class="mil-divider"></div>
+          <h3>Featured Videos</h3>
+        </div>
+
+        <!-- videos -->
+        <section class="mil-p-90-30">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-lg-4">
+              <span class="mil-blog-card mil-mb-60">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 video">
+                  <div class="youtube-player" videosource="youtube" data-id="oG6FQaL2vmQ"></div>
+                </div>
+              </span>
+            </div>
+            <div class="col-lg-4">
+              <span class="mil-blog-card mil-mb-60">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 video">
+                  <div class="youtube-player" videosource="youtube" data-id="DYg9W2-Q9ic"></div>
+                </div>
+              </span>
+            </div>
+            <div class="col-lg-4">
+              <span class="mil-blog-card mil-mb-60">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 video">
+                  <div class="youtube-player" videosource="youtube" data-id="DRrIobGaW6Q"></div>
+                </div>
+              </span>
+            </div>
+          </div>
+          <button class="show-more-btn" style="text-align: center; display: block; margin: 0 auto">
+            Show More Videos
+          </button>
+        </section>
+        <!-- videos end -->
 
         <!--Artists start-->
         <div id="artist" class="mil-section-title mil-up">
@@ -454,27 +491,6 @@
             <div class="col-lg-4">
               <span class="mil-blog-card mil-mb-60">
                 <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                  <div class="youtube-player" videosource="youtube" data-id="oG6FQaL2vmQ"></div>
-                </div>
-              </span>
-            </div>
-            <div class="col-lg-4">
-              <span class="mil-blog-card mil-mb-60">
-                <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                  <div class="youtube-player" videosource="youtube" data-id="DYg9W2-Q9ic"></div>
-                </div>
-              </span>
-            </div>
-            <div class="col-lg-4">
-              <span class="mil-blog-card mil-mb-60">
-                <div class="col-xxl-6 col-xl-6 col-lg-6 video">
-                  <div class="youtube-player" videosource="youtube" data-id="DRrIobGaW6Q"></div>
-                </div>
-              </span>
-            </div>
-            <div class="col-lg-4">
-              <span class="mil-blog-card mil-mb-60">
-                <div class="col-xxl-6 col-xl-6 col-lg-6 video">
                   <div class="youtube-player" videosource="youtube" data-id="M_yEgWkYwNY"></div>
                 </div>
               </span>
@@ -593,9 +609,11 @@
         <section class="mil-p-90-30">
           <div class="row justify-content-between align-items-center">
             <div class="col-lg-4">
-              <a href="/blog/hire-live-ghazal-singers-and-bands-for-wedding" class="mil-blog-card mil-mb-60">
+              <a class="mil-blog-card mil-mb-60" href="/blog/dj-for-wedding">
                 <div class="mil-cover mil-up">
-                  <img src="img/blog-img/blog3.webp" alt="cover" />
+                  <img
+                    src="https://book-my-singer.s3.ap-south-1.amazonaws.com/website-assets/blog-thumbnail/Hire+DJ+for+wedding.webp"
+                    alt="Dj For Wedding" />
                   <div class="mil-link mil-icon-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -606,21 +624,18 @@
                   </div>
                 </div>
                 <div class="mil-descr">
-                  <h4 class="mil-up mil-mb-30">
-                    Hire Live Ghazal Singers And Bands For Wedding
-                  </h4>
-                  <p class="mil-up">
-                    The Ghazal Live Band is made up of skilled musicians who know how to play a variety of instruments
-                    that capture the spirit of this art form. Instruments like the harmonium, drum, sitar, sarod, flute,
-                    and guitar are often part of the band.
-                  </p>
+                  <h4 class="mil-up mil-mb-15">Hire DJ Player For Wedding Event</h4>
+                  <p class="mil-up">With our amazing DJ services, you can book a DJ for wedding that can transform your
+                    wedding into a memorable dancing extravaganza.</p>
                 </div>
               </a>
             </div>
             <div class="col-lg-4">
-              <a href="/artist-category/musicians/guitarist" class="mil-blog-card mil-mb-60">
+              <a class="mil-blog-card mil-mb-60" href="/blog/female-singers-for-corporate-events">
                 <div class="mil-cover mil-up">
-                  <img src="img/blog-img/blog2.webp" alt="cover" />
+                  <img
+                    src="https://book-my-singer.s3.ap-south-1.amazonaws.com/website-assets/blog-thumbnail/Hire+Female+Singer+for+Corporate.webp"
+                    alt="Hire Female Singers For Corporate Events" />
                   <div class="mil-link mil-icon-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -631,21 +646,18 @@
                   </div>
                 </div>
                 <div class="mil-descr">
-                  <h4 class="mil-up mil-mb-30">
-                    Hire Guitarist For Corporate, College, Wedding, Private Event, House Parties, etc from Book My
-                    Singer
-                  </h4>
-                  <p class="mil-up">
-                    Hire a guitarist from Book My Singer and elevate your event to new heights, creating an ambiance
-                    that will resonate with your guests long after the last chord is strummed.
-                  </p>
+                  <h4 class="mil-up mil-mb-15">Hire Female Singers For Corporate Events</h4>
+                  <p class="mil-up">Elevate the sophistication and charm of your corporate events by booking one of our
+                    exceptional female singers.</p>
                 </div>
               </a>
             </div>
             <div class="col-lg-4">
-              <a href="/blog/hire-live-singers-for-wedding" class="mil-blog-card mil-mb-60">
+              <a class="mil-blog-card mil-mb-60" href="/blog/hire-singers-for-mayra-bhaat">
                 <div class="mil-cover mil-up">
-                  <img src="img/blog-img/blog3.webp" alt="cover" />
+                  <img
+                    src="https://book-my-singer.s3.ap-south-1.amazonaws.com/website-assets/blog-thumbnail/Hire+Singer+for+Mayra+Bhaat.webp"
+                    alt="Hire Singers For Mayra Bhaat" />
                   <div class="mil-link mil-icon-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -656,14 +668,8 @@
                   </div>
                 </div>
                 <div class="mil-descr">
-                  <h4 class="mil-up mil-mb-30">
-                    Hire DJ Player for Corporate, College, Wedding, Private Event, House Parties, etc from Book My
-                    Singer
-                  </h4>
-                  <p class="mil-up">
-                    Our DJs personalize the playlist to your preferences and the ambiance you want, from touching tunes
-                    during the ceremony to high-energy beats that get everyone on the dance floor.
-                  </p>
+                  <h4 class="mil-up mil-mb-15">Hire Singers For Mayra Bhaat</h4>
+                  <p class="mil-up">Hire Singers for Mayra Bhaat in Rajasthani Marwari Wedding from Book My Singer.</p>
                 </div>
               </a>
             </div>
@@ -686,38 +692,35 @@
           <div class="row justify-content-between align-items-center">
             <div class="col-lg-4">
               <div class="mil-icon-box mil-center mil-mb-60 testimonial-border">
-                <h5 class="mil-up mil-mb-30">"Responsive & Helpful."</h5>
+                <h5 class="mil-up mil-mb-30">"Amazing Talent at Our Wedding"</h5>
                 <p class="mil-up mil-mb-30 test-name">
-                  Discover the perfect band for your event and create lasting
-                  memories.Discover the perfect band for your event and create
-                  lasting memories.
+                  Book My Singer made our wedding unforgettable with a soulful performance. The singer they provided
+                  was phenomenal, setting the perfect mood for our special day.
                 </p>
                 <img src="img/reviews-img/Narendra-gauhar.jpeg" alt="icon" class="review-img" />
-                <p class="mil-up mil-mb-30 test-name">Harsh Mehta</p>
+                <p class="mil-up mil-mb-30 test-name">Rajesh Mehta</p>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="mil-icon-box mil-center mil-mb-60 testimonial-border">
-                <h5 class="mil-up mil-mb-30">"Responsive & Helpful."</h5>
+                <h5 class="mil-up mil-mb-30">"Musical Delight for Corporate Event"</h5>
                 <p class="mil-up mil-mb-30 test-name">
-                  Discover the perfect band for your event and create lasting
-                  memories.Discover the perfect band for your event and create
-                  lasting memories.
+                  Book My Singer delivered an exceptional musician for our corporate event. The performance was
+                  seamless, elevating the event's ambiance and impressing all our attendees
                 </p>
                 <img src="img/reviews-img/harsh-paradise-events.jpg" alt="icon" class="review-img" />
-                <p class="mil-up mil-mb-30 test-name">Harsh Mehta</p>
+                <p class="mil-up mil-mb-30 test-name">HDFC Life</p>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="mil-icon-box mil-center mil-mb-60 testimonial-border">
-                <h5 class="mil-up mil-mb-30">"Responsive & Helpful."</h5>
+                <h5 class="mil-up mil-mb-30">"Rocking Night with Live Band"</h5>
                 <p class="mil-up mil-mb-30 test-name">
-                  Discover the perfect band for your event and create lasting
-                  memories.Discover the perfect band for your event and create
-                  lasting memories.
+                  Book My Singer arranged a fantastic live band that rocked our party. The band's energy and music had
+                  everyone dancing the night away. Highly recommended!
                 </p>
                 <img src="img/reviews-img/Narendra-gauhar.jpeg" alt="icon" class="review-img" />
-                <p class="mil-up mil-mb-30 test-name">Harsh Mehta</p>
+                <p class="mil-up mil-mb-30 test-name">Anand Sharma</p>
               </div>
             </div>
           </div>
@@ -854,31 +857,34 @@
           </div>
         </section>
         <!-- call to action end -->
+      </div>
+    </div>
+  </div>
 
-        <script>
-          document.addEventListener('DOMContentLoaded', function () {
-            // Get all navigation links that have a "#" in the href attribute
-            var navigationLinks = document.querySelectorAll('a[href^="#"]');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get all navigation links that have a "#" in the href attribute
+      var navigationLinks = document.querySelectorAll('a[href^="#"]');
 
-            // Add a click event listener to each navigation link
-            navigationLinks.forEach(function (link) {
-              link.addEventListener('click', function (e) {
-                e.preventDefault(); // Prevent the default link behavior
+      // Add a click event listener to each navigation link
+      navigationLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault(); // Prevent the default link behavior
 
-                // Get the target section's ID from the link's href attribute
-                var targetId = link.getAttribute('href').slice(1); // Remove the "#" symbol
+          // Get the target section's ID from the link's href attribute
+          var targetId = link.getAttribute('href').slice(1); // Remove the "#" symbol
 
-                // Get a reference to the target section
-                var targetSection = document.getElementById(targetId);
+          // Get a reference to the target section
+          var targetSection = document.getElementById(targetId);
 
-                // Scroll to the target section smoothly
-                if (targetSection) {
-                  targetSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              });
-            });
-          });
-        </script>
+          // Scroll to the target section smoothly
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    });
+  </script>
 
 
-        <%- include("partials/footer"); -%>
+  <%- include("partials/footer"); -%>

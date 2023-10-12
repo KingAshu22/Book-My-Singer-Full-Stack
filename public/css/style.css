@@ -203,7 +203,7 @@ Whatsapp & Call Button
 ------------------------------------------- */
 #whatsapp-chat {
   position: fixed;
-  bottom: 20px;
+  bottom: 70px;
   right: 20px;
   background-color: transparent;
   border-radius: 50%;
@@ -218,7 +218,7 @@ Whatsapp & Call Button
 
 .call-button {
   position: fixed;
-  bottom: 20px;
+  bottom: 70px;
   left: 20px;
   background-color: transparent;
   cursor: pointer;
@@ -1129,4 +1129,37 @@ Typewriter effect
   50% {
     opacity: 0;
   }
+}
+/* Footer */
+.mil-fw {
+  text-align: center !important; /* Center the content horizontally within the footer */
+  background-color: #333 !important; /* Add a background color for the footer */
+  color: #fff; /* Text color */
+  padding: 20px; /* Add some padding for spacing */
+}
+
+.centered {
+  text-align: center !important; /* Center the content within this div horizontally */
+}
+
+.mil-light-soft {
+  font-size: 16px;
+  margin: 0;
+}
+
+.social-links {
+  list-style: none;
+  padding: 0;
+}
+
+.social-links li {
+  display: inline;
+  margin: 0 50px; /* Add spacing between social links */
+}
+
+.social-links a {
+  text-decoration: none;
+  color: #fff; /* Color of the social links */
+  font-weight: bold;
+  font-size: 16px;
 }
