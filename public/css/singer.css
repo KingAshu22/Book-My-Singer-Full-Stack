@@ -2015,3 +2015,68 @@ button
   flex: 0 0 auto;
   width: 50%
 }
+
+/* -------------------------------------------
+
+Whatsapp & Call Button
+
+------------------------------------------- */
+#whatsapp-chat {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+#whatsapp-chat .whatsappImg {
+  zoom: 15%;
+}
+
+.call-button {
+  position: fixed;
+  bottom: 70px;
+  left: 20px;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.call-button a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.call-button a img {
+  zoom: 15%;
+}
+
+@media (max-width: 768px) {
+  #whatsapp-chat {
+    box-shadow: none;
+  }
+
+  .call-button {
+    box-shadow: none;
+  }
+
+  #whatsapp-chat .whatsappImg,
+  .call-button a img {
+    width: 70%;
+    height: 70%;
+  }
+
+  #whatsapp-chat .whatsappImg {
+    zoom: 15%;
+  }
+
+  .call-button a img {
+    zoom: 15%;
+  }
+}
