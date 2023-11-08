@@ -504,6 +504,34 @@ app.get("*", (req, res) => {
   res.redirect("/");
 });
 
+// Configure nodemailer to send emails
+const transporter = nodemailer.createTransport({
+  service: "gmail", // e.g., Gmail
+  auth: {
+    user: "bookanartist2@gmail.com",
+    pass: "fdaa dmng kekg alim",
+  },
+});
+
+// Function to generate a random OTP
+function generateOTP() {
+  return Math.floor(1000 + Math.random() * 9000).toString();
+}
+
+// Function to send an email with OTP
+async function sendOTPByEmail(email, otp) {
+  const mailOptions = {
+    from: "bookanartist2@gmail.com",
+    to: email,
+    subject: "Your OTP for Two-Step Verification",
+    text: `Your OTP is: ${otp}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+}
+
+let otp;
+
 app.post("/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -511,13 +539,41 @@ app.post("/login", async (req, res) => {
   const user = await User.findOne({ username });
   if (user) {
     if ((await password) === user.password) {
-      req.session.user = user;
-      res.render("user-dashboard", {
+      // Generate and send OTP
+      otp = generateOTP();
+      await sendOTPByEmail("bookanartist2@gmail.com", otp);
+
+      // Store OTP and its expiration time in the user document
+      user.otp = otp;
+      user.otpExpiry = Date.now() + 2 * 60 * 1000; // 2 minutes validity
+      await user.save();
+
+      // Redirect to OTP verification page
+      res.render("otp", {
         user,
       });
+    } else {
+      res.send("Wrong Password");
     }
   } else {
-    res.send("Wrong Password");
+    res.send("User not found");
+  }
+});
+
+// Add a route for OTP verification
+app.post("/verify-otp", async (req, res) => {
+  const username = req.body.username;
+  const inputotp = req.body.otp;
+
+  const user = await User.findOne({ username });
+
+  if (user && otp == inputotp) {
+    req.session.user = user;
+    res.render("user-dashboard", {
+      user,
+    });
+  } else {
+    res.send("Invalid OTP or OTP expired. Please try again.");
   }
 });
 
