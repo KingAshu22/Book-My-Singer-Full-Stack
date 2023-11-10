@@ -937,6 +937,10 @@ const redirections = [
   {
     oldUrl: '/top-10-bollywood-singers/',
     newUrl: '/blog/top-10-bollywood-singers'
+  },
+  {
+    oldUrl: '/singer-for-wedding-sangeet/',
+    newUrl: '/event-category/wedding/sangeet'
   }
 ];
 
