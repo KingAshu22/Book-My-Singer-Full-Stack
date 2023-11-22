@@ -191,6 +191,10 @@ app.get("/event-category/corporate", (req, res) => {
   res.render("corporate-home");
 });
 
+app.get("/event-category/college", (req, res) => {
+  res.render("college-home");
+});
+
 app.get("/artist-category/:category/:subCategory", async (req, res) => {
   try {
     const { category, subCategory } = req.params;
