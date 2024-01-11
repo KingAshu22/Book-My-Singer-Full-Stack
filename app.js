@@ -460,13 +460,19 @@ app.get("/blog/:linkid", async (req, res) => {
     const relatedBlogData = [];
 
     if (blog.relatedBlog.length > 1) {
-      for (const linkId of blog.relatedBlog) {
-        const blogDocument = await Blog.findOne({ linkId });
-        if (blogDocument) {
-          relatedBlogData.push(blogDocument);
+      await Promise.all(blog.relatedBlog.map(async function(relatedLinkId) { 
+        const blogDocument = await Blog.findOne({ linkid: relatedLinkId });
+        const blogData = {
+          linkid: blogDocument.linkid,
+          thumbnail: blogDocument.thumbnail,
+          title: blogDocument.title,
+          metaDesc: blogDocument.metaDesc
         }
-      }
+        relatedBlogData.push(blogData);
+      }));
     }
+
+    console.log(relatedBlogData);
 
     if (blog) {
       res.render("blog", { blog, relatedBlogData });
@@ -474,6 +480,7 @@ app.get("/blog/:linkid", async (req, res) => {
       res.redirect("/");
     }
   } catch (error) {
+    console.error(error);
     res.redirect("/");
   }
 });
@@ -483,16 +490,16 @@ app.get("/edit-blog/:linkid", isAuthenticated, async (req, res) => {
     const { linkid } = req.params;
 
     const blog = await Blog.findOne({ linkid });
-    const relatedBlogData = [];
+    const relatedBlogDatas = [];
 
     for (const linkId of blog.relatedBlog) {
       const blogDocument = await Blog.findOne({ linkId });
       if (blogDocument) {
-        relatedBlogData.push(blogDocument);
+        relatedBlogDatas.push(blogDocument);
       }
     }
     if (blog) {
-      res.render("edit-blog", { blog, relatedBlogData });
+      res.render("edit-blog", { blog, relatedBlogDatas });
     } else {
       res.redirect("/");
     }

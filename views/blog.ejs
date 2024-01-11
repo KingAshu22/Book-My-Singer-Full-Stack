@@ -190,11 +190,11 @@
             <!-- blog -->
             <section class="mil-p-90-30">
               <div class="row justify-content-between align-items-center">
-                <% relatedBlogData.forEach(function(blog) { %>
+                <% relatedBlogData.forEach(function(b) { %>
                   <div class="col-lg-4">
-                    <a href="/blog/<%= blog.linkid %>" class="mil-blog-card mil-mb-60">
+                    <a href="/blog/<%= b.linkid %>" class="mil-blog-card mil-mb-60">
                       <div class="mil-cover mil-up">
-                        <img src="<%= blog.thumbnail %>" alt="cover" />
+                        <img src="<%= b.thumbnail %>" alt="<%= b.title %>" />
                         <div class="mil-link mil-icon-link">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -206,10 +206,10 @@
                       </div>
                       <div class="mil-descr">
                         <h4 class="mil-up mil-mb-30">
-                          <%= blog.title %>
+                          <%= b.title %>
                         </h4>
                         <p class="mil-up">
-                          <%= blog.metaDesc %>
+                          <%= b.metaDesc %>
                         </p>
                       </div>
                     </a>
