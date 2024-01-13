@@ -100,6 +100,12 @@
                     <input type="text" name="relatedBlog[1]" class="form-control">
                     <button type="button" id="addRelatedBlog" class="btn-primary">Add More Related Blog</button><br><br>
 
+                    <!-- Related Blog Links -->
+                    <h4>Related Artist Details</h4>
+                    <label>Related Artist Link ID:</label>
+                    <input type="text" name="relatedArtist[1]" class="form-control">
+                    <button type="button" id="addRelatedArtist" class="btn-primary">Add More Related Artist</button><br><br>
+
                     <button type="submit" class="btn btn-danger">Submit</button>
                 </form>
 
@@ -137,12 +143,14 @@
                     const addEventTypeLinkBtn = document.getElementById("addEventTypeLink");
                     const eventsContainer = document.getElementById("eventsContainer");
                     const addRelatedBlogBtn = document.getElementById("addRelatedBlog");
+                    const addRelatedArtistBtn = document.getElementById("addRelatedArtist");
                     const galleryContainer = document.getElementById("galleryContainer");
 
                     let galleryCount = 1;
                     let eventCount = 1;
                     let eventTypeCount = 1;
                     let blogCount = 1;
+                    let artistCount = 1;
 
                     addGalleryLinkBtn.addEventListener("click", () => {
                         galleryCount++;
@@ -170,6 +178,15 @@
                         relatedBlogInput.name = `relatedBlog[${blogCount}]`;
                         relatedBlogInput.classList = "form-control"
                         document.getElementById("myForm").insertBefore(relatedBlogInput, addRelatedBlogBtn);
+                    });
+
+                    addRelatedArtistBtn.addEventListener("click", () => {
+                        artistCount++;
+                        const relatedArtistInput = document.createElement("input");
+                        relatedArtistInput.type = "text";
+                        relatedArtistInput.name = `relatedArtist[${artistCount}]`;
+                        relatedArtistInput.classList = "form-control"
+                        document.getElementById("myForm").insertBefore(relatedArtistInput, addRelatedArtistBtn);
                     });
 
                     function addEventLink() {

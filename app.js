@@ -90,6 +90,7 @@ const blogSchema = new mongoose.Schema({
   events: Array,
   blog: String,
   relatedBlog: Array,
+  relatedArtist: Array,
 });
 
 const Blog = new mongoose.model("Blog", blogSchema);
@@ -193,6 +194,10 @@ app.get("/event-category/corporate", (req, res) => {
 
 app.get("/event-category/college", (req, res) => {
   res.render("college-home");
+});
+
+app.get("/privacy-policy", (req, res) => {
+  res.render("privacy-policy");
 });
 
 app.get("/artist-category/:category/:subCategory", async (req, res) => {
@@ -458,6 +463,7 @@ app.get("/blog/:linkid", async (req, res) => {
 
     const blog = await Blog.findOne({ linkid });
     const relatedBlogData = [];
+    const relatedArtistData = [];
 
     if (blog.relatedBlog.length > 1) {
       await Promise.all(blog.relatedBlog.map(async function(relatedLinkId) { 
@@ -472,10 +478,21 @@ app.get("/blog/:linkid", async (req, res) => {
       }));
     }
 
-    console.log(relatedBlogData);
+    if (blog.relatedArtist.length > 1) {
+      await Promise.all(blog.relatedArtist.map(async function(relatedArtistLinkId) { 
+        const artistDocument = await Artist.findOne({ linkid: relatedArtistLinkId });
+        const artistData = {
+          linkid: artistDocument.linkid,
+          artistType: artistDocument.artistType,
+          name: artistDocument.name,
+          profilePic: artistDocument.profilePic
+        }
+        relatedArtistData.push(artistData);
+      }));
+    }
 
     if (blog) {
-      res.render("blog", { blog, relatedBlogData });
+      res.render("blog", { blog, relatedBlogData, relatedArtistData });
     } else {
       res.redirect("/");
     }
@@ -768,6 +785,7 @@ app.post("/add-blog", isAuthenticated, (req, res) => {
   const eventName = data.eventName;
   const eventType = data.eventType;
   const relatedBlog = data.relatedBlog;
+  const relatedArtist = data.relatedArtist;
   // Function to determine event type based on link
   function getEventType(link) {
     return link.includes("aws") ? "aws" : "youtube";
@@ -796,6 +814,7 @@ app.post("/add-blog", isAuthenticated, (req, res) => {
     events,
     blog,
     relatedBlog,
+    relatedArtist
   });
 
   blogs
@@ -1062,6 +1081,7 @@ app.post("/edit-blog", isAuthenticated, async (req, res) => {
   const linkid = lowerCaseName.replace(/ /g, "-");
   const gallery = data.galleryLink;
   const relatedBlog = data.relatedBlog;
+  const relatedArtist = data.relatedArtist;
   const blog = data.blog;
 
   const blogs = await Blog.updateOne(
@@ -1076,6 +1096,7 @@ app.post("/edit-blog", isAuthenticated, async (req, res) => {
       gallery,
       blog,
       relatedBlog,
+      relatedArtist,
     }
   )
     .then(() => {
