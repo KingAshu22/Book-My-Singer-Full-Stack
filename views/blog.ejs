@@ -6,6 +6,7 @@
 
   <link rel="stylesheet" href="/artist/../css/style.css">
   <link rel="stylesheet" href="/artist/../css/singer.css">
+  <link rel="stylesheet" href="/artist/../css/popup.css">
   <style>
     a {
       color: #f44336;
@@ -465,6 +466,112 @@
       <img src="/img/telephone.png" alt="Call" />
     </a>
   </div>
+
+  <!-- Pop Up Form -->
+  <div
+  class="modal fade popup"
+  id="contactModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="contactModalLabel"
+  aria-hidden="true"
+  style="margin-top: 3%"
+>
+  <div class="modal-dialog" role="document">
+    <div
+      class="modal-content"
+      style="background-color: #202124; color: #f44336"
+      ;
+    >
+      <div class="modal-header">
+        <h5
+          class="modal-title"
+          id="contactModalLabel"
+          style="color: #f44336; padding-top: 4%"
+        >
+          Contact Form
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          style="margin-top: 1%; color: white"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Your form goes here -->
+        <form id="contactForm" method="POST" action="/contact-form">
+          <!-- Add your form fields here -->
+          <div class="form-group">
+            <label for="name">Name:</label><br>
+            <input
+              type="text"
+              class="form-control popup-form-input"
+              id="name"
+              name="name"
+              required
+              placeholder="Enter your name"
+              style="background-color: white"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Contact Number:</label><br>
+            <input
+              type="text"
+              class="form-control popup-form-input"
+              id="contact"
+              name="contact"
+              pattern="[0-9]{10,10}"
+              autocomplete="off"
+              maxlength="10"
+              id="extra7"
+              onKeyPress="return isNumber(event)"
+              placeholder="Enter Mobile Number"
+              aria-describedby="basic-addon1"
+              required
+              style="background-color: white"
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Message:</label><br>
+            <input
+              type="text"
+              class="form-control popup-form-input"
+              id="message"
+              name="message"
+              required
+              placeholder="Enter your Message"
+              style="background-color: white"
+            />
+          </div>
+
+          <div
+            class="g-recaptcha"
+            style="margin-top: 5%; margin-bottom: 5%"
+            data-sitekey="6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH"
+          ></div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="
+              background-color: #f44336;
+              text-align: center;
+              display: block;
+              margin: 0 auto;
+            "
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
   <script>
     const readMoreBtn = document.getElementById('readMoreBtn');
     const readLessBtn = document.getElementById('readLessBtn');
@@ -479,6 +586,16 @@
     readLessBtn.addEventListener('click', () => {
       shortBlog.style.display = 'block';
       fullBlog.style.display = 'none';
+    });
+  </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+        $('#contactModal').modal('show');
     });
   </script>
 </body>
