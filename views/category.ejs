@@ -603,12 +603,27 @@
     var currentPage = document.getElementById(pageId);
     var otherPage = document.getElementById(pageId === 'page1' ? 'page2' : 'page1');
 
+    // Check if required fields on page 1 are filled
+    if (pageId === 'page2' && !validatePage1()) {
+      alert("Please fill in all details on page 1.");
+      return;
+    }
+
     currentPage.style.display = 'block';
     otherPage.style.opacity = '0';
     setTimeout(function () {
       otherPage.style.display = 'none';
       currentPage.style.opacity = '1';
     }, 500);
+  }
+
+  function validatePage1() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var contact = document.getElementById('contact').value;
+
+    // Add additional validation as needed
+    return name && email && contact;
   }
   </script>
 </body>
