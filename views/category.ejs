@@ -410,7 +410,6 @@
     <div
       class="modal-content"
       style="background-color: #202124; color: #f44336"
-      ;
     >
       <div class="modal-header">
         <h5
@@ -431,71 +430,144 @@
         </button>
       </div>
       <div class="modal-body">
-        <!-- Your form goes here -->
         <form id="contactForm" method="POST" action="/contact-form">
-          <!-- Add your form fields here -->
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input
-              type="text"
-              class="form-control popup-form-input"
-              id="name"
-              name="name"
-              required
-              placeholder="Enter your name"
-              style="background-color: white"
-            />
+          <!-- Page 1: Name, Email, Contact Number -->
+          <div id="page1" class="form-page">
+            <div class="form-group">
+              <label for="name">Name:</label><br>
+              <input
+                type="text"
+                class="form-control popup-form-input"
+                id="name"
+                name="name"
+                required
+                placeholder="Enter your name"
+                style="background-color: white"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address:</label><br>
+              <input
+                type="email"
+                class="form-control popup-form-input"
+                id="email"
+                name="email"
+                required
+                placeholder="Enter your Email Address"
+                style="background-color: white"
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact">Contact Number:</label><br>
+              <input
+                type="text"
+                class="form-control popup-form-input"
+                id="contact"
+                name="contact"
+                pattern="[0-9]{10,10}"
+                autocomplete="off"
+                maxlength="10"
+                onKeyPress="return isNumber(event)"
+                placeholder="Enter Mobile Number"
+                aria-describedby="basic-addon1"
+                required
+                style="background-color: white"
+              />
+            </div>
+        
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="showPage('page2')"
+              style="background-color: #f44336; text-align: center; display: block; margin: 0 auto;"
+            >
+              Next
+            </button>
           </div>
-          <div class="form-group">
-            <label for="email">Contact Number:</label>
-            <input
-              type="text"
-              class="form-control popup-form-input"
-              id="contact"
-              name="contact"
-              pattern="[0-9]{10,10}"
-              autocomplete="off"
-              maxlength="10"
-              id="extra7"
-              onKeyPress="return isNumber(event)"
-              placeholder="Enter Mobile Number"
-              aria-describedby="basic-addon1"
-              required
-              style="background-color: white"
-            />
-          </div>
-          <div class="form-group">
-            <label for="name">Message:</label>
-            <input
-              type="text"
-              class="form-control popup-form-input"
-              id="message"
-              name="message"
-              required
-              placeholder="Enter your Message"
-              style="background-color: white"
-            />
-          </div>
+        
+          <!-- Page 2: Event Type, Event City, Artist Type, Event Date, Budget -->
+          <div id="page2" class="form-page" style="display: none;">
+            <div class="form-row">
+              <div class="form-group half-width">
+                <label for="eventType">Event Type:</label>
+                <select name="eventType" class="form-control popup-form-input" id="artistTypeSelect" required>
+                  <option value="corporate">Corporate Event</option>
+                  <option value="wedding">Wedding Event</option>
+                  <option value="college">College Event</option>
+                  <option value="private">Private Event</option>
+                  <option value="house">House Parties</option>
+                  <option value="virtual">Virtual Event</option>
+                  <option value="other">Any Other</option>
+                </select>
+              </div>
+              <div class="form-group half-width">
+                <label for="eventCity">Event City:</label>
+                <input
+                  type="text"
+                  class="form-control popup-form-input"
+                  id="eventCity"
+                  name="city"
+                  required
+                  placeholder="Enter Event City"
+                  style="background-color: white"
+                />
+              </div>
+            </div>
+        
+            <div class="form-row">
+              <div class="form-group half-width">
+                <label for="artistType">Artist Type:</label>
+                <select name="artistType" class="form-control popup-form-input" id="artistTypeSelect" required>
+                  <option value="singer">Singer</option>
+                  <option value="musician">Musician</option>
+                  <option value="live-band">Live Band</option>
+                  <option value="dj">Dj</option>
+                  <option value="actor">Actor</option>
+                  <option value="comedian">Comedian</option>
+                </select>
+              </div>
+              <div class="form-group half-width">
+                <label for="eventDate">Event Date:</label>
+                <input
+                  type="date"
+                  class="form-control popup-form-input"
+                  id="eventDate"
+                  name="date"
+                  required
+                  style="background-color: white"
+                />
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label for="budget">Budget:</label><br>
+              <input
+                type="number"
+                class="form-control popup-form-input"
+                id="budget"
+                name="budget"
+                required
+                placeholder="Enter Budget in rupees"
+                style="background-color: white"
+              />
+            </div>
 
-          <div
+            <div
             class="g-recaptcha"
             style="margin-top: 5%; margin-bottom: 5%"
             data-sitekey="6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH"
           ></div>
-
-          <button
-            type="submit"
-            class="btn btn-primary"
-            style="
-              background-color: #f44336;
-              text-align: center;
-              display: block;
-              margin: 0 auto;
-            "
-          >
-            Submit
-          </button>
+        
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="background-color: #f44336; text-align: center; display: block; margin: 0 auto;"
+            >
+              Submit
+            </button>
+          </div>
         </form>
+
       </div>
     </div>
   </div>
@@ -526,6 +598,18 @@
     $(document).ready(function(){
         $('#contactModal').modal('show');
     });
+
+    function showPage(pageId) {
+    var currentPage = document.getElementById(pageId);
+    var otherPage = document.getElementById(pageId === 'page1' ? 'page2' : 'page1');
+
+    currentPage.style.display = 'block';
+    otherPage.style.opacity = '0';
+    setTimeout(function () {
+      otherPage.style.display = 'none';
+      currentPage.style.opacity = '1';
+    }, 500);
+  }
   </script>
 </body>
 
