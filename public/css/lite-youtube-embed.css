@@ -6,6 +6,7 @@
     max-width: 100%;
     background: #000;
     margin: 5px;
+    border-radius: 5%;
     cursor: pointer; /* Add this to make the entire player clickable */
 }
 
