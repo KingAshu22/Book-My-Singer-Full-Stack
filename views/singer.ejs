@@ -86,6 +86,11 @@
 
     </div>
     <!-- top bar end -->
+
+    <div class="fixed-button">
+      <button onclick="enquire()">ENQUIRE NOW</button>
+    </div>
+
     <div class="page-wrapper home-3">
         <div class="container z-index-3">
             <div class="row">
@@ -1212,9 +1217,17 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    $(document).ready(function(){
-        $('#contactModal').modal('show');
-    });
+
+      $(document).ready(function () {
+        setTimeout(function () {
+          $("#contactModal").modal("show");
+        }, 10000);
+      });
+
+
+      function enquire() {
+        $("#contactModal").modal("show");
+      }
 
     function showPage(pageId) {
     var currentPage = document.getElementById(pageId);

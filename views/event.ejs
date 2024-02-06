@@ -97,6 +97,10 @@
   </div>
   <!-- top bar end -->
 
+  <div class="fixed-button">
+    <button onclick="enquire()">ENQUIRE NOW</button>
+  </div>
+
   <div class="mil-content justify-content-center">
     <div class="mil-scroll-wrapper transition-fade" id="swupMain">
       <div class="mil-container-fw">
@@ -1063,9 +1067,16 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
-    $(document).ready(function(){
-        $('#contactModal').modal('show');
-    });
+    $(document).ready(function () {
+        setTimeout(function () {
+          $("#contactModal").modal("show");
+        }, 10000);
+      });
+
+
+      function enquire() {
+        $("#contactModal").modal("show");
+      }
 
     function showPage(pageId) {
     var currentPage = document.getElementById(pageId);
