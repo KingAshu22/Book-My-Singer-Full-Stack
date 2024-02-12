@@ -7,6 +7,11 @@ const nodemailer = require("nodemailer");
 const Recaptcha = require("express-recaptcha").RecaptchaV3;
 const redirections = require("./redirections");
 
+const { google } = require("googleapis");
+const keys = require("./secrets.json");
+
+const spreadsheetId = "1e0LVQGWxSNtwtIaGRIqnBXFttMY5sNbo_Dd8H9A5rtY";
+
 const app = express();
 app.set("view engine", "ejs");
 
@@ -131,7 +136,10 @@ const eventCategorySchema = new mongoose.Schema({
 const EventCategory = new mongoose.model("EventCategory", eventCategorySchema);
 
 function isAuthenticated(req, res, next) {
-  if (req.session?.user?.role === "admin" || req.session?.user?.role === "user") {
+  if (
+    req.session?.user?.role === "admin" ||
+    req.session?.user?.role === "user"
+  ) {
     return next();
   } else {
     res.render("login-error");
@@ -466,29 +474,35 @@ app.get("/blog/:linkid", async (req, res) => {
     const relatedArtistData = [];
 
     if (blog.relatedBlog.length > 1) {
-      await Promise.all(blog.relatedBlog.map(async function(relatedLinkId) { 
-        const blogDocument = await Blog.findOne({ linkid: relatedLinkId });
-        const blogData = {
-          linkid: blogDocument.linkid,
-          thumbnail: blogDocument.thumbnail,
-          title: blogDocument.title,
-          metaDesc: blogDocument.metaDesc
-        }
-        relatedBlogData.push(blogData);
-      }));
+      await Promise.all(
+        blog.relatedBlog.map(async function (relatedLinkId) {
+          const blogDocument = await Blog.findOne({ linkid: relatedLinkId });
+          const blogData = {
+            linkid: blogDocument.linkid,
+            thumbnail: blogDocument.thumbnail,
+            title: blogDocument.title,
+            metaDesc: blogDocument.metaDesc,
+          };
+          relatedBlogData.push(blogData);
+        })
+      );
     }
 
     if (blog.relatedArtist.length > 1) {
-      await Promise.all(blog.relatedArtist.map(async function(relatedArtistLinkId) { 
-        const artistDocument = await Artist.findOne({ linkid: relatedArtistLinkId });
-        const artistData = {
-          linkid: artistDocument.linkid,
-          artistType: artistDocument.artistType,
-          name: artistDocument.name,
-          profilePic: artistDocument.profilePic
-        }
-        relatedArtistData.push(artistData);
-      }));
+      await Promise.all(
+        blog.relatedArtist.map(async function (relatedArtistLinkId) {
+          const artistDocument = await Artist.findOne({
+            linkid: relatedArtistLinkId,
+          });
+          const artistData = {
+            linkid: artistDocument.linkid,
+            artistType: artistDocument.artistType,
+            name: artistDocument.name,
+            profilePic: artistDocument.profilePic,
+          };
+          relatedArtistData.push(artistData);
+        })
+      );
     }
 
     if (blog) {
@@ -814,7 +828,7 @@ app.post("/add-blog", isAuthenticated, (req, res) => {
     events,
     blog,
     relatedBlog,
-    relatedArtist
+    relatedArtist,
   });
 
   blogs
@@ -1033,39 +1047,45 @@ app.post("/edit-artist-category", isAuthenticated, async (req, res) => {
     });
 });
 
-app.post("/contact-form", recaptcha.middleware.verify, (req, res) => {
-  if (!req.recaptcha.error) {
-    const formData = req.body;
+// Create a new JWT client using the keys file
+const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
+  "https://www.googleapis.com/auth/spreadsheets",
+]);
 
-    // Create a nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail", // e.g., Gmail
-      auth: {
-        user: "bookanartist2@gmail.com",
-        pass: "fdaa dmng kekg alim",
+async function appendData(data) {
+  try {
+    await client.authorize();
+    const sheets = google.sheets({ version: "v4", auth: client });
+    const response = await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range: "Sheet1", // Change this to the appropriate sheet name and range
+      valueInputOption: "RAW",
+      resource: {
+        values: [
+          [
+            data.name,
+            data.email,
+            data.contact,
+            data.city,
+            data.eventType,
+            data.artistType,
+            data.date,
+            data.budget,
+            data.message,
+          ],
+        ], // Assuming data is an object with key-value pairs
       },
     });
-
-    // Email data
-    const mailOptions = {
-      from: formData.email, // Sender's email address
-      to: "yogendra12355@gmail.com", // Your email address
-      subject: "Contact Form Submission",
-      text: `Name: ${formData.name}\nEmail: ${formData.email}\nContact Number: ${formData.contact}\nEvent City: ${formData.city}\nEvent Type: ${formData.eventType}\nArtist Type: ${formData.artistType}\nEvent Date: ${formData.date}\nBudget: ${formData.budget}\nMessage: ${formData.message}`,
-    };
-
-    // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error(error);
-        res.render("error");
-      } else {
-        res.render("success");
-      }
-    });
-  } else {
-    res.render("error");
+    console.log("Data inserted successfully:");
+  } catch (error) {
+    console.error("Error inserting data:", error);
   }
+}
+
+app.post("/contact-form", recaptcha.middleware.verify, async (req, res) => {
+  const formData = req.body;
+  appendData(formData);
+  res.render("success");
 });
 
 app.post("/edit-blog", isAuthenticated, async (req, res) => {
