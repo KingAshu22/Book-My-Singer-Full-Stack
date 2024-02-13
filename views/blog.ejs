@@ -1144,10 +1144,10 @@
     var otherPage = document.getElementById(pageId === 'page1' ? 'page2' : 'page1');
 
     // Check if required fields on page 1 are filled
-    if (pageId === 'page2' && !validatePage1()) {
-      alert("Please fill in all details on page 1.");
-      return;
-    }
+    // if (pageId === 'page2' && !validatePage1()) {
+    //   alert("Please fill in all details on page 1.");
+    //   return;
+    // }
 
     currentPage.style.display = 'block';
     otherPage.style.opacity = '0';
