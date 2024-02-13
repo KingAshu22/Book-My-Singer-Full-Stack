@@ -1116,7 +1116,7 @@ app.post("/contact-form", recaptcha.middleware.verify, async (req, res) => {
   ) {
     res.render("spam");
   } else {
-    // appendData(formData);
+    appendData(formData);
     res.render("success");
   }
 });
