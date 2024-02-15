@@ -208,6 +208,10 @@ app.get("/privacy-policy", (req, res) => {
   res.render("privacy-policy");
 });
 
+app.get("/artist-category/singers/indian-idol-singers", (req, res) => {
+  res.render("indian-idol");
+});
+
 app.get("/artist-category/:category/:subCategory", async (req, res) => {
   try {
     const { category, subCategory } = req.params;
