@@ -1137,6 +1137,21 @@ app.post("/edit-blog", isAuthenticated, async (req, res) => {
   const lowerCaseName = title.toLowerCase();
   const linkid = lowerCaseName.replace(/ /g, "-");
   const gallery = data.galleryLink;
+  const eventName = data.eventName;
+  const eventType = data.eventType;
+
+  // Function to determine event type based on link
+  function getEventType(link) {
+    return link.includes("aws") ? "aws" : "youtube";
+  }
+
+  // Create the events array
+  const events = eventName.map((name, index) => ({
+    name: name,
+    links: eventType[index],
+    type: eventType[index].map((link) => getEventType(link)),
+  }));
+
   const relatedBlog = data.relatedBlog;
   const relatedArtist = data.relatedArtist;
   const blog = data.blog;
@@ -1151,6 +1166,7 @@ app.post("/edit-blog", isAuthenticated, async (req, res) => {
       thumbnail,
       thumbCap,
       gallery,
+      events,
       blog,
       relatedBlog,
       relatedArtist,
