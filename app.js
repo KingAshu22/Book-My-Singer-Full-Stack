@@ -580,19 +580,25 @@ async function sendOTPByEmail(email, otp) {
 let otp;
 
 app.post("/pallavi-chaudhary", async (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const contact = req.body.contact;
-  const message = req.body.message;
+  try {
+    const { name, email, contact, message } = req.body;
 
-  const mailOptions = {
-    from: "bookanartist2@gmail.com",
-    to: "bookanartist2@gmail.com",
-    subject: "Contact Form Submission - Pallavi Chaudhary",
-    text: `Name: ${name}\n Email: ${email} \n Contact: ${contact} \n Message: ${message}`,
-  };
+    // Validate form fields if needed
 
-  await transporter.sendMail(mailOptions);
+    const mailOptions = {
+      from: "bookanartist2@gmail.com",
+      to: "bookanartist2@gmail.com",
+      subject: "Contact Form Submission - Pallavi Chaudhary",
+      text: `Name: ${name}\n Email: ${email} \n Contact: ${contact} \n Message: ${message}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).send("Message sent successfully");
+  } catch (error) {
+    console.error("Error sending message:", error);
+    res.status(500).send("An error occurred while sending the message");
+  }
 });
 
 app.post("/login", async (req, res) => {
