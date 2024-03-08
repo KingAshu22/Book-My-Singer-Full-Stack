@@ -594,10 +594,10 @@ app.post("/pallavi-chaudhary", async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res.status(200).redirect("https://pallavipandeylive.com/success");
+    res.status(200).redirect("https://pallavichaudharylive.com/success");
   } catch (error) {
     console.error("Error sending message:", error);
-    res.status(500).redirect("https://pallavipandeylive.com/error");
+    res.status(500).redirect("https://pallavichaudharylive.com/error");
   }
 });
 
