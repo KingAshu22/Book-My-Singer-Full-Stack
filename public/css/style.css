@@ -63,10 +63,11 @@ body {
   -ms-scroll-chaining: none;
   overscroll-behavior: none;
   background-color: rgb(253, 253, 253);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 @media screen and (max-width: 768px) {
-
   html,
   body {
     font-size: 14px;
@@ -597,11 +598,11 @@ frame
   transition: 0.2s cubic-bezier(0, 0, 0.3642, 1);
 }
 
-.mil-navigation nav ul li.mil-active>a {
+.mil-navigation nav ul li.mil-active > a {
   position: relative;
 }
 
-.mil-navigation nav ul li.mil-active>a:before {
+.mil-navigation nav ul li.mil-active > a:before {
   content: "";
   margin-right: 10px;
   position: absolute;
@@ -693,11 +694,11 @@ frame
     color: rgb(255, 255, 255);
   }
 
-  .mil-navigation nav ul li.mil-active>a {
+  .mil-navigation nav ul li.mil-active > a {
     color: rgb(244, 67, 54);
   }
 
-  .mil-navigation nav ul li.mil-active>a:before {
+  .mil-navigation nav ul li.mil-active > a:before {
     display: none;
   }
 
@@ -929,8 +930,6 @@ iconbox
   width: 200px;
   height: 200px;
 }
-
-
 
 .mil-icon-box .artist img {
   border-radius: 100%;
@@ -1248,7 +1247,7 @@ Typewriter effect
 
 .fixed-button {
   position: fixed;
-  right: 0px; 
+  right: 0px;
   top: 50%;
   transform: translateY(-50%);
   padding: 0px;

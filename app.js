@@ -1108,38 +1108,10 @@ async function appendData(data) {
   }
 }
 
-const spamPatterns = [
-  /https?:\/\/[^\s]+/, // Generic Links
-  /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/, // Email Addresses
-  /\b(?:news|business|markets|data|analysis|video|gaming|sports|celeb|gambling|bonus|credit|loan|online|casino|slot|zaim|seo|SEO)\b/, // Keywords
-];
-
-function analyzeMessageForSpam(message) {
-  let spamScore = 0;
-
-  spamPatterns.forEach((pattern) => {
-    const matches = message.match(pattern);
-    if (matches) {
-      spamScore += matches.length;
-    }
-  });
-
-  // Set a threshold for what you consider spam
-  const spamThreshold = 2; // You can adjust this threshold as needed
-
-  return spamScore >= spamThreshold;
-}
-
 app.post("/contact-form", recaptcha.middleware.verify, async (req, res) => {
   const formData = req.body;
-  const isSpam = analyzeMessageForSpam(formData.message);
 
-  if (
-    isSpam ||
-    formData.mobile !== "" ||
-    !/^\d+$/.test(formData.contact) ||
-    formData.message.length > 50
-  ) {
+  if (formData.mobile !== "" || formData.message?.length > 100) {
     res.render("spam");
   } else {
     appendData(formData);
