@@ -1233,7 +1233,7 @@ Typewriter effect
   }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   .popup {
     margin-top: 50% !important;
     padding-top: 5%;
@@ -1242,6 +1242,9 @@ Typewriter effect
   }
   .popup-form-input {
     width: 95% !important;
+  }
+  .mil-side-banner {
+    margin-top: -105% !important;
   }
 }
 
