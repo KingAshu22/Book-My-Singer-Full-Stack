@@ -1101,7 +1101,7 @@ async function appendData(data) {
             data.name,
             data.email,
             data.contact,
-            data.city,
+            data.location,
             data.eventType,
             data.artistType,
             data.date,
