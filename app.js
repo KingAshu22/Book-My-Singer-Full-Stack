@@ -15,6 +15,7 @@ const spreadsheetId = "1e0LVQGWxSNtwtIaGRIqnBXFttMY5sNbo_Dd8H9A5rtY";
 const app = express();
 app.set("view engine", "ejs");
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(
@@ -545,6 +546,14 @@ app.get("/edit-blog/:linkid", isAuthenticated, async (req, res) => {
 
 app.get("/user-dashboard", isAuthenticated, (req, res) => {
   res.render("user-dashboard");
+});
+
+app.get("/success", (req, res) => {
+  res.render("success");
+});
+
+app.get("/spam", (req, res) => {
+  res.render("spam");
 });
 
 app.get("*", (req, res) => {
@@ -1108,14 +1117,18 @@ async function appendData(data) {
   }
 }
 
-app.post("/contact-form", recaptcha.middleware.verify, async (req, res) => {
+app.post("/contact-form", async (req, res) => {
   const formData = req.body;
+  console.log(formData);
 
-  if (formData.mobile !== "" || formData.message?.length > 100) {
-    res.render("spam");
+  // Checking if contact number is empty or message length is greater than 100
+  if (formData.contact === "" || formData.message?.length > 100) {
+    // Rendering spam page with status code 403 (Forbidden)
+    res.status(403).redirect("/spam");
   } else {
-    appendData(formData);
-    res.render("success");
+    // Inserting data and rendering success page
+    await appendData(formData);
+    res.redirect("/success");
   }
 });
 

@@ -1,114 +1,89 @@
 /* Styles for the modal overlay */
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-  }
-  
-  /* Styles for the modal content */
-  .modal-dialog {
-    margin: 3% auto;
-    max-width: 600px; /* Adjust as needed */
-  }
-  
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+}
+
+.contact-section {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5%;
+}
+
+.but {
+  padding-left: 20%;
+  padding-right: 20%;
+  margin-bottom: -15% !important;
+}
+
+/* Center the modal content */
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Style for the modal content */
+.modal-content {
+  background-color: #202124;
+  color: #f44336;
+  width: 80%; /* Adjust as needed */
+  max-width: 800px; /* Maximum width for larger screens */
+}
+
+.modal-header {
+  background-color: #202124;
+  color: #f44336;
+}
+
+.modal-body {
+  background-color: #eee;
+  padding: 3%;
+}
+
+/* Additional styles for buttons */
+button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #d32f2f;
+}
+
+/* Additional styles for labels and inputs */
+label {
+  display: block;
+  margin-top: 10px;
+  color: #f44336;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
   .modal-content {
-    background-color: #202124;
-    color: #f44336;
-    border: 1px solid #fff;
-    border-radius: 8px;
-    padding: 20px;
+    width: 90%; /* Adjust as needed for smaller screens */
   }
-  
-  /* Styles for the modal header */
-  .modal-header {
-    background-color: #202124;
-    color: #f44336;
-    padding: 1rem;
-    border-bottom: 1px solid #f44336;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    margin-top: -6% !important;
-  }
-  
-  /* Styles for the close button */
-  .close {
-    margin-top: 1%;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  /* Styles for the form inputs and labels */
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  label {
-    color: #f44336;
-  }
-  
-  .popup-form-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #f44336;
-    border-radius: 4px;
-    background-color: white;
-    color: #333;
-  }
-  
-  /* Styles for the reCAPTCHA */
-  .g-recaptcha {
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
-  
-  /* Styles for the submit button */
-  .btn-primary {
-    background-color: #f44336;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .btn-primary:hover {
-    background-color: #d32f2f;
-  }
-
-  @media only screen and (min-width: 1024px) {
-    .modal {
-        margin-top: 5% !important;
-    }
-  }
-
-  @media only screen and (max-width: 767px) {
-    .modal {
-      margin-left: 5%;
-    }
-  }
-
-  .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -10px; /* Adjust margin based on your design */
-  }
-
-  .form-group {
-    flex: 1;
-    margin: 10px; /* Adjust margin based on your design */
-  }
-
-  .half-width {
-    width: calc(50% - 20px); /* Adjust width and margin based on your design */
-  }
-
-  .form-page {
-    transition: opacity 0.5s ease-in-out;
-  }
+}
