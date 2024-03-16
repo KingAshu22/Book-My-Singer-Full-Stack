@@ -62,6 +62,7 @@
     <meta name="theme-color" content="#f44336" />
     <meta name="msapplication-TileColor" content="#f44336" />
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link rel="stylesheet" href="/css/popup.css">
   <style>
     a {
       color: #f44336;
@@ -867,98 +868,6 @@
     </div>
 </div>
 
-<div id="contact" class="mil-section-title mil-up">
-  <div class="mil-divider"></div>
-  <h3>Get in Touch</h3>
-</div>
-
-<!-- call to action -->
-<section class="mil-p-0-90">
-  <div class="row justify-content-center">
-    <div class="col-lg-10">
-      <div class="mil-center">
-        <div id="contact" class="mil-p-90-60">
-          <form id="contactForm" action="/contact-form" method="POST" class="row align-items-center">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <div class="form-outline mb-4">
-                    <label class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" required autocomplete="off" />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label">Contact Number</label>
-                    <input type="number" name="contact" class="form-control" autocomplete="off" required />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label">Event Type</label>
-                    <select name="eventType" class="form-control" id="artistTypeSelect" required>
-                      <option value="corporate">Corporate Event</option>
-                      <option value="wedding">Wedding Event</option>
-                      <option value="college">College Event</option>
-                      <option value="private">Private Event</option>
-                      <option value="house">House Parties</option>
-                      <option value="virtual">Virtual Event</option>
-                      <option value="other">Any Other</option>
-                    </select>
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label">Event Date</label>
-                    <input type="date" name="date" class="form-control" autocomplete="off" required />
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <div class="form-outline mb-4">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" name="email" class="form-control" autocomplete="off" />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label">Event City</label>
-                    <input type="text" name="city" class="form-control" autocomplete="off" />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label">Artist Type</label>
-                    <select name="artistType" class="form-control" id="artistTypeSelect" required>
-                      <option value="singer">Singer</option>
-                      <option value="musician">Musician</option>
-                      <option value="live-band">Live Band</option>
-                      <option value="dj">Dj</option>
-                      <option value="actor">Actor</option>
-                      <option value="comedian">Comedian</option>
-                    </select>
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label">Budget</label>
-                    <input type="number" name="budget" class="form-control" autocomplete="off" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label">Message</label>
-              <textarea name="message" class="form-control" cols="30" rows="10"></textarea>
-            </div>
-            <div class="g-recaptcha" data-sitekey="6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH"></div>
-            <button class="show-more-btn" style="text-align: center; display: block; margin: 0 auto"
-              type="submit">Submit</button>
-          </form>
-
-          <!-- Loader popup -->
-          <div id="loader" style="display: none;">
-            Loading...
-          </div>
-
-          <!-- Success/Error message -->
-          <div id="message" style="display: none;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- call to action end -->
-
   <!-- footer -->
   <footer class="mil-fw">
     <p class="mil-light-soft">
@@ -982,191 +891,96 @@
     </a>
   </div>
 
-  <!-- Pop Up Form -->
-  <div
-  class="modal fade popup"
-  id="contactModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="contactModalLabel"
-  aria-hidden="true"
-  style="margin-top: 3%"
->
-  <div class="modal-dialog" role="document">
-    <div
-      class="modal-content"
-      style="background-color: #202124; color: #f44336"
-    >
-      <div class="modal-header">
-        <h5
-          class="modal-title"
-          id="contactModalLabel"
-          style="color: #f44336; padding-top: 4%"
-        >
-          Contact Form
-        </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          style="margin-top: 1%; color: white"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="contactForm" method="POST" action="/contact-form">
-          <!-- Page 1: Name, Email, Contact Number -->
-          <div id="page1" class="form-page">
-            <div class="form-group">
-              <label for="name">Name:</label><br>
-              <input
-                type="text"
-                class="form-control popup-form-input"
-                id="name"
-                name="name"
-                required
-                placeholder="Enter your name"
-                style="background-color: white"
-              />
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address:</label><br>
-              <input
-                type="email"
-                class="form-control popup-form-input"
-                id="email"
-                name="email"
-                placeholder="Enter your Email Address"
-                style="background-color: white"
-              />
-            </div>
-            <div class="form-group">
-              <label for="contact">Contact Number:</label><br>
-              <input
-                type="text"
-                class="form-control popup-form-input"
-                id="contact"
-                name="contact"
-                pattern="[0-9]{10,10}"
-                autocomplete="off"
-                maxlength="10"
-                onKeyPress="return isNumber(event)"
-                placeholder="Enter Mobile Number"
-                aria-describedby="basic-addon1"
-                required
-                style="background-color: white"
-              />
-            </div>
-        
-            <button
-              type="button"
-              class="btn btn-primary"
-              onclick="showPage('page2')"
-              style="background-color: #f44336; text-align: center; display: block; margin: 0 auto;"
-            >
-              Next
-            </button>
-          </div>
-        
-          <!-- Page 2: Event Type, Event City, Artist Type, Event Date, Budget -->
-          <div id="page2" class="form-page" style="display: none;">
-            <div class="form-row">
-              <div class="form-group half-width">
-                <label for="eventType">Event Type:</label>
-                <select name="eventType" class="form-control popup-form-input" id="artistTypeSelect" required>
-                  <option value="corporate">Corporate Event</option>
-                  <option value="wedding">Wedding Event</option>
-                  <option value="college">College Event</option>
-                  <option value="private">Private Event</option>
-                  <option value="house">House Parties</option>
-                  <option value="virtual">Virtual Event</option>
-                  <option value="other">Any Other</option>
-                </select>
-              </div>
-              <div class="form-group half-width">
-                <label for="eventCity">Event City:</label>
-                <input
-                  type="text"
-                  class="form-control popup-form-input"
-                  id="eventCity"
-                  name="city"
-                  required
-                  placeholder="Enter Event City"
-                  style="background-color: white"
-                />
-              </div>
-            </div>
-        
-            <div class="form-row">
-              <div class="form-group half-width">
-                <label for="artistType">Artist Type:</label>
-                <select name="artistType" class="form-control popup-form-input" id="artistTypeSelect" required>
-                  <option value="singer">Singer</option>
-                  <option value="musician">Musician</option>
-                  <option value="live-band">Live Band</option>
-                  <option value="dj">Dj</option>
-                  <option value="actor">Actor</option>
-                  <option value="comedian">Comedian</option>
-                </select>
-              </div>
-              <div class="form-group half-width">
-                <label for="eventDate">Event Date:</label>
-                <input
-                  type="date"
-                  class="form-control popup-form-input"
-                  id="eventDate"
-                  name="date"
-                  required
-                  style="background-color: white"
-                />
-              </div>
-            </div>
-        
-            <div class="form-group">
-              <label for="budget">Budget:</label><br>
-              <input
-                type="number"
-                class="form-control popup-form-input"
-                id="budget"
-                name="budget"
-                required
-                placeholder="Enter Budget in rupees"
-                style="background-color: white"
-              />
 
-              <input
-                type="text"
-                class="form-control popup-form-input"
-                id="message"
-                name="message"
-                placeholder="Message"
-                style=""
-              />
-            </div>
+  <%- include("partials/popup-form"); -%>
 
-            <div
-            class="g-recaptcha"
-            style="margin-top: 5%; margin-bottom: 5%"
-            data-sitekey="6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH"
-          ></div>
-        
-            <button
-              type="submit"
-              class="btn btn-primary"
-              style="background-color: #f44336; text-align: center; display: block; margin: 0 auto;"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+var artistType = ""; // Variable to store selected artist type
+var eventType = ""; // Variable to store selected event type
 
-      </div>
-    </div>
-  </div>
-</div>
+// Function to show/hide steps
+function showStep(stepClass) {
+  document.querySelectorAll(".modal-body > div").forEach(function (step) {
+    if (step.classList.contains(stepClass)) {
+      step.style.display = "block";
+    } else {
+      step.style.display = "none";
+    }
+  });
+}
 
+// Show only the first step initially
+showStep("step1");
+
+// Event listener for artist type selection
+document.querySelectorAll(".step1 .but").forEach(function (button) {
+  button.addEventListener("click", function () {
+    artistType = this.id;
+    showStep("step2");
+  });
+});
+
+// Event listener for event type selection
+document.querySelectorAll(".step2 .but").forEach(function (button) {
+  button.addEventListener("click", function () {
+    eventType = this.id;
+    showStep("step3");
+  });
+});
+
+// Event listener for Next button in step3
+document.getElementById("nextBtn").addEventListener("click", function () {
+  showStep("step4");
+});
+
+// Event listener for form submission
+document
+  .getElementById("submitBtn")
+  .addEventListener("click", async function (event) {
+    event.preventDefault();
+    var location = document.getElementById("location").value;
+    var date = document.getElementById("date").value;
+    var budget = document.getElementById("budget").value;
+    var name = document.getElementById("name").value;
+    var contact = document.getElementById("contact").value;
+    var email = document.getElementById("email").value;
+    var mobile = document.getElementById("mobile").value;
+
+      // Make a POST request to /contact-form with form data
+      var formData = {
+        artistType: artistType,
+        eventType: eventType,
+        location: location,
+        date: date,
+        budget: budget,
+        name: name,
+        contact: contact,
+        email: email,
+        mobile: mobile,
+        message: "Message Received from <%= blog.metaTitle %>",
+      };
+
+      // Replace '/contact-form' with your actual endpoint
+      const response = await fetch("/contact-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        window.location.href = "/success"; // Redirect to success page if form submission is successful
+      } else {
+        console.error("Error submitting form");
+        // Handle error or display a message to the user
+      }
+  });
+});
+
+</script>
   <script>
     const readMoreBtn = document.getElementById('readMoreBtn');
     const readLessBtn = document.getElementById('readLessBtn');
@@ -1226,6 +1040,5 @@
     return name && contact;
   }
   </script>
-</body>
 
 </html>

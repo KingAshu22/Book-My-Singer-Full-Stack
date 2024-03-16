@@ -1233,7 +1233,7 @@ Typewriter effect
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 390px) and (max-width: 430px) {
   .popup {
     margin-top: 50% !important;
     padding-top: 5%;
@@ -1243,8 +1243,24 @@ Typewriter effect
   .popup-form-input {
     width: 95% !important;
   }
-  .mil-side-banner {
-    margin-top: -105% !important;
+
+  .footer-logo {
+    margin-bottom: -110% !important;
+  }
+  .hero-banner {
+    margin-top: -80% !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .hero-banner {
+    margin-top: -80% !important;
+  }
+}
+
+@media only screen and (min-width: 1023px) and (max-width: 1024px) {
+  .hero-banner {
+    margin-top: 0 !important;
   }
 }
 

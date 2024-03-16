@@ -69,10 +69,10 @@ label {
   color: #f44336;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="number"],
-input[type="email"] {
+input.popup[type="text"],
+input.popup[type="date"],
+input.popup[type="number"],
+input.popup[type="email"] {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
