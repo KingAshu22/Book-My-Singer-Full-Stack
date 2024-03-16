@@ -6,8 +6,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  overflow: auto; /* semi-transparent background */
 }
 
 .contact-section {
@@ -36,6 +35,7 @@
   color: #f44336;
   width: 80%; /* Adjust as needed */
   max-width: 800px; /* Maximum width for larger screens */
+  box-shadow: 0 10px 16px rgba(0, 0, 0, 0.1);
 }
 
 .modal-header {
@@ -83,6 +83,9 @@ input[type="email"] {
 
 /* Responsive styles */
 @media screen and (max-width: 768px) {
+  .modal {
+    top: -20%;
+  }
   .modal-content {
     width: 90%; /* Adjust as needed for smaller screens */
   }
