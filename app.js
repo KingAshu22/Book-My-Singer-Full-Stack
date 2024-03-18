@@ -556,6 +556,10 @@ app.get("/spam", (req, res) => {
   res.render("spam");
 });
 
+app.get("/enquiry", (req, res) => {
+  res.render("enquire");
+});
+
 app.get("*", (req, res) => {
   res.redirect("/");
 });
