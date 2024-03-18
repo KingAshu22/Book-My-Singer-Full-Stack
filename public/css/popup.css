@@ -121,11 +121,39 @@ input.popup[type="email"] {
   .modal-content {
     margin-top: 50% !important;
   }
+
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .view {
+    width: calc(33.33% - 20px) !important; /* Adjust width as needed */
+    margin-bottom: 20px;
+    /* Other styles for your buttons */
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .modal-content {
     margin-top: 50% !important;
+  }
+
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .view {
+    width: calc(33.33% - 20px) !important; /* Adjust width as needed */
+    margin-bottom: 20px;
+    /* Other styles for your buttons */
   }
 }
 
