@@ -11,7 +11,7 @@
 
 <div class="enquiry-form">
   <div class="step1">
-    <h3 style="padding-left: 5%">What are you looking for?</h3>
+    <h3 style="padding-left: 5%">What's your vibe? 🎶</h3>
 
     <section class="mil-p-90-30">
       <div class="row justify-content-between align-items-center">
@@ -64,7 +64,9 @@
   </div>
 
   <div class="step2">
-    <h3 style="padding-left: 5%">What type of Event you are planning?</h3>
+    <h3 style="padding-left: 5%">
+      Ready to set the stage? 🎉 Tell us about your event
+    </h3>
 
     <section class="mil-p-90-30">
       <div class="row justify-content-between align-items-center">
@@ -145,7 +147,9 @@
   </div>
 
   <div class="step3">
-    <h3>Event Location</h3>
+    <h3 style="padding-left: 5%">
+      Where's the spotlight shining? 🌟 Let us know your event location!
+    </h3>
     <section class="mil-p-90-30">
       <div class="row justify-content-between align-items-center">
         <div class="col-md-4 buts" id="Mumbai">
@@ -232,7 +236,8 @@
     </section>
     <div style="margin-left: 10%; margin-right: 10%">
       <label for="customLocation"
-        >Not found your city above, add manually:</label
+        >Didn't find your city in the list? No worries! Add it manually below:
+        🌍✍️</label
       >
       <input
         class="popup"
@@ -246,8 +251,8 @@
   </div>
 
   <div class="step4" style="margin-left: 10%; margin-right: 10%">
-    <h3>Provide More Event Details</h3>
-    <label for="date">Event Date:</label>
+    <h3>Let's add some sparkle ✨! Tell us more about your event!</h3>
+    <label for="date">Pick the Date of your Grand Event!🗓️✨:</label>
     <input
       class="popup"
       type="date"
@@ -255,7 +260,7 @@
       name="date"
       placeholder="Event Date"
     />
-    <label for="budget">Budget in rupees:</label>
+    <label for="budget">Set Your Budget in ₹ 💰:</label>
     <input
       class="popup"
       type="number"
@@ -268,8 +273,8 @@
   </div>
 
   <div class="step5" style="margin-left: 10%; margin-right: 10%">
-    <h3>Last, Provide your details</h3>
-    <label for="name">Name:</label>
+    <h3>Let's Get Personal 🤗</h3>
+    <label for="name">Your Name, Please 📝</label>
     <input
       class="popup"
       type="text"
@@ -277,7 +282,7 @@
       id="name"
       placeholder="Your Name"
     />
-    <label for="contact">Contact No:</label>
+    <label for="contact">Contact Number 📞:</label>
     <input
       class="popup"
       type="number"
@@ -285,7 +290,7 @@
       id="contact"
       placeholder="Contact Number"
     />
-    <label for="email">Email ID:</label>
+    <label for="email">Email Address 📧:</label>
     <input
       class="popup"
       type="email"
@@ -308,7 +313,16 @@
       data-sitekey="6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH"
     ></div>
 
-    <button id="submitBtn" style="background-color: #f44336">Submit</button>
+    <button id="submitBtn" style="background-color: #f44336">
+      Let's Go! 🚀
+    </button>
+  </div>
+
+  <div id="loadingOverlay" style="display: none">
+    <div id="loadingPopup">
+      <div class="spinner text-primary" role="status"></div>
+      <p style="color: #fff">Sending... 📨✨</p>
+    </div>
   </div>
 </div>
 
@@ -337,6 +351,7 @@
       button.addEventListener("click", function () {
         artistType = this.id;
         showStep("step2");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     });
 
@@ -345,6 +360,7 @@
       button.addEventListener("click", function () {
         eventType = this.id;
         showStep("step3");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     });
 
@@ -353,22 +369,19 @@
       button.addEventListener("click", function () {
         location = this.id;
         showStep("step4");
-      });
-    });
-
-    document.querySelectorAll(".step3 .buts").forEach(function (button) {
-      button.addEventListener("click", function () {
-        showStep("step4");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     });
 
     document.getElementById("nextStep3").addEventListener("click", function () {
       showStep("step4");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // Event listener for Next button in step3
     document.getElementById("nextBtn").addEventListener("click", function () {
       showStep("step5");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // Event listener for form submission
@@ -376,6 +389,10 @@
       .getElementById("submitBtn")
       .addEventListener("click", async function (event) {
         event.preventDefault();
+
+        // Show loading overlay
+        document.getElementById("loadingOverlay").style.display = "block";
+
         if (!location) {
           location = document.getElementById("customLocation").value;
         }
