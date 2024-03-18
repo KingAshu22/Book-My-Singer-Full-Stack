@@ -33,8 +33,9 @@
 .modal-content {
   background-color: #202124;
   color: #f44336;
-  width: 80%; /* Adjust as needed */
-  max-width: 800px; /* Maximum width for larger screens */
+  width: 100%; /* Adjust as needed */
+  max-width: 95%; /* Maximum width for larger screens */
+  max-height: 80%;
   box-shadow: 0 10px 16px rgba(0, 0, 0, 0.1);
 }
 
@@ -79,6 +80,30 @@ input.popup[type="email"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 375px) {
+  .modal-content {
+    margin-top: 100% !important;
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 430px) {
+  .modal-content {
+    margin-top: 50% !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .modal-content {
+    margin-top: 50% !important;
+  }
+}
+
+@media only screen and (min-width: 1023px) and (max-width: 1024px) {
+  .modal-content {
+    margin-top: 50% !important;
+  }
 }
 
 /* Responsive styles */
