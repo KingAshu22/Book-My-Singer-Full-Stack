@@ -87,6 +87,16 @@ input.popup[type="email"] {
   margin-right: 5%;
 }
 
+.mil-p-90-30 {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.buts .mil-icon-box {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 @media only screen and (max-width: 375px) {
   .modal-content {
     margin-top: 100% !important;
