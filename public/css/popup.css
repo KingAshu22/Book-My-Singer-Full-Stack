@@ -116,6 +116,11 @@ input.popup[type="email"] {
     /* Other styles for your buttons */
   }
 
+  .city-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
   .city {
     width: calc(30% - 20px) !important; /* Adjust width as needed */
     margin-bottom: 20px;
