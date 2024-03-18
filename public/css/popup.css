@@ -115,6 +115,27 @@ input.popup[type="email"] {
     margin-bottom: 20px;
     /* Other styles for your buttons */
   }
+
+  .city {
+    width: calc(30% - 20px) !important; /* Adjust width as needed */
+    margin-bottom: 20px;
+  }
+
+  .city .mil-service-icon img {
+    width: 200% !important;
+    height: 200% !important;
+    margin-left: -40% !important;
+    margin-top: -20% !important;
+  }
+
+  .city .mil-service-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .city .mil-icon-box h5 {
+    font-size: small;
+  }
 }
 
 @media only screen and (min-width: 390px) and (max-width: 430px) {
@@ -135,6 +156,27 @@ input.popup[type="email"] {
     margin-bottom: 20px;
     /* Other styles for your buttons */
   }
+
+  .city {
+    width: calc(30% - 20px) !important; /* Adjust width as needed */
+    margin-bottom: 20px;
+  }
+
+  .city .mil-service-icon img {
+    width: 200% !important;
+    height: 200% !important;
+    margin-left: -40% !important;
+    margin-top: -20% !important;
+  }
+
+  .city .mil-service-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .city .mil-icon-box h5 {
+    font-size: small;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -154,6 +196,27 @@ input.popup[type="email"] {
     width: calc(33.33% - 20px) !important; /* Adjust width as needed */
     margin-bottom: 20px;
     /* Other styles for your buttons */
+  }
+
+  .city {
+    width: calc(30% - 20px) !important; /* Adjust width as needed */
+    margin-bottom: 20px;
+  }
+
+  .city .mil-service-icon img {
+    width: 200% !important;
+    height: 200% !important;
+    margin-left: -40% !important;
+    margin-top: -20% !important;
+  }
+
+  .city .mil-service-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .city .mil-icon-box h5 {
+    font-size: small;
   }
 }
 
