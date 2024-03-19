@@ -241,15 +241,140 @@
   </div>
 
   <div class="step5" style="margin-left: 10%; margin-right: 10%">
-    <label for="budget">Set Your Budget in ₹ 💰:</label>
-    <input
-      class="popup"
-      type="number"
-      id="budget"
-      name="budget"
-      placeholder="Budget in rupees"
-    />
-    <button id="nextBtn" style="background-color: #f44336">Next</button>
+    <h3>Set Your Budget 💰:</h3>
+    <label for="startingBudget">Minimum</label>
+    <select id="startingBudget" name="startingBudget" placeholder="Minimum Budget">
+      <option value="10000">₹10,000</option>
+      <option value="11000">₹11,000</option>
+      <option value="12000">₹12,000</option>
+      <option value="13000">₹13,000</option>
+      <option value="14000">₹14,000</option>
+      <option value="15000">₹15,000</option>
+      <option value="16000">₹16,000</option>
+      <option value="17000">₹17,000</option>
+      <option value="18000">₹18,000</option>
+      <option value="19000">₹19,000</option>
+      <option value="20000">₹20,000</option>
+      <option value="25000">₹25,000</option>
+      <option value="30000">₹30,000</option>
+      <option value="35000">₹35,000</option>
+      <option value="40000">₹40,000</option>
+      <option value="45000">₹45,000</option>
+      <option value="50000">₹50,000</option>
+      <option value="60000">₹60,000</option>
+      <option value="70000">₹70,000</option>
+      <option value="80000">₹80,000</option>
+      <option value="90000">₹90,000</option>
+      <option value="100000">₹1,00,000</option>
+      <option value="125000">₹1,25,000</option>
+      <option value="150000">₹1,50,000</option>
+      <option value="175000">₹1,75,000</option>
+      <option value="200000">₹2,00,000</option>
+      <option value="250000">₹2,50,000</option>
+      <option value="300000">₹3,00,000</option>
+      <option value="350000">₹3,50,000</option>
+      <option value="400000">₹4,00,000</option>
+      <option value="450000">₹4,50,000</option>
+      <option value="500000">₹5,00,000</option>
+      <option value="600000">₹6,00,000</option>
+      <option value="700000">₹7,00,000</option>
+      <option value="800000">₹8,00,000</option>
+      <option value="900000">₹9,00,000</option>
+      <option value="1000000">₹10,00,000</option>
+      <option value="1100000">₹11,00,000</option>
+      <option value="1200000">₹12,00,000</option>
+      <option value="1300000">₹13,00,000</option>
+      <option value="1400000">₹14,00,000</option>
+      <option value="1500000">₹15,00,000</option>
+      <option value="1600000">₹16,00,000</option>
+      <option value="1700000">₹17,00,000</option>
+      <option value="1800000">₹18,00,000</option>
+      <option value="1900000">₹19,00,000</option>
+      <option value="2000000">₹20,00,000</option>
+      <option value="2500000">₹25,00,000</option>
+      <option value="3000000">₹30,00,000</option>
+      <option value="3500000">₹35,00,000</option>
+      <option value="4000000">₹40,00,000</option>
+      <option value="4500000">₹45,00,000</option>
+      <option value="5000000">₹50,00,000</option>
+      <option value="5500000">₹55,00,000</option>
+      <option value="6000000">₹60,00,000</option>
+      <option value="6500000">₹65,00,000</option>
+      <option value="7000000">₹70,00,000</option>
+      <option value="7500000">₹75,00,000</option>
+      <option value="8000000">₹80,00,000</option>
+      <option value="8500000">₹85,00,000</option>
+      <option value="9000000">₹90,00,000</option>
+      <option value="9500000">₹95,00,000</option>
+      <option value="10000000">₹1,00,00,000</option>
+    </select>
+    <label for="endingBudget" style="display: none">Maximum</label>
+  <select id="endingBudget" name="endingBudget" style="display: none">
+      <option value="10000">₹10,000</option>
+      <option value="11000">₹11,000</option>
+      <option value="12000">₹12,000</option>
+      <option value="13000">₹13,000</option>
+      <option value="14000">₹14,000</option>
+      <option value="15000">₹15,000</option>
+      <option value="16000">₹16,000</option>
+      <option value="17000">₹17,000</option>
+      <option value="18000">₹18,000</option>
+      <option value="19000">₹19,000</option>
+      <option value="20000">₹20,000</option>
+      <option value="25000">₹25,000</option>
+      <option value="30000">₹30,000</option>
+      <option value="35000">₹35,000</option>
+      <option value="40000">₹40,000</option>
+      <option value="45000">₹45,000</option>
+      <option value="50000">₹50,000</option>
+      <option value="60000">₹60,000</option>
+      <option value="70000">₹70,000</option>
+      <option value="80000">₹80,000</option>
+      <option value="90000">₹90,000</option>
+      <option value="100000">₹1,00,000</option>
+      <option value="125000">₹1,25,000</option>
+      <option value="150000">₹1,50,000</option>
+      <option value="175000">₹1,75,000</option>
+      <option value="200000">₹2,00,000</option>
+      <option value="250000">₹2,50,000</option>
+      <option value="300000">₹3,00,000</option>
+      <option value="350000">₹3,50,000</option>
+      <option value="400000">₹4,00,000</option>
+      <option value="450000">₹4,50,000</option>
+      <option value="500000">₹5,00,000</option>
+      <option value="600000">₹6,00,000</option>
+      <option value="700000">₹7,00,000</option>
+      <option value="800000">₹8,00,000</option>
+      <option value="900000">₹9,00,000</option>
+      <option value="1000000">₹10,00,000</option>
+      <option value="1100000">₹11,00,000</option>
+      <option value="1200000">₹12,00,000</option>
+      <option value="1300000">₹13,00,000</option>
+      <option value="1400000">₹14,00,000</option>
+      <option value="1500000">₹15,00,000</option>
+      <option value="1600000">₹16,00,000</option>
+      <option value="1700000">₹17,00,000</option>
+      <option value="1800000">₹18,00,000</option>
+      <option value="1900000">₹19,00,000</option>
+      <option value="2000000">₹20,00,000</option>
+      <option value="2500000">₹25,00,000</option>
+      <option value="3000000">₹30,00,000</option>
+      <option value="3500000">₹35,00,000</option>
+      <option value="4000000">₹40,00,000</option>
+      <option value="4500000">₹45,00,000</option>
+      <option value="5000000">₹50,00,000</option>
+      <option value="5500000">₹55,00,000</option>
+      <option value="6000000">₹60,00,000</option>
+      <option value="6500000">₹65,00,000</option>
+      <option value="7000000">₹70,00,000</option>
+      <option value="7500000">₹75,00,000</option>
+      <option value="8000000">₹80,00,000</option>
+      <option value="8500000">₹85,00,000</option>
+      <option value="9000000">₹90,00,000</option>
+      <option value="9500000">₹95,00,000</option>
+      <option value="10000000">₹1,00,00,000</option>
+    </select>
+    <button id="nextBtn" style="background-color: #f44336; display: none;">Next</button>
   </div>
 
   <div class="step6" style="margin-left: 10%; margin-right: 10%">

@@ -1095,6 +1095,10 @@ async function appendData(data) {
   try {
     await client.authorize();
     const sheets = google.sheets({ version: "v4", auth: client });
+
+    if (!data.budget) {
+      data.budget = `${data.startingBudget} - ${data.endingBudget}`;
+    }
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId,
       range: "Sheet1", // Change this to the appropriate sheet name and range

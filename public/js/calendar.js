@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var day = "";
   var month = "";
   var year = "";
+  var startingBudget = "";
+  var endingBudget = "";
 
   // Function to generate calendar for a given month and year
   function generateCalendar(month, year) {
@@ -83,6 +85,47 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Function to generate options for budget select element
+  function generateBudgetOptions(start, end) {
+    const budgetOptions = [];
+    for (let i = start; i <= end; i += 1000) {
+      budgetOptions.push(
+        `<option value="${i}">₹${i.toLocaleString()}</option>`
+      );
+    }
+    return budgetOptions.join("");
+  }
+
+  // Show/hide elements based on budget selection
+  function handleBudgetSelection() {
+    const startingBudgetSelect = document.getElementById("startingBudget");
+    const endingBudgetLabel = document.querySelector(
+      "label[for='endingBudget']"
+    );
+    const endingBudgetSelect = document.getElementById("endingBudget");
+    const nextBtn = document.getElementById("nextBtn");
+
+    startingBudgetSelect.addEventListener("change", function () {
+      startingBudget = parseInt(this.value);
+      endingBudgetLabel.style.display = "block";
+      endingBudgetSelect.style.display = "block";
+      endingBudgetSelect.innerHTML = generateBudgetOptions(
+        startingBudget,
+        startingBudget + 1000000
+      ); // Adjust end range as needed
+      nextBtn.style.display = "block";
+    });
+
+    endingBudgetSelect.addEventListener("change", function () {
+      endingBudget = parseInt(this.value);
+    });
+
+    nextBtn.addEventListener("click", function () {
+      // Proceed to next step (Step 6)
+      showStep("step6");
+    });
+  }
+
   // Show/hide steps
   function showStep(stepClass) {
     document.querySelectorAll(".enquiry-form > div").forEach((step) => {
@@ -140,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!location) {
         location = document.getElementById("customLocation").value;
       }
-      const budget = document.getElementById("budget").value;
       const name = document.getElementById("name").value;
       const contact = document.getElementById("contact").value;
       const email = document.getElementById("email").value;
@@ -151,7 +193,8 @@ document.addEventListener("DOMContentLoaded", function () {
         eventType,
         location,
         date: `${day}/${month}/${year}`,
-        budget,
+        startingBudget,
+        endingBudget,
         name,
         contact,
         email,
@@ -198,4 +241,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Call the renderCalendars function when the page loads
   renderCalendars();
+
+  // Generate budget options and handle budget selection
+  const startingBudgetSelect = document.getElementById("startingBudget");
+  startingBudgetSelect.innerHTML = generateBudgetOptions(10000, 10000000); // Adjust start and end values as needed
+  handleBudgetSelection();
 });

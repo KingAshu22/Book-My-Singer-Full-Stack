@@ -68,10 +68,11 @@ label {
   display: block;
   margin-top: 10px;
   color: #f44336;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
 input.popup[type="text"],
-input.popup[type="date"],
 input.popup[type="number"],
 input.popup[type="email"] {
   width: 100%;
@@ -80,6 +81,15 @@ input.popup[type="email"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+select {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 .options {
