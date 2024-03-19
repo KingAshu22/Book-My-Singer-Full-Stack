@@ -100,11 +100,14 @@ document.addEventListener("DOMContentLoaded", function () {
         step = 25000;
       } else if (i < 500000) {
         step = 50000;
-      } else if (i < 2000000) {
+      } else if (i < 3000000) {
         step = 100000;
-      } else {
+      } else if (i < 5000000) {
         step = 500000;
+      } else {
+        step = 2500000;
       }
+
       budgetOptions.push(
         `<option value="${i}">${i.toLocaleString("en-IN", {
           style: "currency",
