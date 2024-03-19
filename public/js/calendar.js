@@ -88,9 +88,29 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to generate options for budget select element
   function generateBudgetOptions(start, end) {
     const budgetOptions = [];
-    for (let i = start; i <= end; i += 1000) {
+    let step = 0;
+    for (let i = start; i <= end; i += step) {
+      if (i < 20000) {
+        step = 1000;
+      } else if (i < 50000) {
+        step = 5000;
+      } else if (i < 100000) {
+        step = 10000;
+      } else if (i < 200000) {
+        step = 25000;
+      } else if (i < 500000) {
+        step = 50000;
+      } else if (i < 2000000) {
+        step = 100000;
+      } else {
+        step = 500000;
+      }
       budgetOptions.push(
-        `<option value="${i}">₹${i.toLocaleString()}</option>`
+        `<option value="${i}">${i.toLocaleString("en-IN", {
+          style: "currency",
+          currency: "INR",
+          minimumFractionDigits: 0,
+        })}</option>`
       );
     }
     return budgetOptions.join("");
