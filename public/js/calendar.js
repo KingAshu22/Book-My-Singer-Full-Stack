@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
         contact,
         email,
         mobile,
-        message: "Message Received",
+        message: "Message Received from Enquiry Form",
       };
 
       try {
