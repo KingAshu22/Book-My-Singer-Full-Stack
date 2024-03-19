@@ -1,4 +1,5 @@
 <%- include("partials/header"); -%>
+<link rel="stylesheet" href="/css/calendar.css">
 
 <div
   id="artist"
@@ -237,13 +238,10 @@
   <div class="step4" style="margin-left: 10%; margin-right: 10%">
     <h3>Let's add some sparkle ✨! Tell us more about your event!</h3>
     <label for="date">Pick the Date of your Grand Event!🗓️✨:</label>
-    <input
-      class="popup"
-      type="date"
-      id="date"
-      name="date"
-      placeholder="Event Date"
-    />
+    <div class="calendar"></div>
+  </div>
+
+  <div class="step5" style="margin-left: 10%; margin-right: 10%">
     <label for="budget">Set Your Budget in ₹ 💰:</label>
     <input
       class="popup"
@@ -252,11 +250,10 @@
       name="budget"
       placeholder="Budget in rupees"
     />
-
     <button id="nextBtn" style="background-color: #f44336">Next</button>
   </div>
 
-  <div class="step5" style="margin-left: 10%; margin-right: 10%">
+  <div class="step6" style="margin-left: 10%; margin-right: 10%">
     <h3>Let's Get Personal 🤗</h3>
     <label for="name">Your Name, Please 📝</label>
     <input
@@ -310,115 +307,7 @@
   </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var artistType = ""; // Variable to store selected artist type
-    var eventType = ""; // Variable to store selected event type
-    var location = "";
-
-    // Function to show/hide steps
-    function showStep(stepClass) {
-      document.querySelectorAll(".enquiry-form > div").forEach(function (step) {
-        if (step.classList.contains(stepClass)) {
-          step.style.display = "block";
-        } else {
-          step.style.display = "none";
-        }
-      });
-    }
-
-    // Show only the first step initially
-    showStep("step1");
-
-    // Event listener for artist type selection
-    document.querySelectorAll(".step1 .buts").forEach(function (button) {
-      button.addEventListener("click", function () {
-        artistType = this.id;
-        showStep("step2");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    });
-
-    // Event listener for event type selection
-    document.querySelectorAll(".step2 .buts").forEach(function (button) {
-      button.addEventListener("click", function () {
-        eventType = this.id;
-        showStep("step3");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    });
-
-    // Event listener for city selection or custom input
-    document.querySelectorAll(".step3 .buts").forEach(function (button) {
-      button.addEventListener("click", function () {
-        location = this.id;
-        showStep("step4");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    });
-
-    document.getElementById("nextStep3").addEventListener("click", function () {
-      showStep("step4");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    // Event listener for Next button in step3
-    document.getElementById("nextBtn").addEventListener("click", function () {
-      showStep("step5");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    // Event listener for form submission
-    document
-      .getElementById("submitBtn")
-      .addEventListener("click", async function (event) {
-        event.preventDefault();
-
-        // Show loading overlay
-        document.getElementById("loadingOverlay").style.display = "block";
-
-        if (!location) {
-          location = document.getElementById("customLocation").value;
-        }
-        var date = document.getElementById("date").value;
-        var budget = document.getElementById("budget").value;
-        var name = document.getElementById("name").value;
-        var contact = document.getElementById("contact").value;
-        var email = document.getElementById("email").value;
-        var mobile = document.getElementById("mobile").value;
-
-        // Make a POST request to /contact-form with form data
-        var formData = {
-          artistType: artistType,
-          eventType: eventType,
-          location: location,
-          date: date,
-          budget: budget,
-          name: name,
-          contact: contact,
-          email: email,
-          mobile: mobile,
-          message: "Message Received",
-        };
-
-        // Replace '/contact-form' with your actual endpoint
-        const response = await fetch("/contact-form", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-          window.location.href = "/success"; // Redirect to success page if form submission is successful
-        } else {
-          console.error("Error submitting form");
-          // Handle error or display a message to the user
-        }
-      });
-  });
-</script>
+<script src="/js/calendar.js"></script>
 
   </div>
   </div>
