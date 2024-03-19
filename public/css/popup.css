@@ -137,10 +137,10 @@ select {
   }
 
   .city .mil-service-icon img {
-    width: 200% !important;
-    height: 200% !important;
-    margin-left: -40% !important;
-    margin-top: -20% !important;
+    width: 300% !important;
+    height: 300% !important;
+    margin-left: -100% !important;
+    margin-top: -100% !important;
   }
 
   .city .mil-service-icon {
@@ -180,8 +180,6 @@ select {
   .city .mil-service-icon img {
     width: 200% !important;
     height: 200% !important;
-    margin-left: -40% !important;
-    margin-top: -20% !important;
   }
 
   .city .mil-service-icon {
@@ -221,8 +219,6 @@ select {
   .city .mil-service-icon img {
     width: 200% !important;
     height: 200% !important;
-    margin-left: -40% !important;
-    margin-top: -20% !important;
   }
 
   .city .mil-service-icon {
