@@ -366,7 +366,7 @@ section title
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding-top: 5%;
+  padding-top: 10%;
 }
 
 .mil-section-title img {
@@ -385,7 +385,7 @@ section title
   position: absolute;
   top: 1px;
   background-color: rgb(253, 253, 253);
-  padding-top: 3.5%;
+  padding-top: 8.5%;
 }
 .mil-section-title p {
   margin-top: 2%;
