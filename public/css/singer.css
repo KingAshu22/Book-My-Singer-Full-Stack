@@ -2121,3 +2121,16 @@ Whatsapp & Call Button
   font-weight: bold;
   cursor: pointer;
 }
+
+.nav-btn {
+  font-size: 12px !important;
+  padding-left: 15% !important;
+  padding-right: 15% !important;
+  padding-top: 10% !important;
+  padding-bottom: 10% !important;
+  margin-left: -35%;
+  margin-top: -2% !important;
+  font-size: 13px !important;
+  border-radius: 5%;
+  text-transform: uppercase;
+}
