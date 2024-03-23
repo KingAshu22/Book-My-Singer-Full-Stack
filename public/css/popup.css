@@ -136,6 +136,15 @@ select {
     margin-bottom: 20px;
   }
 
+  .home {
+    width: calc(30% - 20px) !important; /* Adjust width as needed */
+    margin-bottom: 20px;
+  }
+
+  .videos {
+    margin-bottom: -50px !important;
+  }
+
   .city .mil-service-icon img {
     width: 300% !important;
     height: 300% !important;
@@ -177,6 +186,15 @@ select {
     margin-bottom: 20px;
   }
 
+  .home {
+    width: calc(30% - 20px) !important; /* Adjust width as needed */
+    margin-bottom: 20px;
+  }
+
+  .videos {
+    margin-bottom: -50px !important;
+  }
+
   .city .mil-service-icon img {
     width: 300% !important;
     height: 300% !important;
@@ -216,6 +234,15 @@ select {
   .city {
     width: calc(30% - 20px) !important; /* Adjust width as needed */
     margin-bottom: 20px;
+  }
+
+  .home {
+    width: calc(30% - 20px) !important; /* Adjust width as needed */
+    margin-bottom: 20px;
+  }
+
+  .videos {
+    margin-bottom: -50px !important;
   }
 
   .city .mil-service-icon img {
