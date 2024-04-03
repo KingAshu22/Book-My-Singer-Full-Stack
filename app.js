@@ -14,11 +14,11 @@ const keys = require("./secrets.json");
 const spreadsheetId = "1e0LVQGWxSNtwtIaGRIqnBXFttMY5sNbo_Dd8H9A5rtY";
 
 const app = express();
-app.use(
-  cors({
-    origin: "http://localhost:3001",
-  })
-);
+const corsOptions = {
+  origin: ["http://localhost:3001", "https://5lq8djtf-3001.inc1.devtunnels.ms"], // Add your additional domain here
+};
+
+app.use(cors(corsOptions));
 app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
