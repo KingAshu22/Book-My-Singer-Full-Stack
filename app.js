@@ -4,6 +4,7 @@ const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const nodemailer = require("nodemailer");
+const cors = require("cors");
 const Recaptcha = require("express-recaptcha").RecaptchaV3;
 const redirections = require("./redirections");
 
@@ -13,6 +14,11 @@ const keys = require("./secrets.json");
 const spreadsheetId = "1e0LVQGWxSNtwtIaGRIqnBXFttMY5sNbo_Dd8H9A5rtY";
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+  })
+);
 app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
@@ -187,6 +193,29 @@ app.get("/artist", async (req, res) => {
   res.render("artist", {
     artists,
   });
+});
+
+app.get("/artist-registration", (req, res) => {
+  res.render("artist-registration");
+});
+
+app.get("/api/artist", async (req, res) => {
+  const artists = await Artist.find({}).sort({ _id: -1 });
+
+  res.status(200).json(artists);
+});
+
+app.get("/api/artist/artistType/:artistType", async (req, res) => {
+  const { artistType } = req.params;
+  const artists = await Artist.find({ artistType }).sort({ _id: -1 });
+
+  res.status(200).json(artists);
+});
+
+app.get("/api/artist/artistName/:linkid", async (req, res) => {
+  const { linkid } = req.params;
+  const artist = await Artist.findOne({ linkid });
+  res.status(200).json(artist);
 });
 
 app.get("/event-category", async (req, res) => {
@@ -569,7 +598,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail", // e.g., Gmail
   auth: {
     user: "bookanartist2@gmail.com",
-    pass: "vrmt qmxo xnor cxfo",
+    pass: "fwri rlpw upfc stif",
   },
 });
 
