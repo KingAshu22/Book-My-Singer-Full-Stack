@@ -15,7 +15,11 @@ const spreadsheetId = "1e0LVQGWxSNtwtIaGRIqnBXFttMY5sNbo_Dd8H9A5rtY";
 
 const app = express();
 const corsOptions = {
-  origin: ["http://localhost:3001", "https://5lq8djtf-3001.inc1.devtunnels.ms"], // Add your additional domain here
+  origin: [
+    "http://localhost:3001",
+    "https://5lq8djtf-3001.inc1.devtunnels.ms",
+    "https://gigsar.vercel.app",
+  ], // Add your additional domain here
 };
 
 app.use(cors(corsOptions));
