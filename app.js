@@ -66,6 +66,7 @@ const artistSchema = new mongoose.Schema({
   keywords: String,
   linkid: String,
   name: String,
+  gender: String,
   profilePic: String,
   contact: String,
   location: String,
