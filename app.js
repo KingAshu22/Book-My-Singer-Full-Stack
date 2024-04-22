@@ -223,6 +223,11 @@ app.get("/api/artist/artistName/:linkid", async (req, res) => {
   res.status(200).json(artist);
 });
 
+app.post("/api/artist-registration", async (req, res) => {
+  console.log(req.body);
+  res.status(200);
+});
+
 app.get("/event-category", async (req, res) => {
   res.render("event-home");
 });
