@@ -19,6 +19,7 @@ const corsOptions = {
     "http://localhost:3001",
     "https://5lq8djtf-3001.inc1.devtunnels.ms",
     "https://gigsar.vercel.app",
+    "https://www.gigsar.com",
   ], // Add your additional domain here
 };
 
