@@ -72,6 +72,11 @@ const artistSchema = new mongoose.Schema({
   contact: String,
   location: String,
   price: String,
+  corporateBudget: String,
+  collegeBudget: String,
+  singerCumGuitaristBudget: String,
+  singerPlusGuitaristBudget: String,
+  ticketingConcertBudget: String,
   artistType: String,
   bandMemberName: String,
   code: String,
@@ -222,11 +227,6 @@ app.get("/api/artist/artistName/:linkid", async (req, res) => {
   const { linkid } = req.params;
   const artist = await Artist.findOne({ linkid });
   res.status(200).json(artist);
-});
-
-app.post("/api/artist-registration", async (req, res) => {
-  console.log(req.body);
-  res.status(200);
 });
 
 app.get("/event-category", async (req, res) => {
@@ -775,6 +775,91 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
     .save()
     .then(() => {
       res.redirect("user-dashboard");
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
+function arrayToString(arr) {
+  // Join array elements with ", " separator
+  return arr.join(", ");
+}
+
+app.post("/api/artist-registration", async (req, res) => {
+  const data = req.body;
+  const name = data.artistName;
+  const metaTitle = `Hire ${name} from Book My Singer`;
+  const metaDesc = `Hire ${name} for ${arrayToString(
+    data.eventTypes
+  )} from Book My Singer`;
+  const lowerCaseName = name.toLowerCase();
+  const linkid = lowerCaseName.replace(/ /g, "-");
+  const profilePic = data.profilePic;
+  const contact = data.contactNumber;
+  const email = data.email;
+  const location = data.location;
+  const artistType = data.artistType;
+  const eventsType = arrayToString(data.eventTypes);
+  const genre = arrayToString(data.genres);
+  const languages = arrayToString(data.languages);
+  const original = data.originalSongName;
+  const time = data.performanceTime;
+  const instruments = arrayToString(data.instruments);
+  const awards = data.awards;
+  const gallery = data.galleryLink;
+  const blog = data.aboutArtist;
+  const youtubeLinks = data.youtubeLinks;
+  const price = data.weddingBudget;
+  const corporateBudget = data.corporateBudget;
+  const collegeBudget = data.collegeBudget;
+  const singerCumGuitaristBudget = data.singerCumGuitaristBudget;
+  const singerPlusGuitaristBudget = data.singerPlusGuitaristBudget;
+  const ticketingConcertBudget = data.ticketingConcertBudget;
+
+  let galleryObjects = gallery.map((link) => {
+    return { link: link };
+  });
+
+  function getEventType(link) {
+    return link.includes("aws") ? "aws" : "youtube";
+  }
+
+  let events = [
+    {
+      name: "Videos",
+      links: youtubeLinks,
+      type: youtubeLinks.map((link) => getEventType(link)),
+    },
+  ];
+
+  const artist = new Artist({
+    metaTitle,
+    metaDesc,
+    name,
+    linkid,
+    profilePic,
+    contact,
+    location,
+    price,
+    artistType,
+    eventsType,
+    genre,
+    languages,
+    original,
+    time,
+    instruments,
+    awards,
+    gallery: galleryObjects,
+    events,
+    blog,
+  });
+
+  artist
+    .save()
+    .then(() => {
+      console.log("Profile Created Successfully");
+      res.status(200).redirect("https://www.gigsar.com/artist");
     })
     .catch((error) => {
       res.send(error);
