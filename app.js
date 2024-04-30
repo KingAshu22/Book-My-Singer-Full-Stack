@@ -21,6 +21,8 @@ const corsOptions = {
     "https://gigsar.vercel.app",
     "https://www.gigsar.com",
   ], // Add your additional domain here
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
@@ -839,6 +841,7 @@ app.post("/api/artist-registration", async (req, res) => {
     name,
     linkid,
     profilePic,
+    bandMemberName: "",
     contact,
     location,
     price,
@@ -859,7 +862,7 @@ app.post("/api/artist-registration", async (req, res) => {
     .save()
     .then(() => {
       console.log("Profile Created Successfully");
-      res.status(200).redirect("https://www.gigsar.com/artist");
+      res.status(200);
     })
     .catch((error) => {
       res.send(error);
