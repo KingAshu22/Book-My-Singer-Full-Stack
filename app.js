@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 const cors = require("cors");
 const Recaptcha = require("express-recaptcha").RecaptchaV3;
 const redirections = require("./redirections");
+const fs = require("fs");
 
 const { google } = require("googleapis");
 const keys = require("./secrets.json");
@@ -168,6 +169,25 @@ function isAuthenticated(req, res, next) {
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
+});
+
+app.get("/sitemap.xml", (req, res) => {
+  fs.readFile("./sitemap.xml", "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading sitemap.xml:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+    // Render the XML using EJS
+    const renderedXML = ejs.render(data, {
+      /* optional: pass data if needed */
+    });
+
+    // Set response headers
+    res.header("Content-Type", "application/xml");
+
+    // Send the rendered XML as response
+    res.send(renderedXML);
+  });
 });
 
 redirections.forEach((rule) => {
