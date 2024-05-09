@@ -925,7 +925,7 @@ app.post("/api/artist-registration", async (req, res) => {
     singerPlusGuitaristBudget,
     ticketingConcertBudget,
     artistType,
-    artistCode,
+    code: artistCode,
     eventsType,
     genre,
     languages,
