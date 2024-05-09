@@ -479,7 +479,11 @@ app.get("/artist/:artistType/:linkid", async (req, res) => {
     const { artistType, linkid } = req.params;
 
     // Fetch artist from the database based on artistType and linkid
-    const artist = await Artist.findOne({ artistType, linkid });
+    const artist = await Artist.findOne({
+      artistType,
+      linkid,
+      showBookMySinger: true,
+    });
 
     if (artist) {
       // Render the "singer" view and pass the artist's information
