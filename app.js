@@ -73,6 +73,7 @@ const artistSchema = new mongoose.Schema({
   gender: String,
   profilePic: String,
   contact: String,
+  email: String,
   location: String,
   price: String,
   corporateBudget: String,
@@ -91,12 +92,18 @@ const artistSchema = new mongoose.Schema({
   time: String,
   instruments: String,
   awards: String,
+  instagram: String,
+  facebook: String,
+  youtube: String,
   spotify: String,
+  training: String,
   gallery: Array,
   events: Array,
   testLinks: Array,
   reviews: Array,
   blog: String,
+  showBookMySinger: Boolean,
+  showGigsar: Boolean,
 });
 
 const Artist = new mongoose.model("Artist", artistSchema);
@@ -221,7 +228,9 @@ app.get("/create-event", isAuthenticated, (req, res) => {
 });
 
 app.get("/artist", async (req, res) => {
-  const artists = await Artist.find({}).sort({ _id: -1 });
+  const artists = await Artist.find({ showBookMySinger: true }).sort({
+    _id: -1,
+  });
 
   res.render("artist", {
     artists,
@@ -343,8 +352,32 @@ app.get("/all-artists", isAuthenticated, async (req, res) => {
   const artists = await Artist.find({}).sort({ _id: -1 });
 
   res.render("allArtists", {
-    artists,
+    artists: artists,
   });
+});
+
+app.post("/edit-artist-status/:artistId", async (req, res) => {
+  const artistId = req.params.artistId;
+  try {
+    // Find the artist by ID
+    const artist = await Artist.findById(artistId);
+
+    // Toggle the value of showBookMySinger
+    artist.showBookMySinger = !artist.showBookMySinger;
+
+    // Save the updated artist
+    await artist.save();
+
+    // Respond with a success message
+    res.json({ success: true });
+  } catch (error) {
+    // Handle errors
+    console.error("Error:", error);
+    res.status(500).json({
+      success: false,
+      error: "An error occurred while updating artist status",
+    });
+  }
 });
 
 app.get("/all-artist-category", isAuthenticated, async (req, res) => {
@@ -818,6 +851,7 @@ app.post("/api/artist-registration", async (req, res) => {
   const lowerCaseName = name.toLowerCase();
   const linkid = lowerCaseName.replace(/ /g, "-");
   const profilePic = data.profilePic;
+  const gender = data.gender;
   const contact = data.contactNumber;
   const email = data.email;
   const location = data.location;
@@ -829,6 +863,11 @@ app.post("/api/artist-registration", async (req, res) => {
   const time = data.performanceTime;
   const instruments = arrayToString(data.instruments);
   const awards = data.awards;
+  const instagram = data.instagramLink;
+  const facebook = data.facebookLink;
+  const youtube = data.youtubeLink;
+  const spotify = data.spotifyLink;
+  const training = data.musicTraining;
   const gallery = data.galleryLink;
   const blog = data.aboutArtist;
   const youtubeLinks = data.youtubeLinks;
@@ -838,6 +877,15 @@ app.post("/api/artist-registration", async (req, res) => {
   const singerCumGuitaristBudget = data.singerCumGuitaristBudget;
   const singerPlusGuitaristBudget = data.singerPlusGuitaristBudget;
   const ticketingConcertBudget = data.ticketingConcertBudget;
+
+  // Find the last added artist and get its artistCode
+  const lastArtist = await Artist.findOne({}, {}, { sort: { artistCode: -1 } });
+
+  // Calculate the next artistCode
+  let artistCode = 1;
+  if (lastArtist) {
+    artistCode = lastArtist.artistCode + 1;
+  }
 
   let galleryObjects = gallery.map((link) => {
     return { link: link };
@@ -859,13 +907,21 @@ app.post("/api/artist-registration", async (req, res) => {
     metaTitle,
     metaDesc,
     name,
+    gender,
     linkid,
     profilePic,
     bandMemberName: "",
     contact,
+    email,
     location,
     price,
+    corporateBudget,
+    collegeBudget,
+    singerCumGuitaristBudget,
+    singerPlusGuitaristBudget,
+    ticketingConcertBudget,
     artistType,
+    artistCode,
     eventsType,
     genre,
     languages,
@@ -873,9 +929,16 @@ app.post("/api/artist-registration", async (req, res) => {
     time,
     instruments,
     awards,
+    instagram,
+    facebook,
+    youtube,
+    spotify,
+    training,
     gallery: galleryObjects,
     events,
     blog,
+    showBookMySinger: false,
+    showGigsar: true,
   });
 
   artist
