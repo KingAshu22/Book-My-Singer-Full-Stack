@@ -888,7 +888,7 @@ app.post("/api/artist-registration", async (req, res) => {
   // Calculate the next artistCode
   let artistCode = 1;
   if (lastArtist) {
-    artistCode = lastArtist.artistCode + 1;
+    artistCode = lastArtist.code + 1;
   }
 
   let galleryObjects = gallery.map((link) => {
