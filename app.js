@@ -882,14 +882,25 @@ app.post("/api/artist-registration", async (req, res) => {
   const singerPlusGuitaristBudget = data.singerPlusGuitaristBudget;
   const ticketingConcertBudget = data.ticketingConcertBudget;
 
+  let code;
   // Find the last added artist and get its artistCode
-  const lastArtist = await Artist.findOne({}, {}, { sort: { artistCode: -1 } });
-
-  // Calculate the next artistCode
-  let artistCode = 1;
-  if (lastArtist) {
-    artistCode = lastArtist.code + 1;
-  }
+  Artist.find({})
+    .sort({ code: -1 })
+    .limit(1)
+    .then((data) => {
+      if (data.length > 0) {
+        const lastValue = data[0].toObject();
+        const previousCode = lastValue.code;
+        code = previousCode + 1;
+      } else {
+        // If no artist is found, start with code 1
+        code = 1;
+      }
+    })
+    .catch((error) => {
+      // Handle errors
+      console.error("Error:", error);
+    });
 
   let galleryObjects = gallery.map((link) => {
     return { link: link };
