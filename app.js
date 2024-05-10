@@ -882,25 +882,23 @@ app.post("/api/artist-registration", async (req, res) => {
   const singerPlusGuitaristBudget = data.singerPlusGuitaristBudget;
   const ticketingConcertBudget = data.ticketingConcertBudget;
 
-  let code;
   // Find the last added artist and get its artistCode
-  Artist.find({})
-    .sort({ code: -1 })
-    .limit(1)
-    .then((data) => {
-      if (data.length > 0) {
-        const lastValue = data[0].toObject();
-        const previousCode = lastValue.code;
-        code = previousCode + 1;
-      } else {
-        // If no artist is found, start with code 1
-        code = 1;
-      }
-    })
-    .catch((error) => {
-      // Handle errors
-      console.error("Error:", error);
-    });
+  let code;
+  try {
+    const data = await Artist.find({}).sort({ code: -1 }).limit(1);
+    if (data.length > 0) {
+      const lastValue = data[0].toObject();
+      const previousCode = lastValue.code;
+      code = parseInt(previousCode) + 1;
+    } else {
+      // If no artist is found, start with code 1
+      code = 1;
+    }
+    // Use the 'code' variable here or pass it to another function
+  } catch (error) {
+    // Handle errors
+    console.error("Error:", error);
+  }
 
   let galleryObjects = gallery.map((link) => {
     return { link: link };
@@ -936,7 +934,7 @@ app.post("/api/artist-registration", async (req, res) => {
     singerPlusGuitaristBudget,
     ticketingConcertBudget,
     artistType,
-    code: artistCode,
+    code,
     eventsType,
     genre,
     languages,
