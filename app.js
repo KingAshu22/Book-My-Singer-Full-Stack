@@ -966,6 +966,109 @@ app.post("/api/artist-registration", async (req, res) => {
     });
 });
 
+app.post("/api/edit-artist/:_id", async (req, res) => {
+  const { _id } = req.params;
+
+  const data = req.body;
+  const name = data.artistName;
+  const metaTitle = `Hire ${name} from Book My Singer`;
+  const metaDesc = `Hire ${name} for ${arrayToString(
+    data.eventTypes
+  )} from Book My Singer`;
+  const lowerCaseName = name.toLowerCase();
+  const linkid = lowerCaseName.replace(/ /g, "-");
+  const profilePic = data.profilePic;
+  const gender = data.gender;
+  const contact = data.contactNumber;
+  const email = data.email;
+  const location = data.location;
+  const artistType = data.artistType;
+  const eventsType = arrayToString(data.eventTypes);
+  const genre = arrayToString(data.genres);
+  const languages = arrayToString(data.languages);
+  const original = data.originalSongName;
+  const time = data.performanceTime;
+  const instruments = arrayToString(data.instruments);
+  const awards = data.awards;
+  const instagram = data.instagramLink;
+  const facebook = data.facebookLink;
+  const youtube = data.youtubeLink;
+  const spotify = data.spotifyLink;
+  const training = data.musicTraining;
+  const gallery = data.galleryLink;
+  const blog = data.aboutArtist;
+  const youtubeLinks = data.youtubeLinks;
+  const price = data.weddingBudget;
+  const corporateBudget = data.corporateBudget;
+  const collegeBudget = data.collegeBudget;
+  const singerCumGuitaristBudget = data.singerCumGuitaristBudget;
+  const singerPlusGuitaristBudget = data.singerPlusGuitaristBudget;
+  const ticketingConcertBudget = data.ticketingConcertBudget;
+
+  let galleryObjects = gallery.map((link) => {
+    return { link: link };
+  });
+
+  function getEventType(link) {
+    return link.includes("aws") ? "aws" : "youtube";
+  }
+
+  let events = [
+    {
+      name: "Videos",
+      links: youtubeLinks,
+      type: youtubeLinks.map((link) => getEventType(link)),
+    },
+  ];
+
+  const artist = await Artist.updateOne(
+    { _id },
+    {
+      metaTitle,
+      metaDesc,
+      name,
+      gender,
+      linkid,
+      profilePic,
+      bandMemberName: "",
+      contact,
+      email,
+      location,
+      price,
+      corporateBudget,
+      collegeBudget,
+      singerCumGuitaristBudget,
+      singerPlusGuitaristBudget,
+      ticketingConcertBudget,
+      artistType,
+      eventsType,
+      genre,
+      languages,
+      original,
+      time,
+      instruments,
+      awards,
+      instagram,
+      facebook,
+      youtube,
+      spotify,
+      training,
+      gallery: galleryObjects,
+      events,
+      blog,
+      showBookMySinger: false,
+      showGigsar: true,
+    }
+  )
+    .then(() => {
+      console.log("Artist edited successfully");
+      res.redirect("/artist/" + artistType + "/" + linkid);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
 app.post("/edit-artist", isAuthenticated, async (req, res) => {
   const data = req.body;
 
