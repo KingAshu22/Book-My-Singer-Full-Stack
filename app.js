@@ -24,8 +24,8 @@ const corsOptions = {
     "https://gigsar-admin.vercel.app",
     "https://admin.gigsar.com",
   ], // Add your additional domain here
+  methods: ["GET", "POST"],
   credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
@@ -887,19 +887,17 @@ app.post("/api/artist-registration", async (req, res) => {
   // Find the last added artist and get its artistCode
   let code;
   try {
-    const data = await Artist.find({}).sort({ code: -1 }).limit(1);
-    if (data.length > 0) {
-      const lastValue = data[0].toObject();
+    const lastArtist = await Artist.find({}).sort({ code: -1 }).limit(1);
+    if (lastArtist.length > 0) {
+      const lastValue = lastArtist[0].toObject();
       const previousCode = lastValue.code;
       code = parseInt(previousCode) + 1;
     } else {
-      // If no artist is found, start with code 1
-      code = 1;
+      code = 1; // Start with code 1 if no artist found
     }
-    // Use the 'code' variable here or pass it to another function
   } catch (error) {
-    // Handle errors
     console.error("Error:", error);
+    return res.status(500).send("Error generating artist code");
   }
 
   let galleryObjects = gallery.map((link) => {
@@ -960,10 +958,11 @@ app.post("/api/artist-registration", async (req, res) => {
     .save()
     .then(() => {
       console.log("Profile Created Successfully");
-      res.status(200);
+      res.status(200).send("Profile Created Successfully");
     })
     .catch((error) => {
-      res.send(error);
+      console.error("Error saving artist:", error);
+      res.status(500).send("Error creating profile");
     });
 });
 
