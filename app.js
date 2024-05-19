@@ -18,6 +18,7 @@ const app = express();
 const corsOptions = {
   origin: [
     "http://localhost:3001",
+    "http://localhost:3002",
     "https://5lq8djtf-3001.inc1.devtunnels.ms",
     "https://gigsar.vercel.app",
     "https://www.gigsar.com",
@@ -1067,6 +1068,32 @@ app.post("/api/edit-artist/:_id", async (req, res) => {
     .catch((error) => {
       res.send(error);
     });
+});
+
+app.post("/api/change-status", async (req, res) => {
+  const { _id } = req.body;
+
+  try {
+    // Find the artist by _id
+    const artist = await Artist.findById(_id);
+
+    if (!artist) {
+      return res.status(404).json({ error: "Artist not found" });
+    }
+
+    // Toggle the value of showGigsar
+    artist.showGigsar = !artist.showGigsar;
+
+    // Save the updated artist
+    await artist.save();
+    console.log("Artist Status Changed Successfully");
+
+    // Send back the updated artist
+    res.status(200).json({ artist });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
+  }
 });
 
 app.post("/edit-artist", isAuthenticated, async (req, res) => {
