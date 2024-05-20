@@ -884,6 +884,8 @@ app.post("/api/artist-registration", async (req, res) => {
   const singerCumGuitaristBudget = data.singerCumGuitaristBudget;
   const singerPlusGuitaristBudget = data.singerPlusGuitaristBudget;
   const ticketingConcertBudget = data.ticketingConcertBudget;
+  const showBookMySinger = data.showBookMySinger;
+  const showGigsar = data.showGigsar;
 
   // Find the last added artist and get its artistCode
   let code;
@@ -951,8 +953,8 @@ app.post("/api/artist-registration", async (req, res) => {
     gallery: galleryObjects,
     events,
     blog,
-    showBookMySinger: false,
-    showGigsar: true,
+    showBookMySinger,
+    showGigsar,
   });
 
   artist
