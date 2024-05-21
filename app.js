@@ -244,6 +244,16 @@ app.get("/artist-registration", (req, res) => {
   res.render("artist-registration");
 });
 
+app.get("/api/artist-count", async (req, res) => {
+  try {
+    const artistCount = await Artist.countDocuments();
+    res.status(200).json({ count: artistCount });
+  } catch (error) {
+    console.error("Error fetching artist count:", error);
+    res.status(500).send("Error fetching artist count");
+  }
+});
+
 app.get("/api/artist", async (req, res) => {
   const artists = await Artist.find({}).sort({ _id: -1 });
 
@@ -887,189 +897,163 @@ app.post("/api/artist-registration", async (req, res) => {
   const showBookMySinger = data.showBookMySinger;
   const showGigsar = data.showGigsar;
 
-  // Find the last added artist and get its artistCode
-  let code;
   try {
-    const lastArtist = await Artist.find({}).sort({ code: -1 }).limit(1);
-    if (lastArtist.length > 0) {
-      const lastValue = lastArtist[0].toObject();
+    // Find the last added artist and get its code
+    let code;
+    Artist.find({}).then(async (data) => {
+      const dataArray = data.map((item) => item.toObject()); // convert Mongoose object to plain object
+      const lastValue = dataArray[dataArray.length - 1];
       const previousCode = lastValue.code;
-      code = parseInt(previousCode) + 1;
-    } else {
-      code = 1; // Start with code 1 if no artist found
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    return res.status(500).send("Error generating artist code");
-  }
+      console.log(`Previous Artist Code = ${previousCode}`);
+      code = (parseInt(previousCode) + 1).toString();
+      console.log(`New Artist Code = ${code}`);
 
-  let galleryObjects = gallery.map((link) => {
-    return { link: link };
-  });
+      let galleryObjects = gallery.map((link) => {
+        return { link: link };
+      });
 
-  function getEventType(link) {
-    return link.includes("aws") ? "aws" : "youtube";
-  }
+      function getEventType(link) {
+        return link.includes("aws") ? "aws" : "youtube";
+      }
 
-  let events = [
-    {
-      name: "Videos",
-      links: youtubeLinks,
-      type: youtubeLinks.map((link) => getEventType(link)),
-    },
-  ];
+      let events = [
+        {
+          name: "Videos",
+          links: youtubeLinks,
+          type: youtubeLinks.map((link) => getEventType(link)),
+        },
+      ];
 
-  const artist = new Artist({
-    metaTitle,
-    metaDesc,
-    name,
-    gender,
-    linkid,
-    profilePic,
-    bandMemberName: "",
-    contact,
-    email,
-    location,
-    price,
-    corporateBudget,
-    collegeBudget,
-    singerCumGuitaristBudget,
-    singerPlusGuitaristBudget,
-    ticketingConcertBudget,
-    artistType,
-    code,
-    eventsType,
-    genre,
-    languages,
-    original,
-    time,
-    instruments,
-    awards,
-    instagram,
-    facebook,
-    youtube,
-    spotify,
-    training,
-    gallery: galleryObjects,
-    events,
-    blog,
-    showBookMySinger,
-    showGigsar,
-  });
+      const artist = new Artist({
+        metaTitle,
+        metaDesc,
+        name,
+        gender,
+        linkid,
+        profilePic,
+        bandMemberName: "",
+        contact,
+        email,
+        location,
+        price,
+        corporateBudget,
+        collegeBudget,
+        singerCumGuitaristBudget,
+        singerPlusGuitaristBudget,
+        ticketingConcertBudget,
+        artistType,
+        code,
+        eventsType,
+        genre,
+        languages,
+        original,
+        time,
+        instruments,
+        awards,
+        instagram,
+        facebook,
+        youtube,
+        spotify,
+        training,
+        gallery: galleryObjects,
+        events,
+        blog,
+        showBookMySinger,
+        showGigsar,
+      });
 
-  artist
-    .save()
-    .then(() => {
+      await artist.save();
       console.log("Profile Created Successfully");
       res.status(200).send("Profile Created Successfully");
-    })
-    .catch((error) => {
-      console.error("Error saving artist:", error);
-      res.status(500).send("Error creating profile");
     });
+  } catch (error) {
+    console.error("Error saving artist:", error);
+    res.status(500).send("Error creating profile");
+  }
 });
 
 app.post("/api/edit-artist/:_id", async (req, res) => {
   const { _id } = req.params;
-
   const data = req.body;
-  const name = data.artistName;
-  const metaTitle = `Hire ${name} from Book My Singer`;
-  const metaDesc = `Hire ${name} for ${arrayToString(
-    data.eventTypes
-  )} from Book My Singer`;
-  const lowerCaseName = name.toLowerCase();
-  const linkid = lowerCaseName.replace(/ /g, "-");
-  const profilePic = data.profilePic;
-  const gender = data.gender;
-  const contact = data.contactNumber;
-  const email = data.email;
-  const location = data.location;
-  const artistType = data.artistType;
-  const eventsType = arrayToString(data.eventTypes);
-  const genre = arrayToString(data.genres);
-  const languages = arrayToString(data.languages);
-  const original = data.originalSongName;
-  const time = data.performanceTime;
-  const instruments = arrayToString(data.instruments);
-  const awards = data.awards;
-  const instagram = data.instagramLink;
-  const facebook = data.facebookLink;
-  const youtube = data.youtubeLink;
-  const spotify = data.spotifyLink;
-  const training = data.musicTraining;
-  const gallery = data.galleryLink;
-  const blog = data.aboutArtist;
-  const youtubeLinks = data.youtubeLinks;
-  const price = data.weddingBudget;
-  const corporateBudget = data.corporateBudget;
-  const collegeBudget = data.collegeBudget;
-  const singerCumGuitaristBudget = data.singerCumGuitaristBudget;
-  const singerPlusGuitaristBudget = data.singerPlusGuitaristBudget;
-  const ticketingConcertBudget = data.ticketingConcertBudget;
 
-  let galleryObjects = gallery.map((link) => {
-    return { link: link };
-  });
+  // Helper function to convert arrays to strings
+  const arrayToString = (array) => array.join(", ");
 
-  function getEventType(link) {
-    return link.includes("aws") ? "aws" : "youtube";
-  }
+  try {
+    const name = data.artistName;
+    const metaTitle = `Hire ${name} from Book My Singer`;
+    const metaDesc = `Hire ${name} for ${arrayToString(
+      data.eventTypes
+    )} from Book My Singer`;
+    const lowerCaseName = name.toLowerCase();
+    const linkid = lowerCaseName.replace(/ /g, "-");
 
-  let events = [
-    {
-      name: "Videos",
-      links: youtubeLinks,
-      type: youtubeLinks.map((link) => getEventType(link)),
-    },
-  ];
+    const galleryObjects = data.galleryLink.map((link) => ({ link }));
 
-  const artist = await Artist.updateOne(
-    { _id },
-    {
+    function getEventType(link) {
+      return link.includes("aws") ? "aws" : "youtube";
+    }
+
+    const events = [
+      {
+        name: "Videos",
+        links: data.youtubeLinks,
+        type: data.youtubeLinks.map((link) => getEventType(link)),
+      },
+    ];
+
+    const artistData = {
       metaTitle,
       metaDesc,
       name,
-      gender,
+      gender: data.gender,
       linkid,
-      profilePic,
+      profilePic: data.profilePic,
       bandMemberName: "",
-      contact,
-      email,
-      location,
-      price,
-      corporateBudget,
-      collegeBudget,
-      singerCumGuitaristBudget,
-      singerPlusGuitaristBudget,
-      ticketingConcertBudget,
-      artistType,
-      eventsType,
-      genre,
-      languages,
-      original,
-      time,
-      instruments,
-      awards,
-      instagram,
-      facebook,
-      youtube,
-      spotify,
-      training,
+      contact: data.contactNumber,
+      email: data.email,
+      location: data.location,
+      price: data.weddingBudget,
+      corporateBudget: data.corporateBudget,
+      collegeBudget: data.collegeBudget,
+      singerCumGuitaristBudget: data.singerCumGuitaristBudget,
+      singerPlusGuitaristBudget: data.singerPlusGuitaristBudget,
+      ticketingConcertBudget: data.ticketingConcertBudget,
+      artistType: data.artistType,
+      eventsType: arrayToString(data.eventTypes),
+      genre: arrayToString(data.genres),
+      languages: arrayToString(data.languages),
+      original: data.originalSongName,
+      time: data.performanceTime,
+      instruments: arrayToString(data.instruments),
+      awards: data.awards,
+      instagram: data.instagramLink,
+      facebook: data.facebookLink,
+      youtube: data.youtubeLink,
+      spotify: data.spotifyLink,
+      training: data.musicTraining,
       gallery: galleryObjects,
       events,
-      blog,
-      showBookMySinger: false,
-      showGigsar: true,
+      blog: data.aboutArtist,
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
     }
-  )
-    .then(() => {
-      console.log("Artist edited successfully");
-      res.redirect("/artist/" + artistType + "/" + linkid);
-    })
-    .catch((error) => {
-      res.send(error);
-    });
+
+    console.log("Artist edited successfully");
+    res.redirect(`/artist/${data.artistType}/${linkid}`);
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
 });
 
 app.post("/api/change-status", async (req, res) => {
