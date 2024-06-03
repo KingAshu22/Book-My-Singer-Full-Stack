@@ -117,11 +117,32 @@
   </a>
 </div>
 
+<div id="hero" class="hero-section">
+  <video autoplay muted loop poster="poster-image.jpg">
+    <source
+      src="https://book-my-singer.s3.ap-south-1.amazonaws.com/Krishna+Pandey/videos/krishna-pandey-live.mp4"
+      type="video/mp4"
+    />
+    Your browser does not support the video tag.
+  </video>
+  <div class="hero-content">
+    <h1 class="mil-up mil-mb-30 title" style="padding-bottom: 2%; color: #fff">
+      Book <span id="typewriter"></span> <br />
+      for <span id="events"></span> events
+    </h1>
+    <a href="/enquiry"
+      ><button class="mil-upper mil-dark mil-up mil-btn mil-sm-btn btn">
+        ENQUIRE NOW
+      </button></a
+    >
+  </div>
+</div>
+
 <div class="mil-content">
   <div class="mil-scroll-wrapper transition-fade" id="swupMain">
     <div class="mil-container-fw">
       <!-- banner -->
-      <section class="mil-side-banner hero-banner mil-center">
+      <!-- <section class="mil-side-banner hero-banner mil-center">
         <div class="mil-banner-top mil-up"></div>
         <div class="mil-banner-title">
           <div class="mil-upper mil-dark mil-up mil-mb-30">
@@ -137,7 +158,7 @@
             </button></a
           >
         </div>
-      </section>
+      </section> -->
       <!-- banner end -->
 
       <%- include("partials/home"); -%> <%- include("partials/contact"); -%>
