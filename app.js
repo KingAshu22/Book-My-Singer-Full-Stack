@@ -882,12 +882,18 @@ app.post("/api/artist-registration", async (req, res) => {
   const awards = data.awards;
   const instagram = data.instagramLink;
   const facebook = data.facebookLink;
-  const youtube = data.youtubeLink;
+  const weddingLink = data.weddingLink;
+  const corporateLink = data.corporateLink;
+  const collegeLink = data.collegeLink;
+  const concertLink = data.concertLink;
+  const originalLink = data.originalLink;
+  const bollywoodLink = data.bollywoodLink;
+  const coverLink = data.coverLink;
   const spotify = data.spotifyLink;
   const training = data.musicTraining;
   const gallery = data.galleryLink;
   const blog = data.aboutArtist;
-  const youtubeLinks = data.youtubeLinks;
+  const youtube = data.youtubeLink;
   const price = data.weddingBudget;
   const corporateBudget = data.corporateBudget;
   const collegeBudget = data.collegeBudget;
@@ -918,9 +924,39 @@ app.post("/api/artist-registration", async (req, res) => {
 
       let events = [
         {
-          name: "Videos",
-          links: youtubeLinks,
-          type: youtubeLinks.map((link) => getEventType(link)),
+          name: "Wedding Videos",
+          links: weddingLink,
+          type: weddingLink.map((link) => getEventType(link)),
+        },
+        {
+          name: "Corporate Videos",
+          links: corporateLink,
+          type: corporateLink.map((link) => getEventType(link)),
+        },
+        {
+          name: "College Videos",
+          links: collegeLink,
+          type: collegeLink.map((link) => getEventType(link)),
+        },
+        {
+          name: "Ticketing Concert Videos",
+          links: concertLink,
+          type: concertLink.map((link) => getEventType(link)),
+        },
+        {
+          name: "Original Videos",
+          links: originalLink,
+          type: originalLink.map((link) => getEventType(link)),
+        },
+        {
+          name: "Bollywood Playback Videos",
+          links: bollywoodLink,
+          type: bollywoodLink.map((link) => getEventType(link)),
+        },
+        {
+          name: "Cover Videos",
+          links: coverLink,
+          type: coverLink.map((link) => getEventType(link)),
         },
       ];
 
