@@ -1032,9 +1032,34 @@ app.post("/api/edit-artist/:_id", async (req, res) => {
 
     const events = [
       {
-        name: "Videos",
-        links: data.youtubeLinks,
-        type: data.youtubeLinks.map((link) => getEventType(link)),
+        name: "Wedding Videos",
+        links: data.weddingLink,
+        type: data.weddingLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Corporate Videos",
+        links: data.corporateLink,
+        type: data.corporateLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Ticketing Concert Videos",
+        links: data.concertLink,
+        type: data.concertLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Original Videos",
+        links: data.originalLink,
+        type: data.originalLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Bollywood Playback Videos",
+        links: data.bollywoodLink,
+        type: data.bollywoodLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Cover Videos",
+        links: data.coverLink,
+        type: data.coverLink.map((link) => getEventType(link)),
       },
     ];
 
