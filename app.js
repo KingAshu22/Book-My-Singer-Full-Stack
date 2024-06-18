@@ -107,6 +107,7 @@ const artistSchema = new mongoose.Schema({
   blog: String,
   showBookMySinger: Boolean,
   showGigsar: Boolean,
+  clerkId: String,
 });
 
 const Artist = new mongoose.model("Artist", artistSchema);
@@ -270,6 +271,12 @@ app.get("/api/artist/artistType/:artistType", async (req, res) => {
 app.get("/api/artist/artistName/:linkid", async (req, res) => {
   const { linkid } = req.params;
   const artist = await Artist.findOne({ linkid });
+  res.status(200).json(artist);
+});
+
+app.get("/api/artist/clerkId/:clerkId", async (req, res) => {
+  const { clerkId } = req.params;
+  const artist = await Artist.findOne({ clerkId });
   res.status(200).json(artist);
 });
 
@@ -855,11 +862,68 @@ app.post("/add-artist", isAuthenticated, (req, res) => {
 
 function arrayToString(arr) {
   // Join array elements with ", " separator
-  return arr.join(", ");
+  return arr?.join(", ");
 }
+
+app.post("/api/artist-direct-registration", async (req, res) => {
+  const data = req.body;
+  const clerkId = data.clerkId || "";
+  const name = data.artistName;
+  const metaTitle = `Hire ${name} from Book My Singer`;
+  const metaDesc = `Hire ${name} for ${arrayToString(
+    data.eventTypes
+  )} from Book My Singer`;
+  const lowerCaseName = name.toLowerCase();
+  const linkid = lowerCaseName.replace(/ /g, "-");
+  const profilePic = data.profilePic;
+  const gender = data.gender;
+  const contact = data.contactNumber;
+  const email = data.email;
+  const location = data.location;
+  const artistType = data.artistType;
+  const showBookMySinger = data.showBookMySinger;
+  const showGigsar = data.showGigsar;
+
+  try {
+    // Find the last added artist and get its code
+    let code;
+    Artist.find({}).then(async (data) => {
+      const dataArray = data.map((item) => item.toObject()); // convert Mongoose object to plain object
+      const lastValue = dataArray[dataArray.length - 1];
+      const previousCode = lastValue.code;
+      console.log(`Previous Artist Code = ${previousCode}`);
+      code = (parseInt(previousCode) + 1).toString();
+      console.log(`New Artist Code = ${code}`);
+
+      const artist = new Artist({
+        metaTitle,
+        metaDesc,
+        clerkId,
+        name,
+        gender,
+        linkid,
+        profilePic,
+        contact,
+        email,
+        location,
+        code,
+        showBookMySinger,
+        showGigsar,
+      });
+
+      await artist.save();
+      console.log("Profile Created Successfully");
+      res.status(200).send("Profile Created Successfully");
+    });
+  } catch (error) {
+    console.error("Error saving artist:", error);
+    res.status(500).send("Error creating profile");
+  }
+});
 
 app.post("/api/artist-registration", async (req, res) => {
   const data = req.body;
+  const clerkId = data.clerkId || "";
   const name = data.artistName;
   const metaTitle = `Hire ${name} from Book My Singer`;
   const metaDesc = `Hire ${name} for ${arrayToString(
@@ -963,6 +1027,7 @@ app.post("/api/artist-registration", async (req, res) => {
       const artist = new Artist({
         metaTitle,
         metaDesc,
+        clerkId,
         name,
         gender,
         linkid,
@@ -1008,12 +1073,236 @@ app.post("/api/artist-registration", async (req, res) => {
   }
 });
 
+app.post("/api/edit-gallery/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const data = req.body;
+
+  try {
+    const galleryObjects = data.galleryLink.map((link) => ({ link }));
+
+    const artistData = {
+      gallery: galleryObjects,
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
+    }
+
+    console.log("Artist edited successfully");
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
+});
+
+function getEventType(link) {
+  return link.includes("aws") ? "aws" : "youtube";
+}
+
+app.post("/api/edit-event-videos/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const data = req.body;
+
+  try {
+    const events = [
+      {
+        name: "Wedding Videos",
+        links: data.weddingLink,
+        type: data.weddingLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Corporate Videos",
+        links: data.corporateLink,
+        type: data.corporateLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Ticketing Concert Videos",
+        links: data.concertLink,
+        type: data.concertLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Original Videos",
+        links: data.originalLink,
+        type: data.originalLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Bollywood Playback Videos",
+        links: data.bollywoodLink,
+        type: data.bollywoodLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Cover Videos",
+        links: data.coverLink,
+        type: data.coverLink.map((link) => getEventType(link)),
+      },
+    ];
+
+    const artistData = {
+      events,
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
+    }
+
+    console.log("Artist edited successfully");
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
+});
+
+app.post("/api/edit-event-type/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const data = req.body;
+
+  // Helper function to convert arrays to strings
+  const arrayToString = (array) => array?.join(", ");
+
+  try {
+    const artistData = {
+      price: data.weddingBudget,
+      corporateBudget: data.corporateBudget,
+      collegeBudget: data.collegeBudget,
+      singerCumGuitaristBudget: data.singerCumGuitaristBudget,
+      singerPlusGuitaristBudget: data.singerPlusGuitaristBudget,
+      ticketingConcertBudget: data.ticketingConcertBudget,
+      eventsType: arrayToString(data.eventTypes),
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
+    }
+
+    console.log("Artist edited successfully");
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
+});
+
+app.post("/api/edit-genre/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const data = req.body;
+
+  // Helper function to convert arrays to strings
+  const arrayToString = (array) => array?.join(", ");
+
+  try {
+    const artistData = {
+      genre: arrayToString(data.genres),
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
+    }
+
+    console.log("Artist edited successfully");
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
+});
+
+app.post("/api/edit-instruments/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const data = req.body;
+
+  // Helper function to convert arrays to strings
+  const arrayToString = (array) => array?.join(", ");
+
+  try {
+    const artistData = {
+      instruments: arrayToString(data.instruments),
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
+    }
+
+    console.log("Artist edited successfully");
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
+});
+
+app.post("/api/edit-other-details/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const data = req.body;
+
+  try {
+    const artistData = {
+      original: data.originalSongName,
+      time: data.performanceTime,
+      awards: data.awards,
+      instagram: data.instagramLink,
+      facebook: data.facebookLink,
+      youtube: data.youtubeLink,
+      spotify: data.spotifyLink,
+      training: data.musicTraining,
+      blog: data.aboutArtist,
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
+    }
+
+    console.log("Artist edited successfully");
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
+});
+
 app.post("/api/edit-artist/:_id", async (req, res) => {
   const { _id } = req.params;
   const data = req.body;
 
   // Helper function to convert arrays to strings
-  const arrayToString = (array) => array.join(", ");
+  const arrayToString = (array) => array?.join(", ");
 
   try {
     const name = data.artistName;
