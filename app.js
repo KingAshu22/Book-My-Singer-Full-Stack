@@ -675,9 +675,9 @@ app.get("/spam", (req, res) => {
   res.render("spam");
 });
 
-// app.get("/enquiry", (req, res) => {
-//   res.render("enquire");
-// });
+app.get("/enquiry", (req, res) => {
+  res.redirect("tel:+917021630747");
+});
 
 app.get("*", (req, res) => {
   res.redirect("/");
