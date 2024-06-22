@@ -274,9 +274,9 @@ app.get("/api/artist/artistName/:linkid", async (req, res) => {
   res.status(200).json(artist);
 });
 
-app.get("/api/artist/clerkId/:clerkId", async (req, res) => {
-  const { clerkId } = req.params;
-  const artist = await Artist.findOne({ clerkId });
+app.get("/api/artist/contact/:contact", async (req, res) => {
+  const { contact } = req.params;
+  const artist = await Artist.findOne({ contact });
   res.status(200).json(artist);
 });
 
@@ -675,9 +675,9 @@ app.get("/spam", (req, res) => {
   res.render("spam");
 });
 
-app.get("/enquiry", (req, res) => {
-  res.render("enquire");
-});
+// app.get("/enquiry", (req, res) => {
+//   res.render("enquire");
+// });
 
 app.get("*", (req, res) => {
   res.redirect("/");
