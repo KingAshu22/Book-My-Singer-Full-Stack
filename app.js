@@ -107,6 +107,7 @@ const artistSchema = new mongoose.Schema({
   blog: String,
   showBookMySinger: Boolean,
   showGigsar: Boolean,
+  isPending: Boolean,
   clerkId: String,
 });
 
@@ -909,6 +910,7 @@ app.post("/api/artist-direct-registration", async (req, res) => {
         code,
         showBookMySinger,
         showGigsar,
+        isPending: true,
       });
 
       await artist.save();
