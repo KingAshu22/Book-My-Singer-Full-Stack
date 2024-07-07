@@ -907,6 +907,7 @@ app.post("/api/artist-direct-registration", async (req, res) => {
         contact,
         email,
         location,
+        artistType,
         code,
         showBookMySinger,
         showGigsar,
@@ -1075,6 +1076,44 @@ app.post("/api/artist-registration", async (req, res) => {
   }
 });
 
+app.post("/api/edit-basic-details/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const data = req.body;
+
+  const name = data.artistName;
+  const lowerCaseName = name.toLowerCase();
+  const linkid = lowerCaseName.replace(/ /g, "-");
+
+  try {
+    const artistData = {
+      name,
+      linkid,
+      profilePic: data.profilePic,
+      gender: data.gender,
+      contact: data.contactNumber,
+      email: data.email,
+      location: data.location,
+      artistType: data.artistType,
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
+    }
+
+    console.log("Artist edited successfully");
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
+});
+
 app.post("/api/edit-gallery/:_id", async (req, res) => {
   const { _id } = req.params;
   const data = req.body;
@@ -1125,6 +1164,11 @@ app.post("/api/edit-event-videos/:_id", async (req, res) => {
         type: data.corporateLink.map((link) => getEventType(link)),
       },
       {
+        name: "College Videos",
+        links: data.collegeLink,
+        type: data.collegeLink.map((link) => getEventType(link)),
+      },
+      {
         name: "Ticketing Concert Videos",
         links: data.concertLink,
         type: data.concertLink.map((link) => getEventType(link)),
@@ -1143,6 +1187,16 @@ app.post("/api/edit-event-videos/:_id", async (req, res) => {
         name: "Cover Videos",
         links: data.coverLink,
         type: data.coverLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Cafe/Clubs Videos",
+        links: data.cafeLink,
+        type: data.cafeLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "House Party Videos",
+        links: data.houseLink,
+        type: data.houseLink.map((link) => getEventType(link)),
       },
     ];
 
