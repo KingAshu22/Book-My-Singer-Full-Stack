@@ -80,6 +80,11 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
       rel="stylesheet"
     />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <style>
       body {
         background-color: #f2f2f2;
@@ -124,6 +129,16 @@
         max-width: 100%;
       }
 
+      .embed-responsive-16by9 {
+        width: 80%;
+        margin-bottom: 5%;
+      }
+
+      .embed-responsive-16by9 iframe {
+        margin-left: 10px;
+        border-radius: 25px;
+      }
+
       @media screen and (max-width: 768px) {
         h1 {
           font-size: 2.5rem;
@@ -143,83 +158,87 @@
     <p>Meanwhile, get ready for an amazing event with our talented artists!</p>
     <a href="/">Back to Home 🏠</a>
     <h1>Featured Videos 🎥</h1>
-    <p>This are some of our featured videos of previous events ✨</p>
-    <iframe
-      width="560"
-      height="315"
-      style="margin-bottom: 5%"
-      src="https://www.youtube.com/embed/inAICrTq1Gk?si=OxUyBsYZZQxKZ2z6"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
-    <iframe
-      width="560"
-      height="315"
-      style="margin-bottom: 5%"
-      src="https://www.youtube.com/embed/VeEj_vWOQ5E?si=9BeUBOsBKQZOhUvE"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
-    <iframe
-      width="560"
-      height="315"
-      style="margin-bottom: 5%"
-      src="https://www.youtube.com/embed/oG6FQaL2vmQ?si=tiAZ32wmBKKBZDoo"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
-    <iframe
-      width="560"
-      height="315"
-      style="margin-bottom: 5%"
-      src="https://www.youtube.com/embed/DRrIobGaW6Q?si=XLrDQRHpQp5bHfon"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
-    <iframe
-      width="560"
-      height="315"
-      style="margin-bottom: 5%"
-      src="https://www.youtube.com/embed/y50e6l7nh5U?si=WFQ2Y7ysORBjjlkV"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
-    <iframe
-      width="560"
-      height="315"
-      style="margin-bottom: 5%"
-      src="https://www.youtube.com/embed/0OLiuySWIhw?si=5MIHe9Qlqdc_fa5g"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
-    <iframe
-      width="560"
-      height="315"
-      style="margin-bottom: 5%"
-      src="https://www.youtube.com/embed/ZI-b6d6Fn4g?si=hOFKV8xP60ePQa57"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
+    <p>These are some of our featured videos of previous events ✨</p>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/inAICrTq1Gk?si=OxUyBsYZZQxKZ2z6"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/VeEj_vWOQ5E?si=9BeUBOsBKQZOhUvE"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/oG6FQaL2vmQ?si=tiAZ32wmBKKBZDoo"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/DRrIobGaW6Q?si=XLrDQRHpQp5bHfon"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/y50e6l7nh5U?si=WFQ2Y7ysORBjjlkV"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/0OLiuySWIhw?si=5MIHe9Qlqdc_fa5g"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/ZI-b6d6Fn4g?si=hOFKV8xP60ePQa57"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
