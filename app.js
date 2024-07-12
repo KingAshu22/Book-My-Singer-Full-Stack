@@ -24,6 +24,7 @@ const corsOptions = {
     "https://www.gigsar.com",
     "https://gigsar-admin.vercel.app",
     "https://admin.gigsar.com",
+    "https://artist.gigsar.com",
   ], // Add your additional domain here
   methods: ["GET", "POST"],
   credentials: true, //access-control-allow-credentials:true
