@@ -1875,7 +1875,6 @@ async function appendData(data) {
 
 app.post("/contact-form", async (req, res) => {
   const formData = req.body;
-  console.log(formData);
 
   // Checking if contact number is empty or message length is greater than 100
   if (formData.contact === "" || formData.message?.length > 100) {
@@ -1886,6 +1885,15 @@ app.post("/contact-form", async (req, res) => {
     await appendData(formData);
     res.redirect("/success");
   }
+});
+
+app.post("/api/enquiry-form", async (req, res) => {
+  const formData = req.body;
+  console.log(formData);
+
+  // Inserting data and rendering success page
+  await appendData(formData);
+  res.status(200);
 });
 
 app.post("/edit-blog", isAuthenticated, async (req, res) => {
