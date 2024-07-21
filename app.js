@@ -1107,6 +1107,7 @@ app.post("/api/edit-basic-details/:_id", async (req, res) => {
     }
 
     console.log("Artist edited successfully");
+    res.status(200).send("Artist edited successfully");
   } catch (error) {
     console.error("Error editing artist:", error);
     res
@@ -1136,6 +1137,7 @@ app.post("/api/edit-gallery/:_id", async (req, res) => {
     }
 
     console.log("Artist edited successfully");
+    res.status(200).send("Artist edited successfully");
   } catch (error) {
     console.error("Error editing artist:", error);
     res
@@ -1215,6 +1217,7 @@ app.post("/api/edit-event-videos/:_id", async (req, res) => {
     }
 
     console.log("Artist edited successfully");
+    res.status(200).send("Artist edited successfully");
   } catch (error) {
     console.error("Error editing artist:", error);
     res
@@ -1251,6 +1254,7 @@ app.post("/api/edit-event-type/:_id", async (req, res) => {
     }
 
     console.log("Artist edited successfully");
+    res.status(200).send("Artist edited successfully");
   } catch (error) {
     console.error("Error editing artist:", error);
     res
@@ -1281,6 +1285,7 @@ app.post("/api/edit-genre/:_id", async (req, res) => {
     }
 
     console.log("Artist edited successfully");
+    res.status(200).send("Artist edited successfully");
   } catch (error) {
     console.error("Error editing artist:", error);
     res
@@ -1311,6 +1316,7 @@ app.post("/api/edit-instruments/:_id", async (req, res) => {
     }
 
     console.log("Artist edited successfully");
+    res.status(200).send("Artist edited successfully");
   } catch (error) {
     console.error("Error editing artist:", error);
     res
@@ -1346,6 +1352,7 @@ app.post("/api/edit-other-details/:_id", async (req, res) => {
     }
 
     console.log("Artist edited successfully");
+    res.status(200).send("Artist edited successfully");
   } catch (error) {
     console.error("Error editing artist:", error);
     res
