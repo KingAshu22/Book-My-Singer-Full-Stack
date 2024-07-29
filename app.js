@@ -110,6 +110,7 @@ const artistSchema = new mongoose.Schema({
   showGigsar: Boolean,
   isPending: Boolean,
   clerkId: String,
+  busyDates: Array,
 });
 
 const Artist = new mongoose.model("Artist", artistSchema);
@@ -866,6 +867,35 @@ function arrayToString(arr) {
   // Join array elements with ", " separator
   return arr?.join(", ");
 }
+
+app.post("/api/busyDates/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const busyDates = req.body.busyDates;
+  console.log(busyDates);
+
+  try {
+    const artistData = {
+      busyDates,
+    };
+
+    const result = await Artist.updateOne(
+      { _id },
+      { $set: artistData } // Use $set to update only the provided fields
+    );
+
+    if (result.nModified === 0) {
+      throw new Error("No documents were updated");
+    }
+
+    console.log("Artist edited successfully");
+    res.status(200).send("Artist edited successfully");
+  } catch (error) {
+    console.error("Error editing artist:", error);
+    res
+      .status(500)
+      .send(error.message || "An error occurred while updating the artist");
+  }
+});
 
 app.post("/api/artist-direct-registration", async (req, res) => {
   const data = req.body;
