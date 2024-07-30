@@ -185,6 +185,10 @@ app.get("/", (req, res) => {
   res.render("home.ejs");
 });
 
+app.get("/contact", (req, res) => {
+  res.render("contact-us.ejs");
+});
+
 app.get("/sitemap.xml", (req, res) => {
   fs.readFile("./sitemap.xml", "utf8", (err, data) => {
     if (err) {
