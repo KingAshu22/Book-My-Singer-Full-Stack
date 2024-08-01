@@ -185,6 +185,26 @@ app.get("/", (req, res) => {
   res.render("home.ejs");
 });
 
+app.get("/landing-page-1", (req, res) => {
+  res.render("landing-page-1");
+});
+
+app.get("/landing-page-2", (req, res) => {
+  res.render("landing-page-2");
+});
+
+app.get("/landing-page-3", (req, res) => {
+  res.render("landing-page-3");
+});
+
+app.get("/landing-page-4", (req, res) => {
+  res.render("landing-page-4");
+});
+
+app.get("/landing-page-5", (req, res) => {
+  res.render("landing-page-5");
+});
+
 app.get("/contact", (req, res) => {
   res.render("contact-us.ejs");
 });

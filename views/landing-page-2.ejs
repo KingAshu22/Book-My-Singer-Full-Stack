@@ -1,0 +1,236 @@
+<%- include("partials/header"); -%>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<link rel="stylesheet" href="/css/contact-form.css" />
+<link rel="stylesheet" href="/artist/../css/lite-youtube-embed.css" />
+<script src="/artist/../js/lite-youtube-embed.js"></script>
+<link rel="stylesheet" href="/css/gallery.css" />
+
+<script>
+  const words = ["Live Singers", "Bands", "Celebrities", "Musicians", "DJ"];
+  const delay = 100; // Delay between phrases in milliseconds
+
+  const typeText = (element, words, delay) => {
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+      const currentWord = words[wordIndex];
+      const text = currentWord.substring(0, charIndex + 1);
+
+      document.getElementById("typewriter").textContent = text;
+
+      if (!isDeleting && text === currentWord) {
+        isDeleting = true;
+        setTimeout(() => {
+          charIndex--;
+          if (charIndex === -1) {
+            isDeleting = false;
+            setTimeout(type, delay);
+          } else {
+            setTimeout(type, 100);
+          }
+        }, 500); // Delay before backspacing
+      } else if (isDeleting && text === "") {
+        isDeleting = false;
+        charIndex = 0;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(type, delay);
+      } else if (isDeleting) {
+        charIndex--;
+        setTimeout(type, 100);
+      } else {
+        charIndex++;
+        setTimeout(type, 100);
+      }
+    }
+
+    setTimeout(type, delay);
+  };
+
+  typeText(document.getElementById("typewriter"), words, delay);
+</script>
+
+<script>
+  const event = ["Corporate", "College", "Wedding", "Private", "Virtual"];
+  const delayTime = 10; // Delay between phrases in milliseconds
+
+  const typeTexts = (element, event, delayTime) => {
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+      const currentWord = event[wordIndex];
+      const text = currentWord.substring(0, charIndex + 1);
+
+      document.getElementById("events").textContent = text;
+
+      if (!isDeleting && text === currentWord) {
+        isDeleting = true;
+        setTimeout(() => {
+          charIndex--;
+          if (charIndex === -1) {
+            isDeleting = false;
+            setTimeout(type, delayTime);
+          } else {
+            setTimeout(type, 9000);
+          }
+        }, 500); // Delay before backspacing
+      } else if (isDeleting && text === "") {
+        isDeleting = false;
+        charIndex = 0;
+        wordIndex = (wordIndex + 1) % event.length;
+        setTimeout(type, delayTime);
+      } else if (isDeleting) {
+        charIndex--;
+        setTimeout(type, 100);
+      } else {
+        charIndex++;
+        setTimeout(type, 100);
+      }
+    }
+
+    setTimeout(type, delayTime);
+  };
+
+  typeTexts(document.getElementById("events"), event, delayTime);
+</script>
+
+<!-- content -->
+<div class="fixed-button">
+  <a href="/enquiry"><button>ENQUIRE NOW</button></a>
+</div>
+
+<div id="whatsapp-chat">
+  <a
+    href="https://api.whatsapp.com/send?phone=919833125152"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img src="/img/whatsapp.png" alt="Whatsapp" class="whatsappImg" />
+  </a>
+</div>
+<div class="call-button">
+  <a href="tel:+919833125152">
+    <img src="/img/telephone.png" alt="Call" />
+  </a>
+</div>
+
+<div id="hero" class="hero-section">
+  <video autoplay muted loop poster="poster-image.jpg">
+    <source
+      src="https://book-my-singer.s3.ap-south-1.amazonaws.com/Krishna+Pandey/videos/krishna-pandey-live.mp4"
+      type="video/mp4"
+    />
+    Your browser does not support the video tag.
+  </video>
+  <div class="hero-content">
+    <h1 class="mil-up mil-mb-30 title" style="padding-bottom: 2%; color: #fff">
+      Book <span id="typewriter"></span> <br />
+      for <span id="events"></span> events
+    </h1>
+    <a href="/enquiry"
+      ><button class="mil-upper mil-dark mil-up mil-btn mil-sm-btn btn">
+        ENQUIRE NOW
+      </button></a
+    >
+  </div>
+</div>
+
+<div class="mil-content">
+  <div class="mil-scroll-wrapper transition-fade" id="swupMain">
+    <div class="mil-container-fw">
+      <!-- banner -->
+      <!-- <section class="mil-side-banner hero-banner mil-center">
+        <div class="mil-banner-top mil-up"></div>
+        <div class="mil-banner-title">
+          <div class="mil-upper mil-dark mil-up mil-mb-30">
+            www.bookmysinger.com
+          </div>
+          <h1 class="mil-up mil-mb-30 title" style="padding-bottom: 2%">
+            Book <span id="typewriter" style="color: #f44336"></span> <br />
+            for <span id="events" style="color: #f44336"></span> events
+          </h1>
+          <a href="/enquiry"
+            ><button class="mil-upper mil-dark mil-up mil-btn mil-sm-btn btn">
+              ENQUIRE NOW
+            </button></a
+          >
+        </div>
+      </section> -->
+      <!-- banner end -->
+
+      <%- include("partials/home"); -%> <%- include("partials/contact"); -%>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get all navigation links that have a "#" in the href attribute
+    var navigationLinks = document.querySelectorAll('a[href^="#"]');
+
+    // Add a click event listener to each navigation link
+    navigationLinks.forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        // Get the target section's ID from the link's href attribute
+        var targetId = link.getAttribute("href").slice(1); // Remove the "#" symbol
+
+        // Get a reference to the target section
+        var targetSection = document.getElementById(targetId);
+
+        // Scroll to the target section smoothly
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var modals = document.querySelectorAll(".modal");
+    var modalTriggers = document.querySelectorAll('[data-toggle="modal"]');
+
+    modalTriggers.forEach(function (trigger) {
+      trigger.addEventListener("click", function () {
+        var target = document.querySelector(
+          trigger.getAttribute("data-target")
+        );
+        if (target) {
+          target.classList.add("show");
+          target.style.display = "block";
+          document.body.classList.add("modal-open");
+        }
+      });
+    });
+
+    modals.forEach(function (modal) {
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          modal.classList.remove("show");
+          modal.style.display = "none";
+          document.body.classList.remove("modal-open");
+        }
+      });
+    });
+
+    var closeButtons = document.querySelectorAll('[data-dismiss="modal"]');
+    closeButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        var modal = button.closest(".modal");
+        if (modal) {
+          modal.classList.remove("show");
+          modal.style.display = "none";
+          document.body.classList.remove("modal-open");
+        }
+      });
+    });
+  });
+</script>
+
+<%- include("partials/footer"); -%>
