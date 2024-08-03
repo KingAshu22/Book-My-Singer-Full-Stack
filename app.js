@@ -115,6 +115,28 @@ const artistSchema = new mongoose.Schema({
 
 const Artist = new mongoose.model("Artist", artistSchema);
 
+const clientSchema = new mongoose.Schema({
+  name: String,
+  contact: String,
+  email: String,
+  type: String,
+  messages: [
+    {
+      artistId: String,
+      message: [
+        {
+          content: String,
+          time: Date,
+          isSenderMe: Boolean,
+          isUnread: Boolean,
+        },
+      ],
+    },
+  ],
+});
+
+const Client = new mongoose.model("Client", clientSchema);
+
 const blogSchema = new mongoose.Schema({
   metaTitle: String,
   metaDesc: String,
@@ -305,6 +327,12 @@ app.get("/api/artist/contact/:contact", async (req, res) => {
   const { contact } = req.params;
   const artist = await Artist.findOne({ contact });
   res.status(200).json(artist);
+});
+
+app.get("/api/client/contact/:contact", async (req, res) => {
+  const { contact } = req.params;
+  const client = await Client.findOne({ contact });
+  res.status(200).json(client);
 });
 
 app.get("/event-category", async (req, res) => {
@@ -976,6 +1004,30 @@ app.post("/api/artist-direct-registration", async (req, res) => {
   } catch (error) {
     console.error("Error saving artist:", error);
     res.status(500).send("Error creating profile");
+  }
+});
+
+app.post("/api/client-registration", async (req, res) => {
+  const data = req.body;
+  const name = data.name;
+  const contact = data.contact;
+  const email = data.email;
+  const type = data.type;
+
+  try {
+    const client = new Client({
+      name,
+      contact,
+      email,
+      type,
+    });
+
+    await client.save();
+    console.log("Client Profile Created Successfully");
+    res.status(200).send("Client Profile Created Successfully");
+  } catch (error) {
+    console.error("Error creating Client:", error);
+    res.status(500).send("Error creating client");
   }
 });
 
