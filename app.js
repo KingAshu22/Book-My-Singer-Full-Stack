@@ -1031,6 +1031,82 @@ app.post("/api/client-registration", async (req, res) => {
   }
 });
 
+app.post("/api/client-message", async (req, res) => {
+  const {
+    linkid,
+    contact,
+    selectedCategory,
+    selectedGenre,
+    selectedLocation,
+    selectedEventType,
+    selectedDate,
+    selectedLanguage,
+    selectedInstrument,
+    selectedGender,
+    selectedMinBudget,
+    selectedMaxBudget,
+  } = req.body;
+
+  let messageContent = "";
+
+  if (selectedCategory.length > 1)
+    messageContent += `Category: ${selectedCategory}\n`;
+  if (selectedGenre.length > 1) messageContent += `Genre: ${selectedGenre}\n`;
+  if (selectedLocation.length > 1)
+    messageContent += `Location: ${selectedLocation}\n`;
+  if (selectedEventType.length > 1)
+    messageContent += `Event Type: ${selectedEventType}\n`;
+  if (selectedDate.length > 1) messageContent += `Date: ${selectedDate}\n`;
+  if (selectedLanguage.length > 1)
+    messageContent += `Language: ${selectedLanguage}\n`;
+  if (selectedInstrument.length > 1)
+    messageContent += `Instrument: ${selectedInstrument}\n`;
+  if (selectedGender.length > 1)
+    messageContent += `Gender: ${selectedGender}\n`;
+  if (selectedMinBudget.length > 1)
+    messageContent += `Min Budget: ${selectedMinBudget}\n`;
+  if (selectedMaxBudget.length > 1)
+    messageContent += `Max Budget: ${selectedMaxBudget}\n`;
+
+  try {
+    const client = await Client.findOne({ contact });
+
+    if (!client) {
+      return res.status(404).json({ error: "Client not found" });
+    }
+
+    const newMessage = {
+      artistId: linkid,
+      message: [
+        {
+          content: messageContent,
+          time: new Date(),
+          isSenderMe: true,
+          isUnread: false,
+        },
+      ],
+    };
+
+    // Check if there's already a message with the same artistId
+    const existingMessage = client.messages.find(
+      (msg) => msg.artistId === linkid
+    );
+
+    if (existingMessage) {
+      existingMessage.message.push(newMessage.message[0]);
+    } else {
+      client.messages.push(newMessage);
+    }
+
+    await client.save();
+    console.log("Client Message send successfully");
+    res.status(201).json({ success: true, data: newMessage });
+  } catch (error) {
+    console.error("Error saving message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.post("/api/artist-registration", async (req, res) => {
   const data = req.body;
   const clerkId = data.clerkId || "";
