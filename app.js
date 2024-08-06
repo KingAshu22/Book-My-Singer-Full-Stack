@@ -726,12 +726,52 @@ app.get("/success", (req, res) => {
   res.render("success");
 });
 
+app.get("/success-1", (req, res) => {
+  res.render("success");
+});
+
+app.get("/success-2", (req, res) => {
+  res.render("success");
+});
+
+app.get("/success-3", (req, res) => {
+  res.render("success");
+});
+
+app.get("/success-4", (req, res) => {
+  res.render("success");
+});
+
+app.get("/success-5", (req, res) => {
+  res.render("success");
+});
+
 app.get("/spam", (req, res) => {
   res.render("spam");
 });
 
 app.get("/enquiry", (req, res) => {
   res.redirect("tel:+919833125152");
+});
+
+app.get("/enquiry-form-1", (req, res) => {
+  res.render("enquire-1");
+});
+
+app.get("/enquiry-form-2", (req, res) => {
+  res.render("enquire-2");
+});
+
+app.get("/enquiry-form-3", (req, res) => {
+  res.render("enquire-3");
+});
+
+app.get("/enquiry-form-4", (req, res) => {
+  res.render("enquire-4");
+});
+
+app.get("/enquiry-form-5", (req, res) => {
+  res.render("enquire-5");
 });
 
 app.get("*", (req, res) => {
@@ -2070,9 +2110,23 @@ app.post("/contact-form", async (req, res) => {
     // Rendering spam page with status code 403 (Forbidden)
     res.status(403).redirect("/spam");
   } else {
-    // Inserting data and rendering success page
+    // Inserting data
     await appendData(formData);
-    res.redirect("/success");
+
+    // Check if message contains "/enquiry-form-1" and redirect accordingly
+    if (formData.message.includes("/enquiry-form-1")) {
+      res.redirect("/success-1");
+    } else if (formData.message.includes("/enquiry-form-2")) {
+      res.redirect("/success-2");
+    } else if (formData.message.includes("/enquiry-form-3")) {
+      res.redirect("/success-3");
+    } else if (formData.message.includes("/enquiry-form-4")) {
+      res.redirect("/success-4");
+    } else if (formData.message.includes("/enquiry-form-5")) {
+      res.redirect("/success-5");
+    } else {
+      res.redirect("success");
+    }
   }
 });
 

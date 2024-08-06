@@ -1,0 +1,503 @@
+<%- include("partials/header"); -%>
+<link rel="stylesheet" href="/css/calendar.css">
+
+<div
+  id="artist"
+  class="mil-section-title mil-up"
+  style="padding-top: 5%; padding-bottom: 5%; padding-bottom: 30px"
+>
+  <div class="mil-divider"></div>
+  <h3 style="padding-top: 4%">Enquiry Form</h3>
+</div>
+
+<div class="enquiry-form">
+
+  <div class="step1">
+    <h3 style="padding-left: 5%">Select Artist Type: 🎤</h3>
+
+    <section class="mil-p-90-30">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-lg-2 buts" id="Singer">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/artist-type/singer.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">Singers</h5>
+          </div>
+        </div>
+        <div class="col-lg-2 buts" id="Band">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/artist-type/band.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">Bands</h5>
+          </div>
+        </div>
+        <div class="col-lg-2 buts" id="Musician">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/artist-type/musician.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">Musician</h5>
+          </div>
+        </div>
+        <div class="col-lg-2 buts" id="DJ">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/artist-type/dj.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">DJ</h5>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="step2">
+    <h3 style="padding-left: 5%">
+      Event Type🎉
+    </h3>
+
+    <section class="mil-p-90-30">
+      <div class="row justify-content-between align-items-center options">
+        <div class="col-md-3 buts view" id="Corproate Event">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/events-type/corporate.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">Corporate Events</h5>
+          </div>
+        </div>
+        <div class="col-md-3 buts view" id="Wedding Event">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/events-type/wedding.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">Wedding Events</h5>
+          </div>
+        </div>
+        <div class="col-md-3 buts view" id="College Event">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/events-type/college.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">College Events</h5>
+          </div>
+        </div>
+        <div class="col-md-3 buts view" id="House Party">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/events-type/house.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">House Parties</h5>
+          </div>
+        </div>
+        <div class="col-md-3 buts view" id="Private Party">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/events-type/private.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">Private Events</h5>
+          </div>
+        </div>
+        <div class="col-md-3 buts view" id="Virtual Event">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img
+                src="img/events-type/virtual.svg"
+                alt="icon"
+                class="mil-mb-30"
+              />
+            </div>
+            <h5 class="mil-up mil-mb-30">Virtual Events</h5>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="step3">
+    <h3 style="padding-left: 5%">
+        Event Location 📍
+      </h3>
+    <section class="mil-p-90-30 city-section">
+      <div class="row justify-content-between align-items-center options">
+        <div class="col-md-4 buts city" id="Mumbai">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/mumbai.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Mumbai</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Delhi-NCR">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/delhi.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30" style="white-space: nowrap;">Delhi NCR</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Bengalaru">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/bengaluru.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Bengaluru</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Hyderabad">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/hyderabad.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Hyderabad</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Ahemdabad">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/ahemdabad.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Ahemdabad</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Chandigarh">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/chandigarh.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Chandigarh</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Chennai">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/chennai.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Chennai</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Pune">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/pune.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Pune</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Jaipur">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/jaipur.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Jaipur</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Kolkata">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/kolkata.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Kolkata</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Surat">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/surat.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Surat</h5>
+          </div>
+        </div>
+        <div class="col-md-4 buts city" id="Lucknow">
+          <div class="mil-icon-box mil-center mil-mb-60">
+            <div class="mil-service-icon mil-up">
+              <img src="img/city/lucknow.svg" alt="icon" class="mil-mb-30" />
+            </div>
+            <h5 class="mil-up mil-mb-30">Lucknow</h5>
+          </div>
+        </div>
+      </div>
+    </section>
+    <p style="text-align: center;">OR</p>
+    <div style="margin-left: 10%; margin-right: 10%">
+      <label for="customLocation">City Name</label
+      >
+      <input
+        class="popup"
+        type="text"
+        id="customLocation"
+        name="customLocation"
+        placeholder="Not found your city? Enter your city name here."
+      />
+      <button id="nextStep3" style="background-color: #f44336">Next</button>
+    </div>
+  </div>
+
+  <div class="step4" style="margin-left: 10%; margin-right: 10%">
+    <h3>Date of Event🗓️✨:</h3>
+    <div class="calendar"></div>
+  </div>
+
+  <div class="step5" style="margin-left: 10%; margin-right: 10%">
+    <h3>Set Your Budget 💰:</h3>
+    <label for="startingBudget">Minimum</label>
+    <select id="startingBudget" name="startingBudget" placeholder="Minimum Budget">
+      <option value="10000">₹10,000</option>
+      <option value="11000">₹11,000</option>
+      <option value="12000">₹12,000</option>
+      <option value="13000">₹13,000</option>
+      <option value="14000">₹14,000</option>
+      <option value="15000">₹15,000</option>
+      <option value="16000">₹16,000</option>
+      <option value="17000">₹17,000</option>
+      <option value="18000">₹18,000</option>
+      <option value="19000">₹19,000</option>
+      <option value="20000">₹20,000</option>
+      <option value="25000">₹25,000</option>
+      <option value="30000">₹30,000</option>
+      <option value="35000">₹35,000</option>
+      <option value="40000">₹40,000</option>
+      <option value="45000">₹45,000</option>
+      <option value="50000">₹50,000</option>
+      <option value="60000">₹60,000</option>
+      <option value="70000">₹70,000</option>
+      <option value="80000">₹80,000</option>
+      <option value="90000">₹90,000</option>
+      <option value="100000">₹1,00,000</option>
+      <option value="125000">₹1,25,000</option>
+      <option value="150000">₹1,50,000</option>
+      <option value="175000">₹1,75,000</option>
+      <option value="200000">₹2,00,000</option>
+      <option value="250000">₹2,50,000</option>
+      <option value="300000">₹3,00,000</option>
+      <option value="350000">₹3,50,000</option>
+      <option value="400000">₹4,00,000</option>
+      <option value="450000">₹4,50,000</option>
+      <option value="500000">₹5,00,000</option>
+      <option value="600000">₹6,00,000</option>
+      <option value="700000">₹7,00,000</option>
+      <option value="800000">₹8,00,000</option>
+      <option value="900000">₹9,00,000</option>
+      <option value="1000000">₹10,00,000</option>
+      <option value="1100000">₹11,00,000</option>
+      <option value="1200000">₹12,00,000</option>
+      <option value="1300000">₹13,00,000</option>
+      <option value="1400000">₹14,00,000</option>
+      <option value="1500000">₹15,00,000</option>
+      <option value="1600000">₹16,00,000</option>
+      <option value="1700000">₹17,00,000</option>
+      <option value="1800000">₹18,00,000</option>
+      <option value="1900000">₹19,00,000</option>
+      <option value="2000000">₹20,00,000</option>
+      <option value="2500000">₹25,00,000</option>
+      <option value="3000000">₹30,00,000</option>
+      <option value="3500000">₹35,00,000</option>
+      <option value="4000000">₹40,00,000</option>
+      <option value="4500000">₹45,00,000</option>
+      <option value="5000000">₹50,00,000</option>
+      <option value="5500000">₹55,00,000</option>
+      <option value="6000000">₹60,00,000</option>
+      <option value="6500000">₹65,00,000</option>
+      <option value="7000000">₹70,00,000</option>
+      <option value="7500000">₹75,00,000</option>
+      <option value="8000000">₹80,00,000</option>
+      <option value="8500000">₹85,00,000</option>
+      <option value="9000000">₹90,00,000</option>
+      <option value="9500000">₹95,00,000</option>
+      <option value="10000000">₹1,00,00,000</option>
+    </select>
+    <label for="endingBudget" style="display: none">Maximum</label>
+  <select id="endingBudget" name="endingBudget" style="display: none">
+      <option value="10000">₹10,000</option>
+      <option value="11000">₹11,000</option>
+      <option value="12000">₹12,000</option>
+      <option value="13000">₹13,000</option>
+      <option value="14000">₹14,000</option>
+      <option value="15000">₹15,000</option>
+      <option value="16000">₹16,000</option>
+      <option value="17000">₹17,000</option>
+      <option value="18000">₹18,000</option>
+      <option value="19000">₹19,000</option>
+      <option value="20000">₹20,000</option>
+      <option value="25000">₹25,000</option>
+      <option value="30000">₹30,000</option>
+      <option value="35000">₹35,000</option>
+      <option value="40000">₹40,000</option>
+      <option value="45000">₹45,000</option>
+      <option value="50000">₹50,000</option>
+      <option value="60000">₹60,000</option>
+      <option value="70000">₹70,000</option>
+      <option value="80000">₹80,000</option>
+      <option value="90000">₹90,000</option>
+      <option value="100000">₹1,00,000</option>
+      <option value="125000">₹1,25,000</option>
+      <option value="150000">₹1,50,000</option>
+      <option value="175000">₹1,75,000</option>
+      <option value="200000">₹2,00,000</option>
+      <option value="250000">₹2,50,000</option>
+      <option value="300000">₹3,00,000</option>
+      <option value="350000">₹3,50,000</option>
+      <option value="400000">₹4,00,000</option>
+      <option value="450000">₹4,50,000</option>
+      <option value="500000">₹5,00,000</option>
+      <option value="600000">₹6,00,000</option>
+      <option value="700000">₹7,00,000</option>
+      <option value="800000">₹8,00,000</option>
+      <option value="900000">₹9,00,000</option>
+      <option value="1000000">₹10,00,000</option>
+      <option value="1100000">₹11,00,000</option>
+      <option value="1200000">₹12,00,000</option>
+      <option value="1300000">₹13,00,000</option>
+      <option value="1400000">₹14,00,000</option>
+      <option value="1500000">₹15,00,000</option>
+      <option value="1600000">₹16,00,000</option>
+      <option value="1700000">₹17,00,000</option>
+      <option value="1800000">₹18,00,000</option>
+      <option value="1900000">₹19,00,000</option>
+      <option value="2000000">₹20,00,000</option>
+      <option value="2500000">₹25,00,000</option>
+      <option value="3000000">₹30,00,000</option>
+      <option value="3500000">₹35,00,000</option>
+      <option value="4000000">₹40,00,000</option>
+      <option value="4500000">₹45,00,000</option>
+      <option value="5000000">₹50,00,000</option>
+      <option value="5500000">₹55,00,000</option>
+      <option value="6000000">₹60,00,000</option>
+      <option value="6500000">₹65,00,000</option>
+      <option value="7000000">₹70,00,000</option>
+      <option value="7500000">₹75,00,000</option>
+      <option value="8000000">₹80,00,000</option>
+      <option value="8500000">₹85,00,000</option>
+      <option value="9000000">₹90,00,000</option>
+      <option value="9500000">₹95,00,000</option>
+      <option value="10000000">₹1,00,00,000</option>
+    </select>
+    <button id="nextBtn" style="background-color: #f44336; display: none;">Next</button>
+  </div>
+
+  <div class="step6" style="margin-left: 10%; margin-right: 10%">
+    <h3>Let's Get Personal 🤗</h3>
+    <label for="name">Your Name, Please 📝</label>
+    <input
+      class="popup"
+      type="text"
+      name="name"
+      id="name"
+      placeholder="Your Name"
+    />
+    <label for="contact">Contact Number 📞:</label>
+    <input
+      class="popup"
+      type="number"
+      name="contact"
+      id="contact"
+      placeholder="Contact Number"
+    />
+    <label for="email">Email Address 📧:</label>
+    <input
+      class="popup"
+      type="email"
+      name="email"
+      id="email"
+      placeholder="Email ID"
+    />
+    <input
+      class="popup"
+      type="text"
+      name="mobile"
+      id="mobile"
+      placeholder="Mobile No"
+      style="display: none"
+    />
+
+    <div
+      class="g-recaptcha"
+      style="margin-top: 5%; margin-bottom: 5%"
+      data-sitekey="6LcO1TAoAAAAAFgMNRsIWJo_RIcv3qI5trmTiRdH"
+    ></div>
+
+    <button id="submitBtn" style="background-color: #f44336">
+      Let's Go! 🚀
+    </button>
+  </div>
+
+  <div id="loadingOverlay" style="display: none">
+    <div id="loadingPopup">
+      <div class="spinner text-primary" role="status"></div>
+      <p style="color: #fff">Sending... 📨✨</p>
+    </div>
+  </div>
+</div>
+
+<script src="/js/calendar.js"></script>
+
+  </div>
+  </div>
+  </div>
+  <!-- content -->
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+      <script>
+        $(".js-select2").each(function () {
+          $(this).select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $(this).next(".dropDownSelect2"),
+          });
+  
+          $(".js-select2").each(function () {
+            $(this).on("select2:close", function (e) {
+              if ($(this).val() == "Please chooses") {
+                $(".js-show-service").slideUp();
+              } else {
+                $(".js-show-service").slideUp();
+                $(".js-show-service").slideDown();
+              }
+            });
+          });
+        });
+      </script>
+      
+      <script src="/js/main.js"></script>
+  
+  </body>
+  
+  </html>
