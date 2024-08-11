@@ -1147,6 +1147,43 @@ app.post("/api/client-message", async (req, res) => {
   }
 });
 
+app.post("/api/client-custom-message", async (req, res) => {
+  const { contact, artistId, message } = req.body;
+
+  try {
+    // Find the client by contact
+    const client = await Client.findOne({ contact });
+
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+
+    // Find the artist's messages array within the client's messages
+    const artistMessages = client.messages.find(
+      (msg) => msg.artistId === artistId
+    );
+
+    if (artistMessages) {
+      // If messages exist for this artist, append the new message
+      artistMessages.message.push(message);
+    } else {
+      // If no messages exist for this artist, create a new message array
+      client.messages.push({
+        artistId,
+        message: [message],
+      });
+    }
+
+    // Save the updated client document
+    await client.save();
+
+    res.status(200).json({ message: "Message added successfully" });
+  } catch (error) {
+    console.error("Error adding message:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 app.post("/api/artist-registration", async (req, res) => {
   const data = req.body;
   const clerkId = data.clerkId || "";
