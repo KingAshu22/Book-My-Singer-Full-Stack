@@ -290,6 +290,36 @@ app.get("/artist", async (req, res) => {
   });
 });
 
+app.get("/api/admin-get-message", async (req, res) => {
+  try {
+    // Fetch all clients with their messages
+    const clients = await Client.find({}, "name contact email messages");
+
+    // If no clients are found, return an empty array
+    if (!clients) {
+      console.log("No clients found");
+      return res.status(404).json({ messages: [] });
+    }
+
+    // Prepare the data in a format suitable for the chat interface
+    const allMessages = clients.map((client) => {
+      return {
+        clientId: client._id,
+        clientName: client.name,
+        clientContact: client.contact,
+        clientEmail: client.email,
+        messages: client.messages,
+      };
+    });
+
+    // Send the fetched messages as a response
+    res.status(200).json({ allMessages: allMessages });
+  } catch (error) {
+    console.error("Error fetching all messages:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 app.get("/artist-registration", (req, res) => {
   res.render("artist-registration");
 });
@@ -1148,6 +1178,43 @@ app.post("/api/client-message", async (req, res) => {
 });
 
 app.post("/api/client-custom-message", async (req, res) => {
+  const { contact, artistId, message } = req.body;
+
+  try {
+    // Find the client by contact
+    const client = await Client.findOne({ contact });
+
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+
+    // Find the artist's messages array within the client's messages
+    const artistMessages = client.messages.find(
+      (msg) => msg.artistId === artistId
+    );
+
+    if (artistMessages) {
+      // If messages exist for this artist, append the new message
+      artistMessages.message.push(message);
+    } else {
+      // If no messages exist for this artist, create a new message array
+      client.messages.push({
+        artistId,
+        message: [message],
+      });
+    }
+
+    // Save the updated client document
+    await client.save();
+
+    res.status(200).json({ message: "Message added successfully" });
+  } catch (error) {
+    console.error("Error adding message:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.post("/api/admin-custom-message", async (req, res) => {
   const { contact, artistId, message } = req.body;
 
   try {
