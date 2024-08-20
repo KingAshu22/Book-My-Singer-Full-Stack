@@ -8,6 +8,8 @@ const cors = require("cors");
 const Recaptcha = require("express-recaptcha").RecaptchaV3;
 const redirections = require("./redirections");
 const fs = require("fs");
+const http = require("http");
+const socketIo = require("socket.io");
 
 const { google } = require("googleapis");
 const keys = require("./secrets.json");
@@ -15,6 +17,22 @@ const keys = require("./secrets.json");
 const spreadsheetId = "1e0LVQGWxSNtwtIaGRIqnBXFttMY5sNbo_Dd8H9A5rtY";
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+  cors: {
+    origin: [
+      "http://localhost:3001",
+      "http://localhost:3002",
+      "https://5lq8djtf-3001.inc1.devtunnels.ms",
+      "https://gigsar.vercel.app",
+      "https://www.gigsar.com",
+      "https://gigsar-admin.vercel.app",
+      "https://admin.gigsar.com",
+      "https://artist.gigsar.com",
+    ],
+    methods: ["GET", "POST"],
+  },
+});
 const corsOptions = {
   origin: [
     "http://localhost:3001",
@@ -318,6 +336,48 @@ app.get("/api/admin-get-message", async (req, res) => {
     console.error("Error fetching all messages:", error);
     res.status(500).json({ message: "Internal server error" });
   }
+});
+
+// When a client connects to Socket.io
+io.on("connection", (socket) => {
+  console.log("New client connected");
+
+  // Listen for a new message event
+  socket.on("sendMessage", async (data) => {
+    const { contact, artistId, message } = data;
+
+    try {
+      // Find the client and update their messages
+      const client = await Client.findOne({ contact: contact });
+
+      if (client) {
+        const artistMessage = client.messages.find(
+          (msg) => msg.artistId === artistId
+        );
+
+        if (artistMessage) {
+          artistMessage.message.push(message);
+        } else {
+          client.messages.push({
+            artistId: artistId,
+            message: [message],
+          });
+        }
+
+        await client.save();
+
+        // Emit the new message event to all connected clients
+        io.emit("newMessage", { contact, artistId, message });
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  });
+
+  // Handle client disconnect
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
 });
 
 app.get("/artist-registration", (req, res) => {
@@ -1352,6 +1412,16 @@ app.post("/api/artist-registration", async (req, res) => {
           links: coverLink,
           type: coverLink.map((link) => getEventType(link)),
         },
+        {
+          name: "Cafe/Clubs Videos",
+          links: data.cafeLink,
+          type: data.cafeLink.map((link) => getEventType(link)),
+        },
+        {
+          name: "House Party Videos",
+          links: data.houseLink,
+          type: data.houseLink.map((link) => getEventType(link)),
+        },
       ];
 
       const artist = new Artist({
@@ -1739,6 +1809,16 @@ app.post("/api/edit-artist/:_id", async (req, res) => {
         name: "Cover Videos",
         links: data.coverLink,
         type: data.coverLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "Cafe/Clubs Videos",
+        links: data.cafeLink,
+        type: data.cafeLink.map((link) => getEventType(link)),
+      },
+      {
+        name: "House Party Videos",
+        links: data.houseLink,
+        type: data.houseLink.map((link) => getEventType(link)),
       },
     ];
 
@@ -2298,6 +2378,6 @@ app.post("/edit-blog", isAuthenticated, async (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || 3000, function () {
+server.listen(process.env.PORT || 3000, function () {
   console.log("Server started on port 3000");
 });
