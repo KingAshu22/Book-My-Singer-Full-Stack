@@ -8,7 +8,6 @@ const cors = require("cors");
 const Recaptcha = require("express-recaptcha").RecaptchaV3;
 const redirections = require("./redirections");
 const fs = require("fs");
-const http = require("http");
 const socketIo = require("socket.io");
 
 const { google } = require("googleapis");
@@ -17,7 +16,6 @@ const keys = require("./secrets.json");
 const spreadsheetId = "1e0LVQGWxSNtwtIaGRIqnBXFttMY5sNbo_Dd8H9A5rtY";
 
 const app = express();
-const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: [
@@ -2378,6 +2376,6 @@ app.post("/edit-blog", isAuthenticated, async (req, res) => {
     });
 });
 
-server.listen(process.env.PORT || 3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log("Server started on port 3000");
 });
