@@ -9,7 +9,7 @@ const Recaptcha = require("express-recaptcha").RecaptchaV3;
 const redirections = require("./redirections");
 const fs = require("fs");
 const http = require("http");
-const socketIo = require("socket.io");
+const { Server } = require("socket.io");
 
 const { google } = require("googleapis");
 const keys = require("./secrets.json");
@@ -18,17 +18,13 @@ const spreadsheetId = "1e0LVQGWxSNtwtIaGRIqnBXFttMY5sNbo_Dd8H9A5rtY";
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
+const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:3001",
       "http://localhost:3002",
-      "https://5lq8djtf-3001.inc1.devtunnels.ms",
-      "https://gigsar.vercel.app",
-      "https://www.gigsar.com",
-      "https://gigsar-admin.vercel.app",
-      "https://admin.gigsar.com",
-      "https://artist.gigsar.com",
+      "http://gigsar.com",
+      "http://admin.gigsar.com",
     ],
     methods: ["GET", "POST"],
   },
@@ -338,45 +334,46 @@ app.get("/api/admin-get-message", async (req, res) => {
   }
 });
 
-// When a client connects to Socket.io
 io.on("connection", (socket) => {
   console.log("New client connected");
 
-  // Listen for a new message event
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
+
   socket.on("sendMessage", async (data) => {
     const { contact, artistId, message } = data;
 
     try {
-      // Find the client and update their messages
-      const client = await Client.findOne({ contact: contact });
+      // Find the client by contact
+      const client = await Client.findOne({ contact });
 
-      if (client) {
-        const artistMessage = client.messages.find(
-          (msg) => msg.artistId === artistId
-        );
-
-        if (artistMessage) {
-          artistMessage.message.push(message);
-        } else {
-          client.messages.push({
-            artistId: artistId,
-            message: [message],
-          });
-        }
-
-        await client.save();
-
-        // Emit the new message event to all connected clients
-        io.emit("newMessage", { contact, artistId, message });
+      if (!client) {
+        return;
       }
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
-  });
 
-  // Handle client disconnect
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
+      // Find or create the artist's message array
+      const artistMessages = client.messages.find(
+        (msg) => msg.artistId === artistId
+      );
+
+      if (artistMessages) {
+        artistMessages.message.push(message);
+      } else {
+        client.messages.push({ artistId, message: [message] });
+      }
+
+      await client.save();
+
+      // Emit the message to the client and admin
+      io.emit("messageReceived", {
+        contact,
+        artistId,
+        message,
+      });
+    } catch (error) {
+      console.error("Error saving message:", error);
+    }
   });
 });
 
@@ -1237,79 +1234,79 @@ app.post("/api/client-message", async (req, res) => {
   }
 });
 
-app.post("/api/client-custom-message", async (req, res) => {
-  const { contact, artistId, message } = req.body;
+// app.post("/api/client-custom-message", async (req, res) => {
+//   const { contact, artistId, message } = req.body;
 
-  try {
-    // Find the client by contact
-    const client = await Client.findOne({ contact });
+//   try {
+//     // Find the client by contact
+//     const client = await Client.findOne({ contact });
 
-    if (!client) {
-      return res.status(404).json({ message: "Client not found" });
-    }
+//     if (!client) {
+//       return res.status(404).json({ message: "Client not found" });
+//     }
 
-    // Find the artist's messages array within the client's messages
-    const artistMessages = client.messages.find(
-      (msg) => msg.artistId === artistId
-    );
+//     // Find the artist's messages array within the client's messages
+//     const artistMessages = client.messages.find(
+//       (msg) => msg.artistId === artistId
+//     );
 
-    if (artistMessages) {
-      // If messages exist for this artist, append the new message
-      artistMessages.message.push(message);
-    } else {
-      // If no messages exist for this artist, create a new message array
-      client.messages.push({
-        artistId,
-        message: [message],
-      });
-    }
+//     if (artistMessages) {
+//       // If messages exist for this artist, append the new message
+//       artistMessages.message.push(message);
+//     } else {
+//       // If no messages exist for this artist, create a new message array
+//       client.messages.push({
+//         artistId,
+//         message: [message],
+//       });
+//     }
 
-    // Save the updated client document
-    await client.save();
+//     // Save the updated client document
+//     await client.save();
 
-    res.status(200).json({ message: "Message added successfully" });
-  } catch (error) {
-    console.error("Error adding message:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+//     res.status(200).json({ message: "Message added successfully" });
+//   } catch (error) {
+//     console.error("Error adding message:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
-app.post("/api/admin-custom-message", async (req, res) => {
-  const { contact, artistId, message } = req.body;
+// app.post("/api/admin-custom-message", async (req, res) => {
+//   const { contact, artistId, message } = req.body;
 
-  try {
-    // Find the client by contact
-    const client = await Client.findOne({ contact });
+//   try {
+//     // Find the client by contact
+//     const client = await Client.findOne({ contact });
 
-    if (!client) {
-      return res.status(404).json({ message: "Client not found" });
-    }
+//     if (!client) {
+//       return res.status(404).json({ message: "Client not found" });
+//     }
 
-    // Find the artist's messages array within the client's messages
-    const artistMessages = client.messages.find(
-      (msg) => msg.artistId === artistId
-    );
+//     // Find the artist's messages array within the client's messages
+//     const artistMessages = client.messages.find(
+//       (msg) => msg.artistId === artistId
+//     );
 
-    if (artistMessages) {
-      // If messages exist for this artist, append the new message
-      artistMessages.message.push(message);
-    } else {
-      // If no messages exist for this artist, create a new message array
-      client.messages.push({
-        artistId,
-        message: [message],
-      });
-    }
+//     if (artistMessages) {
+//       // If messages exist for this artist, append the new message
+//       artistMessages.message.push(message);
+//     } else {
+//       // If no messages exist for this artist, create a new message array
+//       client.messages.push({
+//         artistId,
+//         message: [message],
+//       });
+//     }
 
-    // Save the updated client document
-    await client.save();
+//     // Save the updated client document
+//     await client.save();
 
-    res.status(200).json({ message: "Message added successfully" });
-  } catch (error) {
-    console.error("Error adding message:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+//     res.status(200).json({ message: "Message added successfully" });
+//   } catch (error) {
+//     console.error("Error adding message:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
 app.post("/api/artist-registration", async (req, res) => {
   const data = req.body;
