@@ -23,8 +23,8 @@ const io = new Server(server, {
     origin: [
       "http://localhost:3001",
       "http://localhost:3002",
-      "http://gigsar.com",
-      "http://admin.gigsar.com",
+      "https://gigsar.com",
+      "https://admin.gigsar.com",
     ],
     methods: ["GET", "POST"],
   },
