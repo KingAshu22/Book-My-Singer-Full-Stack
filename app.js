@@ -172,6 +172,17 @@ const blogSchema = new mongoose.Schema({
 
 const Blog = new mongoose.model("Blog", blogSchema);
 
+const gigsarBlogSchema = new mongoose.Schema({
+  title: String,
+  url: String,
+  metaTitle: String,
+  metaDescription: String,
+  keywords: String,
+  content: String,
+});
+
+const GigsarBlog = new mongoose.model("GigsarBlog", gigsarBlogSchema);
+
 const artistCategorySchema = new mongoose.Schema({
   metaTitle: String,
   metaDesc: String,
@@ -335,11 +346,47 @@ app.get("/api/admin-get-message", async (req, res) => {
   }
 });
 
+app.get("/api/artist-get-messages/:artistId", async (req, res) => {
+  try {
+    const { artistId } = req.params;
+
+    // Fetch all clients where the artistId matches
+    const clients = await Client.find(
+      { "messages.artistId": artistId },
+      "name contact email messages"
+    );
+
+    if (!clients) {
+      console.log("No clients found for this artist");
+      return res.status(404).json({ messages: [] });
+    }
+
+    const artistMessages = clients.map((client) => {
+      const relevantMessages = client.messages.filter(
+        (messageGroup) => messageGroup.artistId === artistId
+      );
+
+      return {
+        clientId: client._id,
+        clientName: client.name,
+        clientContact: client.contact,
+        clientEmail: client.email,
+        messages: relevantMessages,
+      };
+    });
+
+    res.status(200).json({ artistMessages });
+  } catch (error) {
+    console.error("Error fetching messages for artist:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 io.on("connection", (socket) => {
-  console.log("New client connected");
+  // console.log("New client connected");
 
   socket.on("disconnect", () => {
-    console.log("Client disconnected");
+    // console.log("Client disconnected");
   });
 
   socket.on("sendMessage", async (data) => {
@@ -393,7 +440,7 @@ app.get("/api/artist-count", async (req, res) => {
 });
 
 app.get("/api/artist", async (req, res) => {
-  const artists = await Artist.find({}).sort({ _id: -1 });
+  const artists = await Artist.find({ showGigsar: true }).sort({ _id: -1 });
 
   res.status(200).json(artists);
 });
@@ -407,7 +454,7 @@ app.get("/api/artist/artistType/:artistType", async (req, res) => {
 
 app.get("/api/artist/artistName/:linkid", async (req, res) => {
   const { linkid } = req.params;
-  const artist = await Artist.findOne({ linkid });
+  const artist = await Artist.findOne({ linkid, showGigsar: true });
   res.status(200).json(artist);
 });
 
@@ -780,6 +827,31 @@ app.get("/blog/:linkid", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.redirect("/");
+  }
+});
+
+app.get("/api/gigsar-fetch-blog", async (req, res) => {
+  try {
+    const { url } = req.query;
+
+    if (!url) {
+      return res.status(400).json({ message: "Blog URL is required" });
+    }
+
+    // Find the blog by the provided URL
+    const blog = await GigsarBlog.findOne({ url });
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    // Send the blog data back to the client
+    res.json(blog);
+  } catch (err) {
+    console.error("Error fetching blog data:", err);
+    res
+      .status(500)
+      .json({ message: "An error occurred while fetching the blog" });
   }
 });
 
@@ -1171,30 +1243,32 @@ app.post("/api/client-message", async (req, res) => {
     selectedLanguage,
     selectedInstrument,
     selectedGender,
+    budget,
     selectedMinBudget,
     selectedMaxBudget,
   } = req.body;
 
   let messageContent = "";
 
-  if (selectedCategory.length > 1)
-    messageContent += `Category: ${selectedCategory}\n`;
-  if (selectedGenre.length > 1) messageContent += `Genre: ${selectedGenre}\n`;
-  if (selectedLocation.length > 1)
-    messageContent += `Location: ${selectedLocation}\n`;
-  if (selectedEventType.length > 1)
-    messageContent += `Event Type: ${selectedEventType}\n`;
-  if (selectedDate.length > 1) messageContent += `Date: ${selectedDate}\n`;
-  if (selectedLanguage.length > 1)
-    messageContent += `Language: ${selectedLanguage}\n`;
-  if (selectedInstrument.length > 1)
+  // Construct message content
+  if (selectedCategory) messageContent += `Category: ${selectedCategory}\n`;
+  if (selectedGenre) messageContent += `Genre: ${selectedGenre}\n`;
+  if (selectedLocation) messageContent += `Location: ${selectedLocation}\n`;
+  if (selectedEventType) messageContent += `Event Type: ${selectedEventType}\n`;
+  if (selectedDate) messageContent += `Date: ${selectedDate}\n`;
+  if (selectedLanguage) messageContent += `Language: ${selectedLanguage}\n`;
+  if (selectedInstrument)
     messageContent += `Instrument: ${selectedInstrument}\n`;
-  if (selectedGender.length > 1)
-    messageContent += `Gender: ${selectedGender}\n`;
-  if (selectedMinBudget.length > 1)
-    messageContent += `Min Budget: ${selectedMinBudget}\n`;
-  if (selectedMaxBudget.length > 1)
-    messageContent += `Max Budget: ${selectedMaxBudget}\n`;
+  if (selectedGender) messageContent += `Gender: ${selectedGender}\n`;
+  if (budget) messageContent += `Budget: ${budget.toLocaleString("en-IN")}\n`;
+  if (selectedMinBudget)
+    messageContent += `Min Budget: ${selectedMinBudget.toLocaleString(
+      "en-IN"
+    )}\n`;
+  if (selectedMaxBudget)
+    messageContent += `Max Budget: ${selectedMaxBudget.toLocaleString(
+      "en-IN"
+    )}\n`;
 
   try {
     const client = await Client.findOne({ contact });
@@ -1227,7 +1301,45 @@ app.post("/api/client-message", async (req, res) => {
     }
 
     await client.save();
-    console.log("Client Message send successfully");
+
+    const artist = await Artist.findOne({ linkid });
+
+    if (!artist) {
+      return res.status(404).json({ error: "Artist not found" });
+    }
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        clientId: "K4CPAMAVQ52D2NCI92FP5CRYVFSCGD0N",
+        clientSecret: "96xk7j7hhndcuh49nyvajsc8c2jmz9x2",
+      },
+      body: JSON.stringify({
+        sendTo: artist.contact,
+        channel: "WHATSAPP",
+        templateId: "client_enquiry_rk",
+        bodyValues: {
+          1: artist.name,
+          2: selectedCategory,
+          3: selectedLocation,
+          4: selectedDate,
+          5: selectedEventType,
+          6: budget.toLocaleString("en-IN"),
+        },
+        buttonValues: {
+          1: client._id.toString(),
+        },
+      }),
+    };
+
+    const response = await fetch(
+      "https://marketing.otpless.app/v1/api/send",
+      options
+    );
+    const responseData = await response.json();
+    console.log(responseData);
+
     res.status(201).json({ success: true, data: newMessage });
   } catch (error) {
     console.error("Error saving message:", error);
@@ -2037,6 +2149,33 @@ app.post("/add-blog", isAuthenticated, (req, res) => {
     .catch((error) => {
       res.send(error);
     });
+});
+
+app.post("/api/gigsar-create-blog", async (req, res) => {
+  const { title, url, metaTitle, metaDescription, keywords, content } =
+    req.body;
+
+  try {
+    // Create a new blog document
+    const newBlog = new GigsarBlog({
+      title,
+      url,
+      metaTitle,
+      metaDescription,
+      keywords,
+      content,
+    });
+
+    // Save the blog to the database
+    await newBlog.save();
+
+    // Send success response
+    res.status(201).json({ message: "Blog saved successfully!" });
+  } catch (error) {
+    // Send error response
+    console.error("Error saving blog:", error);
+    res.status(500).json({ message: "Failed to save blog." });
+  }
 });
 
 app.post("/add-category", isAuthenticated, (req, res) => {
