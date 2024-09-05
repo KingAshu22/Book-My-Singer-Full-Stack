@@ -440,7 +440,7 @@ app.get("/api/artist-count", async (req, res) => {
 });
 
 app.get("/api/artist", async (req, res) => {
-  const artists = await Artist.find({ showGigsar: true }).sort({ _id: -1 });
+  const artists = await Artist.find({}).sort({ _id: -1 });
 
   res.status(200).json(artists);
 });
