@@ -135,6 +135,7 @@ const clientSchema = new mongoose.Schema({
   contact: String,
   email: String,
   type: String,
+  clientId: String,
   messages: [
     {
       artistId: String,
@@ -441,7 +442,6 @@ app.get("/api/artist-count", async (req, res) => {
 
 app.get("/api/artist", async (req, res) => {
   const artists = await Artist.find({}).sort({ _id: -1 });
-
   res.status(200).json(artists);
 });
 
@@ -1213,6 +1213,7 @@ app.post("/api/client-registration", async (req, res) => {
   const contact = data.contact;
   const email = data.email;
   const type = data.type;
+  const clientId = data.clientId;
 
   try {
     const client = new Client({
@@ -1220,6 +1221,7 @@ app.post("/api/client-registration", async (req, res) => {
       contact,
       email,
       type,
+      clientId,
     });
 
     await client.save();
