@@ -445,6 +445,42 @@ app.get("/api/artist", async (req, res) => {
   res.status(200).json(artists);
 });
 
+app.get("/api/gigsar-artist", async (req, res) => {
+  const startTime = Date.now();
+
+  // Extract pagination parameters from query
+  const page = parseInt(req.query.page, 10) || 1; // Default to page 1 if not provided
+  const limit = 12; // Number of items per page
+
+  // Calculate the number of items to skip
+  const skip = (page - 1) * limit;
+
+  try {
+    // Get total count of artists
+    const totalArtists = await Artist.countDocuments({ showGigsar: true });
+
+    // Fetch paginated results
+    const artists = await Artist.find({ showGigsar: true })
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+
+    // Return paginated results with metadata
+    res.status(200).json({
+      duration: `${duration}ms`,
+      total: totalArtists,
+      page,
+      totalPages: Math.ceil(totalArtists / limit),
+      artists,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 app.get("/api/artist/artistType/:artistType", async (req, res) => {
   const { artistType } = req.params;
   const artists = await Artist.find({ artistType }).sort({ _id: -1 });
