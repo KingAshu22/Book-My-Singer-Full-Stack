@@ -445,38 +445,199 @@ app.get("/api/artist", async (req, res) => {
   res.status(200).json(artists);
 });
 
+const parsePrice = (priceString) => {
+  return parseInt(priceString.replace(/,/g, ""), 10);
+};
+
+// Artist filtering and sorting logic
+const filterAndSortArtists = (artists, filters) => {
+  let filteredArtists = artists;
+
+  // Category filter
+  if (filters.selectedCategory !== "All Artist Types") {
+    filteredArtists = filteredArtists.filter(
+      (artist) => artist.artistType === filters.selectedCategory
+    );
+  }
+
+  // Genre filter
+  if (filters.selectedGenre.length > 0) {
+    filteredArtists = filteredArtists.filter((artist) =>
+      filters.selectedGenre.every((genre) =>
+        artist.genre.split(", ").includes(genre)
+      )
+    );
+  }
+
+  // Location filter
+  if (filters.selectedLocation !== "All Locations") {
+    filteredArtists = filteredArtists.filter(
+      (artist) => artist.location === filters.selectedLocation
+    );
+  }
+
+  // Event Type filter
+  if (filters.selectedEventType !== "All Event Types") {
+    filteredArtists = filteredArtists.filter((artist) =>
+      artist.eventsType.split(", ").includes(filters.selectedEventType)
+    );
+  }
+
+  // Gender filter
+  if (filters.selectedGender !== "All") {
+    filteredArtists = filteredArtists.filter(
+      (artist) => artist.gender === filters.selectedGender
+    );
+  }
+
+  // Budget filter
+  if (filters.selectedMinBudget !== "") {
+    filteredArtists = filteredArtists.filter(
+      (artist) =>
+        parsePrice(artist.price) >=
+        parseInt(filters.selectedMinBudget.replace(/,/g, ""), 10)
+    );
+  }
+
+  if (filters.selectedMaxBudget !== "") {
+    filteredArtists = filteredArtists.filter(
+      (artist) =>
+        parsePrice(artist.price) <=
+        parseInt(filters.selectedMaxBudget.replace(/,/g, ""), 10)
+    );
+  }
+
+  // Search Query filter
+  if (filters.searchQuery !== "") {
+    filteredArtists = filteredArtists.filter((artist) =>
+      artist.name.toLowerCase().includes(filters.searchQuery.toLowerCase())
+    );
+  }
+
+  // Date filter
+  if (filters.selectedDate !== "") {
+    filteredArtists = filteredArtists.filter(
+      (artist) =>
+        !artist.busyDates.includes(new Date(filters.selectedDate).toISOString())
+    );
+  }
+
+  // Sorting
+  if (filters.selectedSortOption === "Low to High") {
+    filteredArtists.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+  } else if (filters.selectedSortOption === "High to Low") {
+    filteredArtists.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+  }
+
+  return filteredArtists;
+};
+
+// Helper function to extract filters (topGenres, topEventTypes, etc.)
+const extractFilters = (artists) => {
+  const uniqueCategories = [
+    "All Artist Types",
+    ...new Set(artists.map((artist) => artist.artistType)),
+  ];
+
+  const allGenres = artists.flatMap((artist) => artist.genre.split(", "));
+  const uniqueGenres = [...new Set(allGenres)];
+
+  const genreFrequency = allGenres.reduce((acc, genre) => {
+    acc[genre] = (acc[genre] || 0) + 1;
+    return acc;
+  }, {});
+  const topGenres = Object.entries(genreFrequency)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([genre]) => genre);
+
+  const uniqueLocations = [
+    "All Locations",
+    ...new Set(artists.map((artist) => artist.location)),
+  ];
+
+  const allEventTypes = artists.flatMap((artist) =>
+    artist.eventsType.split(", ")
+  );
+  const uniqueEventsTypes = ["All Event Types", ...new Set(allEventTypes)];
+
+  const eventTypeFrequency = allEventTypes.reduce((acc, eventType) => {
+    acc[eventType] = (acc[eventType] || 0) + 1;
+    return acc;
+  }, {});
+  const topEventTypes = Object.entries(eventTypeFrequency)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4)
+    .map(([eventType]) => eventType);
+
+  const uniqueGenders = [
+    "All",
+    ...new Set(artists.map((artist) => artist.gender)),
+  ];
+
+  return {
+    categories: uniqueCategories,
+    genres: uniqueGenres,
+    topGenres,
+    locations: uniqueLocations,
+    eventsTypes: uniqueEventsTypes,
+    topEventTypes,
+    genders: uniqueGenders,
+  };
+};
+
 app.get("/api/gigsar-artist", async (req, res) => {
-  const startTime = Date.now();
-
-  // Extract pagination parameters from query
-  const page = parseInt(req.query.page, 10) || 1; // Default to page 1 if not provided
-  const limit = 12; // Number of items per page
-
-  // Calculate the number of items to skip
-  const skip = (page - 1) * limit;
-
   try {
-    // Get total count of artists
-    const totalArtists = await Artist.countDocuments({ showGigsar: true });
+    console.log(req.query);
 
-    // Fetch paginated results
-    const artists = await Artist.find({ showGigsar: true })
-      .sort({ _id: -1 })
-      .skip(skip)
-      .limit(limit);
+    const {
+      selectedCategory = "All Artist Types",
+      selectedGenre = "",
+      selectedLocation = "All Locations",
+      selectedEventType = "All Event Types",
+      selectedGender = "All",
+      minBudget = "",
+      maxBudget = "",
+      searchQuery = "",
+      selectedDate = "",
+      selectedSortOption = "Low to High",
+      page = 1,
+    } = req.query;
 
-    const endTime = Date.now();
-    const duration = endTime - startTime;
+    const filters = {
+      selectedCategory,
+      selectedGenre: selectedGenre ? selectedGenre.split(",") : [],
+      selectedLocation,
+      selectedEventType,
+      selectedGender,
+      selectedMinBudget: minBudget,
+      selectedMaxBudget: maxBudget,
+      searchQuery,
+      selectedDate,
+      selectedSortOption,
+      page: parseInt(page, 10),
+    };
 
-    // Return paginated results with metadata
+    const artists = await Artist.find({ showGigsar: true }).exec();
+
+    const filteredArtists = filterAndSortArtists(artists, filters);
+    console.log(filteredArtists.length);
+    const totalPages = Math.ceil(filteredArtists.length / 12);
+    const paginatedArtists = filteredArtists.slice(
+      (filters.page - 1) * 12,
+      filters.page * 12
+    );
+
+    const extractedFilters = extractFilters(filteredArtists);
+
     res.status(200).json({
-      duration: `${duration}ms`,
-      total: totalArtists,
-      page,
-      totalPages: Math.ceil(totalArtists / limit),
-      artists,
+      artists: paginatedArtists,
+      totalPages,
+      page: parseInt(page, 10),
+      filters: extractedFilters,
     });
   } catch (error) {
+    console.error("Error fetching artists:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -490,7 +651,7 @@ app.get("/api/artist/artistType/:artistType", async (req, res) => {
 
 app.get("/api/artist/artistName/:linkid", async (req, res) => {
   const { linkid } = req.params;
-  const artist = await Artist.findOne({ linkid, showGigsar: true });
+  const artist = await Artist.findOne({ linkid });
   res.status(200).json(artist);
 });
 
