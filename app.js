@@ -317,6 +317,17 @@ app.get("/artist", async (req, res) => {
   });
 });
 
+app.get("/api/client/:clientId", async (req, res) => {
+  try {
+    const { clientId } = req.params;
+
+    // Fetch all clients where the artistId matches
+    const client = await Client.findById(clientId);
+
+    res.status(200).json({ client });
+  } catch (error) {}
+});
+
 app.get("/api/admin-get-message", async (req, res) => {
   try {
     // Fetch all clients with their messages
@@ -369,6 +380,7 @@ app.get("/api/artist-get-messages/:artistId", async (req, res) => {
 
       return {
         clientId: client._id,
+        clientUsername: client.clientId,
         clientName: client.name,
         clientContact: client.contact,
         clientEmail: client.email,
@@ -414,7 +426,6 @@ io.on("connection", (socket) => {
 
       await client.save();
 
-      // Emit the message to the client and admin
       io.emit("messageReceived", {
         contact,
         artistId,
@@ -441,7 +452,10 @@ app.get("/api/artist-count", async (req, res) => {
 });
 
 app.get("/api/artist", async (req, res) => {
+  const startTime = Date.now();
   const artists = await Artist.find({}).sort({ _id: -1 });
+  const endTime = Date.now();
+  console.log("Duration:", endTime - startTime, "ms");
   res.status(200).json(artists);
 });
 
@@ -588,8 +602,6 @@ const extractFilters = (artists) => {
 
 app.get("/api/gigsar-artist", async (req, res) => {
   try {
-    console.log(req.query);
-
     const {
       selectedCategory = "All Artist Types",
       selectedGenre = "",
@@ -621,7 +633,6 @@ app.get("/api/gigsar-artist", async (req, res) => {
     const artists = await Artist.find({ showGigsar: true }).exec();
 
     const filteredArtists = filterAndSortArtists(artists, filters);
-    console.log(filteredArtists.length);
     const totalPages = Math.ceil(filteredArtists.length / 12);
     const paginatedArtists = filteredArtists.slice(
       (filters.page - 1) * 12,
