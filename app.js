@@ -1119,7 +1119,7 @@ app.get("/spam", (req, res) => {
 });
 
 app.get("/enquiry", (req, res) => {
-  res.redirect("tel:+917021630747");
+  res.redirect("tel:+919833125152");
 });
 
 app.get("/enquiry-form-1", (req, res) => {
