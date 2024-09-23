@@ -1542,7 +1542,10 @@ app.post("/api/client-message", async (req, res) => {
           6: budget.toLocaleString("en-IN"),
         },
         buttonValues: {
-          1: `${client._id.toString()}?mobile=${artist.contact}`, // Send client_id with mobile number in the button
+          1: `${client._id.toString()}?mobile=${artist.contact.replace(
+            "+",
+            ""
+          )}`, // Remove the '+' sign from the contact number
         },
       }),
     };
