@@ -660,6 +660,10 @@ app.get("/api/artist/artistType/:artistType", async (req, res) => {
   res.status(200).json(artists);
 });
 
+/* The above code is setting up a route in a Node.js Express application to handle GET requests to
+"/api/artist/artistName/:linkid". When a request is made to this route, it will retrieve the
+`linkid` parameter from the request URL, use it to find an artist in the database using the `Artist`
+model, and then send the artist data back as a JSON response with a status code of 200. */
 app.get("/api/artist/artistName/:linkid", async (req, res) => {
   const { linkid } = req.params;
   const artist = await Artist.findOne({ linkid });
@@ -1538,7 +1542,7 @@ app.post("/api/client-message", async (req, res) => {
           6: budget.toLocaleString("en-IN"),
         },
         buttonValues: {
-          1: client._id.toString(),
+          1: `${client._id.toString()}?mobile=${artist.contact}`, // Send client_id with mobile number in the button
         },
       }),
     };
