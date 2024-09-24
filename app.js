@@ -1545,7 +1545,11 @@ app.post("/api/client-message", async (req, res) => {
           1: `${client._id.toString()}?mobile=${artist.contact.replace(
             "+",
             ""
-          )}`, // Remove the '+' sign from the contact number
+          )}&reply=yes`, // Remove the '+' sign from the contact number
+          2: `${client._id.toString()}?mobile=${artist.contact.replace(
+            "+",
+            ""
+          )}&reply=no`,
         },
       }),
     };
