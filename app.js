@@ -667,6 +667,13 @@ model, and then send the artist data back as a JSON response with a status code 
 app.get("/api/artist/artistName/:linkid", async (req, res) => {
   const { linkid } = req.params;
   const artist = await Artist.findOne({ linkid });
+
+  if (!artist) {
+    console.log("Artist not found");
+
+    return res.status(404).json({ message: "Artist not found" });
+  }
+
   res.status(200).json(artist);
 });
 
