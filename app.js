@@ -1650,50 +1650,50 @@ app.post("/api/client-message", async (req, res) => {
 // });
 
 app.post("/api/artist-registration", async (req, res) => {
-  const data = req.body;
-  const clerkId = data.clerkId || "";
-  const name = data.artistName;
+  const form = req.body;
+  const clerkId = form.clerkId || "";
+  const name = form.artistName;
   const metaTitle = `Hire ${name} from Book My Singer`;
   const metaDesc = `Hire ${name} for ${arrayToString(
-    data.eventTypes
+    form.eventTypes
   )} from Book My Singer`;
   const lowerCaseName = name.toLowerCase();
   const linkid = lowerCaseName.replace(/ /g, "-");
-  const profilePic = data.profilePic;
-  const gender = data.gender;
-  const contact = data.contactNumber;
-  const email = data.email;
-  const location = data.location;
-  const artistType = data.artistType;
-  const eventsType = arrayToString(data.eventTypes);
-  const genre = arrayToString(data.genres);
-  const languages = arrayToString(data.languages);
-  const original = data.originalSongName;
-  const time = data.performanceTime;
-  const instruments = arrayToString(data.instruments);
-  const awards = data.awards;
-  const instagram = data.instagramLink;
-  const facebook = data.facebookLink;
-  const weddingLink = data.weddingLink;
-  const corporateLink = data.corporateLink;
-  const collegeLink = data.collegeLink;
-  const concertLink = data.concertLink;
-  const originalLink = data.originalLink;
-  const bollywoodLink = data.bollywoodLink;
-  const coverLink = data.coverLink;
-  const spotify = data.spotifyLink;
-  const training = data.musicTraining;
-  const gallery = data.galleryLink;
-  const blog = data.aboutArtist;
-  const youtube = data.youtubeLink;
-  const price = data.weddingBudget;
-  const corporateBudget = data.corporateBudget;
-  const collegeBudget = data.collegeBudget;
-  const singerCumGuitaristBudget = data.singerCumGuitaristBudget;
-  const singerPlusGuitaristBudget = data.singerPlusGuitaristBudget;
-  const ticketingConcertBudget = data.ticketingConcertBudget;
-  const showBookMySinger = data.showBookMySinger;
-  const showGigsar = data.showGigsar;
+  const profilePic = form.profilePic;
+  const gender = form.gender;
+  const contact = form.contactNumber;
+  const email = form.email;
+  const location = form.location;
+  const artistType = form.artistType;
+  const eventsType = arrayToString(form.eventTypes);
+  const genre = arrayToString(form.genres);
+  const languages = arrayToString(form.languages);
+  const original = form.originalSongName;
+  const time = form.performanceTime;
+  const instruments = arrayToString(form.instruments);
+  const awards = form.awards;
+  const instagram = form.instagramLink;
+  const facebook = form.facebookLink;
+  const weddingLink = form.weddingLink;
+  const corporateLink = form.corporateLink;
+  const collegeLink = form.collegeLink;
+  const concertLink = form.concertLink;
+  const originalLink = form.originalLink;
+  const bollywoodLink = form.bollywoodLink;
+  const coverLink = form.coverLink;
+  const spotify = form.spotifyLink;
+  const training = form.musicTraining;
+  const gallery = form.galleryLink;
+  const blog = form.aboutArtist;
+  const youtube = form.youtubeLink;
+  const price = form.weddingBudget;
+  const corporateBudget = form.corporateBudget;
+  const collegeBudget = form.collegeBudget;
+  const singerCumGuitaristBudget = form.singerCumGuitaristBudget;
+  const singerPlusGuitaristBudget = form.singerPlusGuitaristBudget;
+  const ticketingConcertBudget = form.ticketingConcertBudget;
+  const showBookMySinger = form.showBookMySinger;
+  const showGigsar = form.showGigsar;
 
   try {
     // Find the last added artist and get its code
@@ -1752,13 +1752,13 @@ app.post("/api/artist-registration", async (req, res) => {
         },
         {
           name: "Cafe/Clubs Videos",
-          links: data.cafeLink,
-          type: data.cafeLink.map((link) => getEventType(link)),
+          links: form.cafeLink,
+          type: form.cafeLink.map((link) => getEventType(link)),
         },
         {
           name: "House Party Videos",
-          links: data.houseLink,
-          type: data.houseLink.map((link) => getEventType(link)),
+          links: form.houseLink,
+          type: form.houseLink.map((link) => getEventType(link)),
         },
       ];
 
