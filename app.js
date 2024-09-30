@@ -553,7 +553,7 @@ const extractFilters = (artists) => {
     ...new Set(artists.map((artist) => artist.artistType)),
   ];
 
-  const allGenres = artists.flatMap((artist) => artist.genre.split(", "));
+  const allGenres = artists.flatMap((artist) => artist.genre?.split(", "));
   const uniqueGenres = [...new Set(allGenres)];
 
   const genreFrequency = allGenres.reduce((acc, genre) => {
@@ -618,7 +618,7 @@ app.get("/api/gigsar-artist", async (req, res) => {
 
     const filters = {
       selectedCategory,
-      selectedGenre: selectedGenre ? selectedGenre.split(",") : [],
+      selectedGenre: selectedGenre ? selectedGenre?.split(",") : [],
       selectedLocation,
       selectedEventType,
       selectedGender,
