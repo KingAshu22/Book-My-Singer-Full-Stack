@@ -1162,7 +1162,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail", // e.g., Gmail
   auth: {
     user: "bookanartist2@gmail.com",
-    pass: "fwri rlpw upfc stif",
+    pass: "ctux wtji chcg wppc",
   },
 });
 
