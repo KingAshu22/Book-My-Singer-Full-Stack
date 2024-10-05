@@ -5,98 +5,6 @@
 <script src="/artist/../js/lite-youtube-embed.js"></script>
 <link rel="stylesheet" href="/css/gallery.css" />
 
-<script>
-  const words = ["Live Singers", "Bands", "Celebrities", "Musicians", "DJ"];
-  const delay = 100; // Delay between phrases in milliseconds
-
-  const typeText = (element, words, delay) => {
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
-    function type() {
-      const currentWord = words[wordIndex];
-      const text = currentWord.substring(0, charIndex + 1);
-
-      document.getElementById("typewriter").textContent = text;
-
-      if (!isDeleting && text === currentWord) {
-        isDeleting = true;
-        setTimeout(() => {
-          charIndex--;
-          if (charIndex === -1) {
-            isDeleting = false;
-            setTimeout(type, delay);
-          } else {
-            setTimeout(type, 100);
-          }
-        }, 500); // Delay before backspacing
-      } else if (isDeleting && text === "") {
-        isDeleting = false;
-        charIndex = 0;
-        wordIndex = (wordIndex + 1) % words.length;
-        setTimeout(type, delay);
-      } else if (isDeleting) {
-        charIndex--;
-        setTimeout(type, 100);
-      } else {
-        charIndex++;
-        setTimeout(type, 100);
-      }
-    }
-
-    setTimeout(type, delay);
-  };
-
-  typeText(document.getElementById("typewriter"), words, delay);
-</script>
-
-<script>
-  const event = ["Corporate", "College", "Wedding", "Private", "Virtual"];
-  const delayTime = 10; // Delay between phrases in milliseconds
-
-  const typeTexts = (element, event, delayTime) => {
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
-    function type() {
-      const currentWord = event[wordIndex];
-      const text = currentWord.substring(0, charIndex + 1);
-
-      document.getElementById("events").textContent = text;
-
-      if (!isDeleting && text === currentWord) {
-        isDeleting = true;
-        setTimeout(() => {
-          charIndex--;
-          if (charIndex === -1) {
-            isDeleting = false;
-            setTimeout(type, delayTime);
-          } else {
-            setTimeout(type, 9000);
-          }
-        }, 500); // Delay before backspacing
-      } else if (isDeleting && text === "") {
-        isDeleting = false;
-        charIndex = 0;
-        wordIndex = (wordIndex + 1) % event.length;
-        setTimeout(type, delayTime);
-      } else if (isDeleting) {
-        charIndex--;
-        setTimeout(type, 100);
-      } else {
-        charIndex++;
-        setTimeout(type, 100);
-      }
-    }
-
-    setTimeout(type, delayTime);
-  };
-
-  typeTexts(document.getElementById("events"), event, delayTime);
-</script>
-
 <!-- content -->
 <div class="fixed-button">
   <a href="/enquiry"><button>ENQUIRE NOW</button></a>
@@ -117,26 +25,7 @@
   </a>
 </div>
 
-<div id="hero" class="hero-section">
-  <video autoplay muted loop poster="poster-image.jpg">
-    <source
-      src="https://bookmysinger.com/videos/krishna-pandey-live.mp4"
-      type="video/mp4"
-    />
-    Your browser does not support the video tag.
-  </video>
-  <div class="hero-content">
-    <h1 class="mil-up mil-mb-30 title" style="padding-bottom: 2%; color: #fff">
-      Book <span id="typewriter"></span> <br />
-      for <span id="events"></span> events
-    </h1>
-    <a href="/enquiry"
-      ><button class="mil-upper mil-dark mil-up mil-btn mil-sm-btn btn">
-        ENQUIRE NOW
-      </button></a
-    >
-  </div>
-</div>
+<%- include("partials/hero"); -%>
 
 <div class="mil-content">
   <div class="mil-scroll-wrapper transition-fade" id="swupMain">
