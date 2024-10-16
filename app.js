@@ -2653,6 +2653,33 @@ async function appendData(data) {
   }
 }
 
+app.post("/api/gigsar-enquiry", async (req, res) => {
+  console.log("Inside gigsar-enquiry");
+
+  const formData = req.body;
+
+  // Validate incoming data
+  if (
+    !formData.name ||
+    !formData.email ||
+    !formData.contact ||
+    !formData.location
+  ) {
+    return res
+      .status(400)
+      .json({ error: "Name, email, contact, and location are required." });
+  }
+
+  try {
+    // Inserting data
+    await appendData(formData);
+    return res.status(200).json({ message: "Data inserted successfully." }); // Send success response
+  } catch (error) {
+    console.error("Error in gigsar-enquiry:", error);
+    return res.status(500).json({ error: "Internal Server Error" }); // Send error response
+  }
+});
+
 app.post("/contact-form", async (req, res) => {
   const formData = req.body;
 
